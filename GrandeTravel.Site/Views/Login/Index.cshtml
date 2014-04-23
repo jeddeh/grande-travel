@@ -1,0 +1,63 @@
+﻿@model GrandeTravel.Site.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
+}
+
+<div id="membership" class="sign-in">
+    <div class="container">
+
+        <div class="col-md-12 membership-form">
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-inline" }))
+            {      
+                <fieldset>
+                    <legend>Login</legend>
+
+                    <header class="row sign-in-header">
+                        <div class="col-md-12 header">
+                            <h4>Log in to your account</h4>
+                        </div>
+                    </header>
+
+                    <div class="row sign-in-input">
+                        <div class="col-md-12">
+                            <span class="editor-field">
+                                @Html.EditorFor(model => model.Email)
+                            </span>
+
+                            <span class="editor-field">
+                                @Html.EditorFor(model => model.Password)
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="error-message">
+                        @Html.ValidationMessage("ErrorMessage")
+                        @Html.ValidationMessageFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </p>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary membership-submit">Login</button>
+                    </div>
+                </fieldset>
+            }
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="no-account">
+                        <span>Don’t have an account?</span>
+                        @Html.ActionLink("Sign Up", "Create", "Membership")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

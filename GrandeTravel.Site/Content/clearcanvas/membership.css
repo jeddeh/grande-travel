@@ -1,0 +1,206 @@
+body
+{
+    background-color: #275bba;
+}
+
+.sign-in
+{
+    background: url(../../Images/Site/aqua.jpg) no-repeat;
+}
+
+.register
+{
+    background: url(../../Images/Site/ocean.jpg) no-repeat;
+}
+
+    .register .editor-field
+    {
+        margin-top: 10px;
+    }
+
+.sign-in-input
+{
+    margin-bottom: 35px;
+}
+
+
+@media (min-width: 850px)
+{
+    .sign-in .membership-form input
+    {
+        width: 350px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 700px)
+{
+    .sign-in .membership-form input
+    {
+        width: 300px;
+        margin: 0 auto 10px;
+    }
+}
+
+@media (max-width: 701px)
+{
+    .sign-in .membership-form input
+    {
+        width: 90%;
+        margin: 0 auto 10px;
+    }
+}
+
+#membership .error-message, .field-validation-error
+{
+    color: #ee95b2;
+}
+
+#membership .sign-in-header
+{
+    margin-top: 85px;
+    margin-bottom: 40px;
+}
+
+#membership .register-header
+{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+#membership .membership-submit
+{
+    margin-top: 30px;
+    text-transform: uppercase;
+    font-size: 15px;
+    padding: 8px 50px;
+}
+
+#membership .register-submit
+{
+    margin-top: 50px;
+    margin-bottom: 90px;
+}
+
+#membership
+{
+    display: block;
+    /*height: 540px;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.register .membership-form .check-provider
+{
+    margin-top: 30px;
+    text-align: left;
+    color: #fff;
+    font-size: 14px;
+}
+
+    .register .membership-form .check-provider label
+    {
+        font-weight: normal;
+    }
+
+.register-error
+{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+.register .has-account
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #fff;
+    font-size: 14px;
+}
+
+    .register .has-account a
+    {
+        color: #fff;
+        border-bottom: 1px solid white;
+        -webkit-transition: all .2s;
+        -moz-transition: all .2s;
+        -ms-transition: all .2s;
+        transition: all .2s;
+    }
+
+        .register .has-account a:hover
+        {
+            color: #252528;
+            border-color: #252528;
+        }
+
+#membership .header
+{
+    text-align: center;
+    color: #fff;
+}
+
+    #membership .header h4
+    {
+        font-size: 38px;
+        margin-top: 0;
+        margin-bottom: 25px;
+        line-height: 38px;
+        font-weight: 300;
+        text-shadow: 1px 1px 0px #143C4E;
+    }
+
+#membership .membership-form
+{
+    margin-top: 0px;
+    text-align: center;
+    margin-left: 0;
+}
+
+    #membership .membership-form .editor-field
+    {
+        text-align: center;
+    }
+
+    #membership .membership-form legend
+    {
+        display: none;
+    }
+
+    #membership .membership-form form
+    {
+        margin: 0 0 46px 0;
+    }
+
+#membership .no-account
+{
+    text-align: center;
+    color: #fff;
+    float: right;
+    font-size: 14px;
+    margin-bottom: 120px;
+}
+
+    #membership .no-account span
+    {
+        margin-right: 8px;
+    }
+
+    #membership .no-account a
+    {
+        color: #fff;
+        border-bottom: 1px solid white;
+        -webkit-transition: all .2s;
+        -moz-transition: all .2s;
+        -ms-transition: all .2s;
+        transition: all .2s;
+    }
+
+        #membership .no-account a:hover
+        {
+            color: #252528;
+            border-color: #252528;
+        }

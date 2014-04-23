@@ -1,0 +1,127 @@
+﻿@model GrandeTravel.Site.Models.EditUserViewModel
+
+@using GrandeTravel.Site.Helpers
+
+@{
+
+    ViewBag.Title = "My Account";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
+}
+
+<div id="membership" class="register">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 membership-form">
+                @using (Html.BeginForm("Edit", "Membership", FormMethod.Post))
+                {
+                    <fieldset>
+                        <legend>Membership</legend>
+
+                        <header class="register-header">
+                            <div class="header">
+                                <h4>Manage your account</h4>
+                            </div>
+                        </header>
+
+                        <div class="row">
+                            <section class="col-md-6">
+
+                                <div class="editor-field">
+                                    @Html.TextBoxFor(model => model.Email, new
+                                   {
+                                       @class = "form-control",
+                                       @readonly = "readonly"
+                                   })
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.TextBoxFor(model => model.Password, new
+                               {
+                                   maxlength = 50,
+                                   autocomplete = "off",
+                                   type = "password",
+                                   placeholder = "Change Password",
+                                   @class = "form-control"
+                               })
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.TextBoxFor(model => model.ConfirmPassword, new
+                               {
+                                   maxlength = 50,
+                                   autocomplete = "off",
+                                   type = "password",
+                                   placeholder = "Confirm Password",
+                                   @class = "form-control"
+                               })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                </div>
+
+                                <div class="register-error">
+                                    <p class="error-message">
+                                        @Html.ValidationMessage("ErrorMessage")
+                                        @ViewBag.Message
+                                    </p>
+                                </div>
+
+                            </section>
+
+                            <section class="col-md-6">
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.FirstName, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.FirstName)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.LastName, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.LastName)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Address, new { maxlength = 100 })
+                                    @Html.ValidationMessageFor(model => model.Address)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.City, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.City)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.State,
+                                        SelectListItemHelpers.GetAustralianStateSelectListItems(),
+                                        new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.State)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Postcode, new { maxlength = 4 })
+                                    @Html.ValidationMessageFor(model => model.Postcode)
+                                </div>
+
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Phone, new { maxlength = 15 })
+                                    @Html.ValidationMessageFor(model => model.Phone)
+                                </div>
+                            </section>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary membership-submit register-submit">Submit</button>
+                        </div>
+
+                    </fieldset>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
