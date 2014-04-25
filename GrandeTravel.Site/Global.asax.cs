@@ -23,7 +23,7 @@ namespace GrandeTravel.Site
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
 
-            System.Data.Entity.Database.SetInitializer<StorageContext>(null);
+            System.Data.Entity.Database.SetInitializer<GrandeTravelDbContext>(null);
 
             AreaRegistration.RegisterAllAreas();
 

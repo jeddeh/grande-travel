@@ -11,12 +11,12 @@ namespace GrandeTravel.Data.Implementation.EntityFramework
     {
         private IUnitOfWork unitOfWork;
         private DbSet<T> dbSet;
-        private StorageContext context;
+        private GrandeTravelDbContext context;
 
         public Repository(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            context = (StorageContext)unitOfWork.Context;
+            context = (GrandeTravelDbContext)unitOfWork.Context;
             dbSet = context.Set<T>();
 
             // This is a hack to ensure that the build process copies the required dll's

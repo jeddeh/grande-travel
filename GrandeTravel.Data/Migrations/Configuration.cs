@@ -15,14 +15,14 @@ namespace GrandeTravel.Data.Migrations
     using System.Data.Entity.Validation;
     using System.Diagnostics;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GrandeTravel.Data.StorageContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GrandeTravel.Data.GrandeTravelDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(GrandeTravel.Data.StorageContext context)
+        protected override void Seed(GrandeTravel.Data.GrandeTravelDbContext context)
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
             var roles = (SimpleRoleProvider)Roles.Provider;

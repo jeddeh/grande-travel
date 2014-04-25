@@ -23,7 +23,7 @@ namespace GrandeTravel.Site.Controllers
         // Constructors
         public MembershipController()
         {
-            IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DBConnectionString");
+            IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DefaultConnection");
 
             IRepository<TravelUser> repository = RepositoryFactory.GetRepository<TravelUser>(unitOfWork);
 

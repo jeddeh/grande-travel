@@ -22,7 +22,7 @@ namespace GrandeTravel.Site.Controllers
         // Constructors
         public PackagesController()
         {
-            IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DBConnectionString");
+            IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DefaultConnection");
 
             IRepository<Package> repository = RepositoryFactory.GetRepository<Package>(unitOfWork);
 

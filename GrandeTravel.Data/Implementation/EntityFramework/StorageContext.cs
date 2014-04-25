@@ -9,11 +9,16 @@ using GrandeTravel.Entity;
 
 namespace GrandeTravel.Data
 {
-    public class StorageContext : DbContext
+    public class GrandeTravelDbContext : DbContext
     {
-        public StorageContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public GrandeTravelDbContext()
         {
-            Database.SetInitializer<StorageContext>(null);
+            Database.SetInitializer<GrandeTravelDbContext>(null);
+        }
+
+        public GrandeTravelDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+            Database.SetInitializer<GrandeTravelDbContext>(null);
         }
         
         public DbSet<Booking> Bookings { get; set; }
