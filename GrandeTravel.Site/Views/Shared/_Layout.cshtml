@@ -42,13 +42,14 @@
             {
                 userRole = "Travel Provider";
             }
-            
+
             <section class="login-row row">
                 <div class="col-md-12">
                     <div class="login-header">Logged in as @userRole @WebSecurity.CurrentUserName</div>
                 </div>
             </section>
         }
+
         <nav>
             <div class="navbar navbar-inverse navbar-static-top" role="navigation">
                 <div class="container">
@@ -68,25 +69,28 @@
                     <div class="collapse navbar-collapse nav-collapse" role="navigation">
                         <ul class="nav navbar-nav navbar-right">
                             @if (Request.IsAuthenticated)
-                            {                          
+                            {
                                 <!-- User has logged in -->
                                 <li class="active">@Html.ActionLink("HOME", "Index", "Home")</li>
-                                
+
                                 if (HttpContext.Current.User.IsInRole("Customer"))
                                 {
-                                <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
+                                    <!-- Customer -->
+                                    <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
                                 }
 
                                 else if (HttpContext.Current.User.IsInRole("Provider"))
                                 {
-                                <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
-                                <li>@Html.ActionLink("MY PACKAGES", "Search", "Packages")</li>
+                                    <!-- Provider -->
+                                    <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
+                                    <li>@Html.ActionLink("MY PACKAGES", "ProviderSearch", "Packages")</li>
                                 }
                                 else if (HttpContext.Current.User.IsInRole("Admin"))
                                 {
-                                <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
+                                    <!-- Admin -->
+                                    <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
                                 }
-                                
+
                                 <li>@Html.ActionLink("MY ACCOUNT", "Edit", "Membership")</li>
                                 <li class="btn-header">@Html.ActionLink("Sign Out", "Index", "Logout")</li>
                             }
@@ -95,7 +99,7 @@
                                 <!-- No login -->
                                 <li class="active">@Html.ActionLink("HOME", "Index", "Home")</li>
                                 <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
-                                <li class="btn-header">@Html.ActionLink("Sign Up", "Create", "Membership")</li>
+                                <li class="btn-header">@Html.ActionLink("Sign Up", "Add", "Membership")</li>
                                 <li class="btn-header">@Html.ActionLink("Sign In", "Index", "Login")</li>
                             }
                         </ul>
@@ -122,7 +126,7 @@
                 <div class="col-sm-5 touch">
                     <ul>
                         <li><strong>P.</strong> (02) 9316 7843</li>
-                        <li><strong>E.</strong><a href="#"> robgrant@GrandeTravel.com.au</a></li>
+                        <li><strong>E.</strong><a href="mailto:robgrantj@GrandeTravel.com.au"> robgrant@GrandeTravel.com.au</a></li>
                     </ul>
                 </div>
             </div>
@@ -143,7 +147,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
-

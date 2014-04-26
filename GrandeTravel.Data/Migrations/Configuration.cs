@@ -70,6 +70,8 @@ namespace GrandeTravel.Data.Migrations
             context.SaveChanges();
 
             Roles.AddUserToRole(adminEmail, "Admin");
+            Roles.AddUserToRole(adminEmail, "Provider");
+            Roles.AddUserToRole(adminEmail, "Customer");
 
             #endregion
 
@@ -344,17 +346,19 @@ namespace GrandeTravel.Data.Migrations
                     Price = 400.00m,
                     ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
                     TravelUserId = travelUserId4,
-                    Status = PackageStatus.Available,
+                    Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
                         new Activity {
                             Name = "Opera on Sydney Harbour",
+                            Address = "Sample Address",
                             Description = "Indulge your love of opera performed on a shimmering stage on the waters of Sydney Harbour.",
                             //ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
                         },
 
                         new Activity {
                             Name = "Sydney Royal Easter Show",
+                            Address = "Sample Address",
                             Description = "Enjoy Australia’s agricultural heritage with great food, wine and carnival rides for the whole family.",
                             //ImageUrl = @"../../Images/Package/RoyalEasterShow.jpg",
                         }
@@ -368,26 +372,29 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
                     Price = 900.00m,
                     ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
-                    TravelUserId = travelUserId5,
-                    Status = PackageStatus.Available,
+                    TravelUserId = travelUserId4,
+                    Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
                         new Activity {
                             Name = "Clipsal 500",
+                            Address = "Sample Address",
                             Description = "Feel the adrenalin rush during four days of street parties, live entertainment and extreme motor sport action.",
                             //ImageUrl = @"../../Images/Package/Clipsal500.jpg"
                          },
 
                         new Activity {
                             Name = "Adelaide Festival",
+                            Address = "Sample Address",
                             Description = "Excite your senses at one of the world’s most innovative festivals, the biennial Adelaide Festival with dance, theatre, and art.",
                             //ImageUrl = @"../../Images/Package/AdelaideFestival.jpg"
                         },
 
                          new Activity {
                              Name = "WOMADelaide",
-                            Description = "Enjoy the world’s best traditional and contemporary musicians, dancers and DJs in this outdoor festival held in Botanic Park in Adelaide.",
-                            //ImageUrl = @"../../Images/Package/Womadelaide.jpg"
+                             Address = "Sample Address",
+                             Description = "Enjoy the world’s best traditional and contemporary musicians, dancers and DJs in this outdoor festival held in Botanic Park in Adelaide.",
+                             //ImageUrl = @"../../Images/Package/Womadelaide.jpg"
                         }
                     }
                 }

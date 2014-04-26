@@ -18,14 +18,12 @@ namespace GrandeTravel.Entity
 
         [Required]
         [DataType(DataType.Text)]
+        [MaxLength(50)]
         public string Name { get; set; }
-
-        //[Required]
-        //[DataType(DataType.MultilineText)]
-        //public string Description { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
+        [MaxLength(50)]
         public string City { get; set; }
 
         [Required]
@@ -34,6 +32,7 @@ namespace GrandeTravel.Entity
 
         [Required]
         [DataType(DataType.Text)]
+        [MaxLength(100)]
         public string Accomodation { get; set; }
 
         [Required]
@@ -45,7 +44,8 @@ namespace GrandeTravel.Entity
         public decimal Price { get; set; }
 
         [Required]
-        public PackageStatus Status { get; set; }
+        [EnumDataType(typeof(PackageStatusEnum))]
+        public PackageStatusEnum Status { get; set; }
 
         public ICollection<Booking> Bookings { get; set; }
 

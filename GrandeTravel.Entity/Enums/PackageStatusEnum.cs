@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrandeTravel.Entity.Enums
 {
-    public enum PackageStatus
+    public enum PackageStatusEnum
     {
         Available,
         Discontinued

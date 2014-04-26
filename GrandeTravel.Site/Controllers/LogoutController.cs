@@ -7,8 +7,11 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
+    [Authorize]
     public class LogoutController : Controller
     {
+        #region Logout
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,5 +25,7 @@ namespace GrandeTravel.Site.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        #endregion
     }
 }

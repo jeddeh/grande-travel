@@ -9,9 +9,9 @@ namespace GrandeTravel.Site.Helpers
 {
     public static class SelectListItemHelpers
     {
-        public static IEnumerable<SelectListItem> GetAustralianStateSelectListItems()
+        public static IEnumerable<SelectListItem> GetEnumSelectListItems<T>()
         {
-            IEnumerable<AustralianStateEnum> values = Enum.GetValues(typeof(AustralianStateEnum)).Cast<AustralianStateEnum>();
+            IEnumerable<T> values = Enum.GetValues(typeof(T)).Cast<T>();
             IEnumerable<SelectListItem> items = from value in values
                                                 select new SelectListItem
                                                 {

@@ -1,0 +1,74 @@
+﻿@model GrandeTravel.Site.Models.AddActivitiesViewController
+@using GrandeTravel.Site.Helpers
+@using GrandeTravel.Entity.Enums
+
+@{
+    ViewBag.Title = "Add";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
+}
+
+<div id="membership" class="register">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 admin-form">
+                @using (Html.BeginForm("Add", "Packages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <fieldset>
+                        <legend>Add Activity</legend>
+
+                        <div class="row">
+                            <section class="col-md-3"></section>
+                            <section class="col-md-6">
+                                <header class="register-header">
+                                    <div class="header">
+                                        <h4>2. Add an Activity</h4>
+                                    </div>
+                                </header>
+
+                                <div class="pull-left">
+                                    <br />
+                                    <p class="label-blue">Activity 1</p>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.ActivityName, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.ActivityName)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Description, new { maxlength = 100 })
+                                    @Html.ValidationMessageFor(model => model.Description)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Address, new { maxlength = 100 })
+                                    @Html.ValidationMessageFor(model => model.Address)
+                                </div>
+                            </section>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary membership-submit register-submit">Add Another Activity</button>
+                        
+                            <button type="submit" class="btn btn-primary membership-submit register-submit">Create My New Package</button>
+                        </div>
+
+                    </fieldset>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

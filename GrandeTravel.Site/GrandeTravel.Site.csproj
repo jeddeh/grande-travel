@@ -149,6 +149,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
@@ -159,12 +160,16 @@
     </Compile>
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\SelectListItemHelpers.cs" />
+    <Compile Include="Mappers\PackageMapper.cs" />
     <Compile Include="Mappers\TravelUserMapper.cs" />
-    <Compile Include="Models\EditUserViewModel.cs" />
-    <Compile Include="Models\RegisterUserViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\MembershipViewModel.cs" />
-    <Compile Include="Models\SearchPackagesViewModel.cs" />
+    <Compile Include="Models\Activities\AddActivitiesViewModel.cs" />
+    <Compile Include="Models\Membership\EditUserViewModel.cs" />
+    <Compile Include="Models\Membership\RegisterUserViewModel.cs" />
+    <Compile Include="Models\Membership\LoginViewModel.cs" />
+    <Compile Include="Models\Membership\MembershipViewModel.cs" />
+    <Compile Include="Models\Packages\AddPackagesViewModel.cs" />
+    <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
+    <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +325,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Products.cshtml" />
-    <Content Include="Views\Home\ContactUs.txt" />
-    <Content Include="Views\Membership\Create.cshtml" />
+    <Content Include="Views\Membership\Add.cshtml" />
     <Content Include="Views\Packages\Search.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Text.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
@@ -332,6 +335,10 @@
     <Content Include="Views\Shared\EditorTemplates\PhoneNumber.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Membership\Edit.cshtml" />
+    <Content Include="Views\Packages\Add.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Activities\Add.cshtml" />
+    <Content Include="Views\Packages\ProviderSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,32 +15,19 @@ namespace GrandeTravel.Entity
         public int ActivityId { get; set; }
 
         [Required]
-        [DataType(DataType.MultilineText)]
+        [MaxLength(50)]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(300)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        //[Required]
-        //[DataType(DataType.MultilineText)]
-        //public string Address { get; set; }
-
-        //[Required]
-        //[DataType(DataType.Text)]
-        //public string City { get; set; }
-
-        //[Required]
-        //[EnumDataType(typeof(AustralianStateEnum))]
-        //public AustralianStateEnum State { get; set; }
-
-        //[Required]
-        //[DataType(DataType.PostalCode)]
-        //public string Postcode { get; set; }
-
-        //[Required]
-        //[DataType(DataType.ImageUrl)]
-        //public string ImageUrl { get; set; }
+        [Required]
+        [MaxLength(100)]
+        [DataType(DataType.Text)]
+        public string Address { get; set; }
 
         public int PackageId { get; set; }
         public virtual Package Package { get; set; }

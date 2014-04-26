@@ -4,6 +4,9 @@
 
 @{
     ViewBag.Title = "Search";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
 }
 
 @section styles {
@@ -96,11 +99,10 @@
                         </div>
                     </div>
                     <!-- End Modal -->
-
                     @{
                         if (Model.Packages == null || Model.Packages.Count == 0)
                         {
-                        <p>Sorry, we are unable to display our packages at this time.</p>
+                            <p>Sorry, we are unable to display our packages at this time.</p>
                         }
                         else
                         {
@@ -108,20 +110,20 @@
                             {
                                 foreach (Package package in Model.Packages)
                                 {
-                        <div class="photo active-image">
-                            <img src= "@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
-                            <a id="@package.PackageId" class="mask">
-                                <h3 class="packageName">@package.Name</h3>
-                                <small>
-                                    <span class="city">@package.City</span>, <span class="state">@package.State</span>
-                                </small>
-                            </a>
-                        </div>
+                                    <div class="photo active-image">
+                                        <img src="@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
+                                        <a id="@package.PackageId" class="mask">
+                                            <h3 class="packageName">@package.Name</h3>
+                                            <small>
+                                                <span class="city">@package.City</span>, <span class="state">@package.State</span>
+                                            </small>
+                                        </a>
+                                    </div>
                                 }
                             }
                             catch
                             {
-                        <p>Sorry, we are unable to display our packages at this time.</p>
+                                <p>Sorry, we are unable to display our packages at this time.</p>
                             }
                         }
                     }
@@ -133,7 +135,7 @@
     </div>
 </div>
 
-@section scripts {
+@section Scripts {
     <script src="~/Scripts/Site/theme.js"></script>
     <script src="~/Scripts/jquery.isotope.min.js"></script>
     <script src="~/Scripts/typeahead-v0.10.2.js"></script>

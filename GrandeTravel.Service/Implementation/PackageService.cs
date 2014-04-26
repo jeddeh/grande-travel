@@ -57,8 +57,29 @@ namespace GrandeTravel.Service.Implementation
                 }
                 else
                 {
-                    result.Data = manager.Get(p => true).Where(p => p.Status == PackageStatus.Available).AsEnumerable<Package>();
+                    result.Data = manager.Get(p => true).Where(p => p.Status == PackageStatusEnum.Available).AsEnumerable<Package>();
                 }
+                result.Status = ResultEnum.Success;
+            }
+            catch (Exception)
+            {
+                result.Status = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Get Packages By ProviderId
+
+        public Result<IEnumerable<Package>> GetPackagesByProviderId(int providerId)
+        {
+            Result<IEnumerable<Package>> result = new Result<IEnumerable<Package>>();
+
+            try
+            {
+                result.Data = manager.Get(p => true).Where(p => p.TravelUserId == providerId).AsEnumerable<Package>();
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)

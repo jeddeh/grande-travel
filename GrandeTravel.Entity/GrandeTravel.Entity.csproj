@@ -52,7 +52,7 @@
     <Compile Include="Booking.cs" />
     <Compile Include="Enums\AustralianStateEnum.cs" />
     <Compile Include="TravelUser.cs" />
-    <Compile Include="Enums\PackageStatus.cs" />
+    <Compile Include="Enums\PackageStatusEnum.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

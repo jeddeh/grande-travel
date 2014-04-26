@@ -1,0 +1,88 @@
+﻿@model GrandeTravel.Site.Models.Packages.AddPackagesViewModel
+
+@using GrandeTravel.Site.Helpers
+@using GrandeTravel.Entity.Enums
+
+@{
+    ViewBag.Title = "Add";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
+}
+
+<div id="membership" class="register">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 admin-form">
+                @using (Html.BeginForm("Add", "Packages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <fieldset>
+                        <legend>Add Package</legend>
+
+                        <div class="row">
+                            <section class="col-md-3"></section>
+                            <section class="col-md-6">
+
+                                <header class="register-header">
+                                    <div class="header">
+                                        <h4>1. Add a New Package</h4>
+                                    </div>
+                                </header>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.PackageName, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.PackageName)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.City, new { maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.City)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.State,
+                                        SelectListItemHelpers.GetEnumSelectListItems<AustralianStateEnum>(),
+                                        new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.State)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Accomodation, new { maxlength = 100 })
+                                    @Html.ValidationMessageFor(model => model.Accomodation)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Price, new { maxlength = 8 })
+                                    @Html.ValidationMessageFor(model => model.Price)
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="label-blue" for="file">Upload Image:</label>
+                                    <input type="file" name="file" id="file" class="form-control" />
+                                </div>
+                            </section>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary membership-submit register-submit">Next...</button>
+                        </div>
+
+                    </fieldset>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

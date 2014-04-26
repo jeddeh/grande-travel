@@ -13,9 +13,11 @@
 <div id="membership" class="sign-in">
     <div class="container">
 
-        <div class="col-md-12 membership-form">
+        <div class="col-md-12 admin-form">
             @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-inline" }))
-            {      
+            {
+                @Html.AntiForgeryToken()
+
                 <fieldset>
                     <legend>Login</legend>
 
@@ -27,11 +29,11 @@
 
                     <div class="row sign-in-input">
                         <div class="col-md-12">
-                            <span class="editor-field">
+                            <span class="form-group">
                                 @Html.EditorFor(model => model.Email)
                             </span>
 
-                            <span class="editor-field">
+                            <span class="form-group">
                                 @Html.EditorFor(model => model.Password)
                             </span>
                         </div>
@@ -61,3 +63,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

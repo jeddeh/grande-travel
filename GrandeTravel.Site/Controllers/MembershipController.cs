@@ -18,6 +18,7 @@ namespace GrandeTravel.Site.Controllers
 {
     public class MembershipController : Controller
     {
+        // Fields
         private ITravelUserService userService;
 
         // Constructors
@@ -33,11 +34,11 @@ namespace GrandeTravel.Site.Controllers
         }
 
         // Methods
-        #region Create User
+        #region Add User
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Create()
+        public ActionResult Add()
         {
             // Dummy user data for model
             Random random = new Random();
@@ -57,13 +58,12 @@ namespace GrandeTravel.Site.Controllers
                 State = AustralianStateEnum.WA
             };
 
-            ViewBag.MembershipMode = "Register";
             return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Create(RegisterUserViewModel model)
+        public ActionResult Add(RegisterUserViewModel model)
         {
             string errorMessage = "Unable to register.  Please contact us for assistance.";
 
@@ -234,6 +234,30 @@ namespace GrandeTravel.Site.Controllers
             }
 
             return View(model);
+        }
+
+        #endregion
+
+        #region Validate Email
+
+        [AllowAnonymous]
+        public string ValidateEmail(string email)
+        {
+            try
+            {
+                string userLogin = email.ToLower();
+
+                if (WebSecurity.UserExists(userLogin))
+                {
+                    return "Invalid";
+                }
+            }
+            catch
+            {
+                return "Error";
+            }
+
+            return "Valid";
         }
 
         #endregion

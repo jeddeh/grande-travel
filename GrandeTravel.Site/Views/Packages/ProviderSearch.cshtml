@@ -1,0 +1,29 @@
+﻿@model GrandeTravel.Site.Models.SearchProviderPackagesViewModel
+
+@{
+    ViewBag.Title = "ProviderSearch";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Packages)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+             
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>

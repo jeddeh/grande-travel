@@ -10,6 +10,9 @@ using System.Web.Routing;
 using GrandeTravel.Service;
 using GrandeTravel.Data;
 using GrandeTravel.Manager;
+using GrandeTravel.Site.Models.Packages;
+using GrandeTravel.Entity.Enums;
+using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -31,32 +34,71 @@ namespace GrandeTravel.Site.Controllers
             this.packageService = ServiceFactory.GetPackageService(packageManager);
         }
 
-        // Get All Packages
+        #region Add Package
+
+        [Authorize(Roles = "Provider")]
+        [HttpGet]
+        public ActionResult Add()
+        {
+            // Dummy user data for model
+            Random random = new Random();
+            int randomNumber = random.Next(0, 10000);
+
+            AddPackagesViewModel model = new AddPackagesViewModel
+            {
+                PackageName = "Package " + randomNumber,
+                Price = 900.00m,
+                City = "Melbourne",
+                State = AustralianStateEnum.VIC,
+                Accomodation = "5 nights at the Grand Hotel, Melbourne"
+            };
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Provider")]
+        [HttpPost]
+        public ActionResult Add(AddPackagesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Add", "Activities");
+            }
+            // validation errors disable submit button allow back only
+            return View(model);
+        }
+
+        #endregion
+
+        #region Search Packages For Customer
+
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Search()
         {
             SearchPackagesViewModel model = new SearchPackagesViewModel();
 
             Result<IEnumerable<Package>> result = packageService.GetAllPackages(false);
-          
+
             switch (result.Status)
             {
                 case ResultEnum.Success:
                     model.Packages = result.Data.ToList<Package>();
                     break;
-                
+
                 case ResultEnum.Fail:
                     model.Packages = null;
                     break;
-               
+
                 default:
                     model.Packages = null;
                     break;
             }
 
-           return View(model);
+            return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Search(int packageId)
         {
@@ -65,7 +107,7 @@ namespace GrandeTravel.Site.Controllers
 
         // AJAX Get Package details
         private class AjaxPackage
-        { 
+        {
             public string Name { get; set; }
             public string Description { get; set; }
             public string StartDate { get; set; }
@@ -82,17 +124,52 @@ namespace GrandeTravel.Site.Controllers
             Result<Package> result = packageService.GetPackageById(id);
 
             var packageArray = new[] { new AjaxPackage {
-                //StartDate = result.Data.StartDate != null ?  result.Data.StartDate.Value.ToString("dd MMMM yyyy") : "",
-                //EndDate = result.Data.EndDate != null ?  result.Data.EndDate.Value.ToString("dd MMMM yyyy") : "",
                 Accomodation = result.Data.Accomodation,
                 City = result.Data.City,
                 State = result.Data.State.ToString(),
-                //Description = result.Data.Description,
                 Price = result.Data.Price,
                 ImageUrl = result.Data.ImageUrl
             }
         };
             return Json(packageArray, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region Search Packages For Provider
+
+        [Authorize(Roles = "Provider")]
+        [HttpGet]
+        public ActionResult ProviderSearch()
+        {
+            SearchProviderPackagesViewModel model = new SearchProviderPackagesViewModel();
+
+            int providerId = WebSecurity.CurrentUserId;
+            Result<IEnumerable<Package>> result = packageService.GetPackagesByProviderId(providerId);
+
+            switch (result.Status)
+            {
+                case ResultEnum.Success:
+                    model.Packages = result.Data.ToList<Package>();
+                    break;
+
+                case ResultEnum.Fail:
+                    break;
+
+                default:
+                    break;
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Provider")]
+        [HttpPost]
+        public ActionResult ProviderSearch(int packageId)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        #endregion
     }
 }

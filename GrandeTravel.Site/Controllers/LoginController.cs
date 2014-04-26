@@ -15,12 +15,15 @@ namespace GrandeTravel.Site.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        #region Login
+        // [Route("Login")]
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        // [Route("Login")]
         [HttpPost]
         public ActionResult Index(LoginViewModel model)
         {
@@ -59,5 +62,7 @@ namespace GrandeTravel.Site.Controllers
             ModelState.AddModelError("ErrorMessage", "Unable to log in. Please contact us for assistance.");
             return View(model);
         }
+
+        #endregion
     }
 }

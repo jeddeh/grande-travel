@@ -13,7 +13,7 @@ body
     background: url(../../Images/Site/ocean.jpg) no-repeat;
 }
 
-    .register .editor-field
+    .register .form-group
     {
         margin-top: 10px;
     }
@@ -23,10 +23,13 @@ body
     margin-bottom: 35px;
 }
 
+.label-blue {
+    color:#329efa;
+}
 
 @media (min-width: 850px)
 {
-    .sign-in .membership-form input
+    .sign-in .admin-form input
     {
         width: 350px;
         margin: 0 auto;
@@ -35,7 +38,7 @@ body
 
 @media (min-width: 700px)
 {
-    .sign-in .membership-form input
+    .sign-in .admin-form input
     {
         width: 300px;
         margin: 0 auto 10px;
@@ -44,7 +47,7 @@ body
 
 @media (max-width: 701px)
 {
-    .sign-in .membership-form input
+    .sign-in .admin-form input
     {
         width: 90%;
         margin: 0 auto 10px;
@@ -92,7 +95,7 @@ body
     background-size: cover;
 }
 
-.register .membership-form .check-provider
+.register .admin-form .check-provider
 {
     margin-top: 30px;
     text-align: left;
@@ -100,7 +103,7 @@ body
     font-size: 14px;
 }
 
-    .register .membership-form .check-provider label
+    .register .admin-form .check-provider label
     {
         font-weight: normal;
     }
@@ -153,24 +156,24 @@ body
         text-shadow: 1px 1px 0px #143C4E;
     }
 
-#membership .membership-form
+#membership .admin-form
 {
     margin-top: 0px;
     text-align: center;
     margin-left: 0;
 }
 
-    #membership .membership-form .editor-field
+    #membership .admin-form .form-group
     {
         text-align: center;
     }
 
-    #membership .membership-form legend
+    #membership .admin-form legend
     {
         display: none;
     }
 
-    #membership .membership-form form
+    #membership .admin-form form
     {
         margin: 0 0 46px 0;
     }
