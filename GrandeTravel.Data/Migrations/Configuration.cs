@@ -70,8 +70,8 @@ namespace GrandeTravel.Data.Migrations
             context.SaveChanges();
 
             Roles.AddUserToRole(adminEmail, "Admin");
-            Roles.AddUserToRole(adminEmail, "Provider");
-            Roles.AddUserToRole(adminEmail, "Customer");
+            //Roles.AddUserToRole(adminEmail, "Provider");
+            //Roles.AddUserToRole(adminEmail, "Customer");
 
             #endregion
 

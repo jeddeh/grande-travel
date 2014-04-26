@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using GrandeTravel.Data;
 using GrandeTravel.Entity;
 
@@ -33,6 +34,11 @@ namespace GrandeTravel.Manager.Implementation
         public IEnumerable<Package> Get(Func<Entity.Package, bool> predicate)
         {
             return repository.Query().Where(predicate).ToList();
+        }
+
+        public IEnumerable<Package> GetObjectGraph(Func<Entity.Package, bool> predicate, string children)
+        {
+            return repository.QueryObjectGraph(children).Where(predicate).ToList();
         }
 
         public void Update(Package package)

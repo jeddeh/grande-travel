@@ -17,5 +17,7 @@ namespace GrandeTravel.Data
         void Delete(T entity);
 
         IQueryable<T> Query();
+
+        IQueryable<T> QueryObjectGraph(string children);
     }
 }

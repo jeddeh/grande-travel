@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
+using System.Data.Entity;
 
 namespace GrandeTravel.Service.Implementation
 {
@@ -57,7 +58,7 @@ namespace GrandeTravel.Service.Implementation
                 }
                 else
                 {
-                    result.Data = manager.Get(p => true).Where(p => p.Status == PackageStatusEnum.Available).AsEnumerable<Package>();
+                    result.Data = manager.Get(p => p.Status == PackageStatusEnum.Available).AsEnumerable<Package>();
                 }
                 result.Status = ResultEnum.Success;
             }
@@ -79,7 +80,9 @@ namespace GrandeTravel.Service.Implementation
 
             try
             {
-                result.Data = manager.Get(p => true).Where(p => p.TravelUserId == providerId).AsEnumerable<Package>();
+                result.Data = manager.GetObjectGraph(p => p.TravelUserId == providerId, "Activities")
+                .AsEnumerable<Package>();
+            
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)

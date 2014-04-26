@@ -1,29 +1,79 @@
 ﻿@model GrandeTravel.Site.Models.SearchProviderPackagesViewModel
 
+@using GrandeTravel.Entity.Enums
+@using GrandeTravel.Entity
+
 @{
-    ViewBag.Title = "ProviderSearch";
+    ViewBag.Title = "My Packages";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
 }
 
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
+<div class="container">
+    <header>
+        <h3>My Packages</h3>
+    </header>
 
-    @foreach (var item in Model.Packages)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-             
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
+    <section class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (Package package in Model.Packages)
+                {
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayFor(modelItem => package.Name)</strong>
+                        </td>
+
+                        <td>
+                            <div>
+                                @{ if (package.Status == PackageStatusEnum.Available)
+                                 {
+                                    <button type="button" class="btn btn-xs btn-success">Available</button>
+                                 }
+                                 else if (package.Status == PackageStatusEnum.Discontinued)
+                                 {
+                                    <button type="button" class="btn btn-xs btn-danger">Discontinued</button>
+                                 }
+                                }
+                            </div>
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-xs btn-primary">Edit Package Details</button>
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-xs btn-primary">Add New Activity</button>
+                        </td>
+                    </tr>
+
+                    foreach (Activity activity in package.Activities)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => activity.Name)
+                            </td>
+
+                            <td>
+                                <div>
+                                    <button type="button" class="btn btn-xs btn-success">Available</button>
+                                </div>
+                            </td>
+
+                            <td>
+                                <button type="submit" class="btn btn-xs btn-primary">Edit Activity Details</button>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+
+        </div>
+    </section>
+</div>

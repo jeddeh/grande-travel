@@ -57,5 +57,10 @@ namespace GrandeTravel.Data.Implementation.EntityFramework
         {
             return dbSet.AsQueryable();
         }
+
+        public IQueryable<T> QueryObjectGraph(string children)
+        {
+            return dbSet.Include(children).AsQueryable();
+        }
     }
 }
