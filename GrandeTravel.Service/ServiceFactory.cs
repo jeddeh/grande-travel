@@ -19,5 +19,10 @@ namespace GrandeTravel.Service
         {
             return new TravelUserService(manager);
         }
+
+        public static IActivityService GetActivityService(IActivityManager manager)
+        {
+            return new ActivityService(manager);
+        }
     }
 }

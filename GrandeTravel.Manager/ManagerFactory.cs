@@ -20,5 +20,10 @@ namespace GrandeTravel.Manager
         {
             return new TravelUserManager(repository);
         }
+
+        public static IActivityManager GetActivityManager(IRepository<Activity> repository)
+        {
+            return new ActivityManager(repository);
+        }
     }
 }

@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActivityManager.cs" />
+    <Compile Include="Implementation\ActivityManager.cs" />
     <Compile Include="IPackageManager.cs" />
     <Compile Include="ITravelUserManager.cs" />
     <Compile Include="Implementation\PackageManager.cs" />

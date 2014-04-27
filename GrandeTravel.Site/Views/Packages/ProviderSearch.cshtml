@@ -28,6 +28,8 @@
                 {
                     Package package = Model.Packages[i];
                     string packageId = "package" + package.PackageId;
+                    string indicatorId = "indicator" + package.PackageId;
+                    string availablePackageId = "availablePackage" + package.PackageId;
 
                     <div class="panel panel-default">
 
@@ -39,7 +41,7 @@
                                         @{
                     if (package.Status == PackageStatusEnum.Available)
                     {
-                        <i class="indicator glyphicon-plus-sign glyphicon"></i>
+                        <i class="indicator glyphicon-plus-sign glyphicon" id=@indicatorId></i>
                     }
                                         }
                                         @Html.DisplayFor(modelItem => package.Name)
@@ -47,12 +49,12 @@
                                 </h4>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-5" id=@availablePackageId>
                                 @{ if (package.Status == PackageStatusEnum.Available)
                                  {
                                     <span><a class="confirm-discontinue-package btn btn-xs btn-success" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Available</a></span>
-                                    <button type="submit" class="btn btn-xs btn-primary">Edit Package Details</button>
-                                    <button type="submit" class="btn btn-xs btn-primary">Add New Activity</button>
+                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Packages", new { id = @package.PackageId })">Edit Package Details</a></span>
+                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Add", "Activities", new { id = @package.PackageId })">Add New Activity</a></span>
                                  }
                                  else if (package.Status == PackageStatusEnum.Discontinued)
                                  {
@@ -74,12 +76,12 @@
                                         <div class=" row">
                                             @{
                                         string discontinuedTitle = "";
-                                        
+
                                         if (activity.Status == PackageStatusEnum.Discontinued)
                                         {
                                             discontinuedTitle = "discontinued-title";
                                         }
-                                        
+
                                         <div class="col-md-7 @discontinuedTitle">
                                             @Html.DisplayFor(modelItem => activity.Name)
                                         </div>
@@ -88,15 +90,16 @@
                                             <div class="col-md-5">
                                                 @{ if (activity.Status == PackageStatusEnum.Available)
                                                  {
-                                                    <button type="button" class="btn btn-xs btn-success">Available</button>
-                                                    <button type="submit" class="btn btn-xs btn-primary">Edit Activity Details</button>
-                                                 }
-                                                 else if (activity.Status == PackageStatusEnum.Discontinued)
-                                                 {
+                                                    <span><a class="confirm-discontinue-activity btn btn-xs btn-success" href="@Url.Action("Discontinue", "Activities", new { id = @activity.ActivityId })">Available</a></span>
+                                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { id = @activity.ActivityId })">Edit Activity Details</a></span>
+                                                    }
+                                                    else if (activity.Status == PackageStatusEnum.Discontinued)
+                                                    {
                                                     <button type="button" class="discontinued-activity btn btn-xs btn-danger">Discontinued</button>
                                                  }
                                                 }
                                             </div>
+                                            <hr />
                                         </div>
                                     }
 
@@ -118,16 +121,16 @@
 @using (Html.JQueryUI().Begin(new Dialog().Title("Discontinue Package").AutoOpen(false)
         .ConfirmAjax(".confirm-discontinue-package", "Yes", "No",
         new AjaxSettings() { Method = HttpVerbs.Post, Success = "discontinuePackageSuccess" })))
-    {
-        <p>You are about to discontinue this package. Are you sure?</p>
-    }
+{
+    <p>You are about to discontinue this package. Are you sure?</p>
+}
 
 <!-- Confirm discontinue activity -->
 @using (Html.JQueryUI().Begin(new Dialog().Title("Discontinue Activity").AutoOpen(false)
         .ConfirmAjax(".confirm-discontinue-activity", "Yes", "No",
         new AjaxSettings() { Method = HttpVerbs.Post, Success = "discontinueActivitySuccess" })))
 {
-    <p>You are about to discontinue this package. Are you sure?</p>
+    <p>You are about to discontinue this activity. Are you sure?</p>
 }
 
 <!-- Discountinued package dialog -->
@@ -149,20 +152,28 @@
 
     <script>
         function discontinuePackageSuccess(data, textStatus, jqXHR) {
-            alert(data);
-            if (data !== "Success") {
+
+            if (!data.success) {
                 // alert error message
             }
+            else {
+                $("#package" + data.packageId).html("");
+                $("#indicator" + data.packageId).remove();
+                $("#availablePackage" + data.packageId)
+                    .html("<button type=\"button\" class=\"discontinued-package btn btn-xs btn-danger\">Discontinued</button>");
+            }
+        }
 
-
+        function discontinueActivitySuccess(data, textStatus, jqXHR) {
+            if (!data.success) {
+                // alert error message
+            }
+            else {
+                alert("Activity discontinued");
+            }
         }
 
         $(document).ready(function () {
-           
-         
-            function discontinueActivitySuccess(data, textStatus, jqXHR) {
-
-            }
 
             // Toggle icon on accordion header
             function toggleChevron(e) {

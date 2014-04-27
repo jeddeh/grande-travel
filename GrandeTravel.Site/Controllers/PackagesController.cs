@@ -171,17 +171,17 @@ namespace GrandeTravel.Site.Controllers
 
         #endregion
 
-        #region Discontinue package
+        #region Discontinue Package
 
         [HttpPost]
         [Authorize(Roles = "Provider")]
-        public string Discontinue(int? id)
+        public JsonResult Discontinue(int? id)
         {
             // TODO : Security concern where providers can discontinue other provider's packages?
             if (id == null)
             {
-                return "Fail";
-            }
+                return Json(new { success = false },JsonRequestBehavior.DenyGet);
+            } 
 
             int packageId = id.GetValueOrDefault();
 
@@ -189,11 +189,18 @@ namespace GrandeTravel.Site.Controllers
             try
             {
                 result = packageService.DiscontinuePackage(packageId);
-                return "Success";
+                if (result == ResultEnum.Success)
+                {
+                    return Json(new { success = true, packageId = packageId }, JsonRequestBehavior.DenyGet);
+                }
+                else
+                {
+                    return Json(new { success = false }, JsonRequestBehavior.DenyGet);
+                }
             }
             catch
             {
-                return "Fail";
+                return Json(new { success = false }, JsonRequestBehavior.DenyGet);
             }
         }
         #endregion
