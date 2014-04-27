@@ -16,7 +16,6 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [AllowAnonymous]
     public class PackagesController : Controller
     {
         // Fields
@@ -138,8 +137,8 @@ namespace GrandeTravel.Site.Controllers
 
         #region Search Packages For Provider
 
-        [Authorize(Roles = "Provider")]
         [HttpGet]
+        [Authorize(Roles = "Provider")]
         public ActionResult ProviderSearch()
         {
             SearchProviderPackagesViewModel model = new SearchProviderPackagesViewModel();
@@ -170,6 +169,33 @@ namespace GrandeTravel.Site.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        #endregion
+
+        #region Discontinue package
+
+        [HttpPost]
+        [Authorize(Roles = "Provider")]
+        public string Discontinue(int? id)
+        {
+            // TODO : Security concern where providers can discontinue other provider's packages?
+            if (id == null)
+            {
+                return "Fail";
+            }
+
+            int packageId = id.GetValueOrDefault();
+
+            ResultEnum result;
+            try
+            {
+                result = packageService.DiscontinuePackage(packageId);
+                return "Success";
+            }
+            catch
+            {
+                return "Fail";
+            }
+        }
         #endregion
     }
 }

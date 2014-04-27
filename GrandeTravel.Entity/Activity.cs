@@ -29,6 +29,10 @@ namespace GrandeTravel.Entity
         [DataType(DataType.Text)]
         public string Address { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(PackageStatusEnum))]
+        public PackageStatusEnum Status { get; set; }
+
         public int PackageId { get; set; }
         public virtual Package Package { get; set; }
     }

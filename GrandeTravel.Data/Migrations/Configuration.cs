@@ -350,6 +350,7 @@ namespace GrandeTravel.Data.Migrations
 
                     Activities = new List<Activity> {
                         new Activity {
+                            Status = PackageStatusEnum.Available,
                             Name = "Opera on Sydney Harbour",
                             Address = "Sample Address",
                             Description = "Indulge your love of opera performed on a shimmering stage on the waters of Sydney Harbour.",
@@ -357,6 +358,7 @@ namespace GrandeTravel.Data.Migrations
                         },
 
                         new Activity {
+                            Status = PackageStatusEnum.Discontinued,
                             Name = "Sydney Royal Easter Show",
                             Address = "Sample Address",
                             Description = "Enjoy Australia’s agricultural heritage with great food, wine and carnival rides for the whole family.",
@@ -373,10 +375,11 @@ namespace GrandeTravel.Data.Migrations
                     Price = 900.00m,
                     ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
                     TravelUserId = travelUserId4,
-                    Status = PackageStatusEnum.Available,
+                    Status = PackageStatusEnum.Discontinued,
 
                     Activities = new List<Activity> {
                         new Activity {
+                            Status = PackageStatusEnum.Available,
                             Name = "Clipsal 500",
                             Address = "Sample Address",
                             Description = "Feel the adrenalin rush during four days of street parties, live entertainment and extreme motor sport action.",
@@ -384,6 +387,7 @@ namespace GrandeTravel.Data.Migrations
                          },
 
                         new Activity {
+                                                        Status = PackageStatusEnum.Available,
                             Name = "Adelaide Festival",
                             Address = "Sample Address",
                             Description = "Excite your senses at one of the world’s most innovative festivals, the biennial Adelaide Festival with dance, theatre, and art.",
@@ -391,6 +395,7 @@ namespace GrandeTravel.Data.Migrations
                         },
 
                          new Activity {
+                             Status = PackageStatusEnum.Available,
                              Name = "WOMADelaide",
                              Address = "Sample Address",
                              Description = "Enjoy the world’s best traditional and contemporary musicians, dancers and DJs in this outdoor festival held in Botanic Park in Adelaide.",

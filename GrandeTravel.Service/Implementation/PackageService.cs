@@ -94,5 +94,24 @@ namespace GrandeTravel.Service.Implementation
         }
 
         #endregion
+
+        #region Discontinue Package
+
+        public ResultEnum DiscontinuePackage(int packageId)
+        {
+            try
+            {
+                Package package = GetPackageById(packageId).Data;
+                package.Status = PackageStatusEnum.Discontinued;
+                manager.Update(package);
+                return ResultEnum.Success;
+            }
+            catch
+            {
+                return ResultEnum.Fail;
+            }
+        }
+
+        #endregion
     }
 }

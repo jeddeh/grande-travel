@@ -9,71 +9,172 @@
     ViewBag.Description = "";
 }
 
-<div class="container">
-    <header>
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+<div class="container" id="my-packages">
+    <header class="section_header">
         <h3>My Packages</h3>
     </header>
 
     <section class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <table class="table">
-                <tr>
-                    <th></th>
-                </tr>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
 
-                @foreach (Package package in Model.Packages)
+            <div class="panel-group" id="accordion">
+
+                @for (int i = 0; i < Model.Packages.Count; i++)
                 {
-                    <tr>
-                        <td>
-                            <strong>@Html.DisplayFor(modelItem => package.Name)</strong>
-                        </td>
+                    Package package = Model.Packages[i];
+                    string packageId = "package" + package.PackageId;
 
-                        <td>
-                            <div>
+                    <div class="panel panel-default">
+
+                        <!-- Package Heading -->
+                        <div class="panel-heading row">
+                            <div class="col-md-7">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@packageId">
+                                        @{
+                    if (package.Status == PackageStatusEnum.Available)
+                    {
+                        <i class="indicator glyphicon-plus-sign glyphicon"></i>
+                    }
+                                        }
+                                        @Html.DisplayFor(modelItem => package.Name)
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div class="col-md-5">
                                 @{ if (package.Status == PackageStatusEnum.Available)
                                  {
-                                    <button type="button" class="btn btn-xs btn-success">Available</button>
+                                    <span><a class="confirm-discontinue-package btn btn-xs btn-success" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Available</a></span>
+                                    <button type="submit" class="btn btn-xs btn-primary">Edit Package Details</button>
+                                    <button type="submit" class="btn btn-xs btn-primary">Add New Activity</button>
                                  }
                                  else if (package.Status == PackageStatusEnum.Discontinued)
                                  {
-                                    <button type="button" class="btn btn-xs btn-danger">Discontinued</button>
+                                    <button type="button" class="discontinued-package btn btn-xs btn-danger">Discontinued</button>
                                  }
                                 }
                             </div>
-                        </td>
 
-                        <td>
-                            <button type="submit" class="btn btn-xs btn-primary">Edit Package Details</button>
-                        </td>
+                        </div>
 
-                        <td>
-                            <button type="submit" class="btn btn-xs btn-primary">Add New Activity</button>
-                        </td>
-                    </tr>
+                        <!-- Activities -->
+                        @{  if (package.Status == PackageStatusEnum.Available)
+                          {
+                            <div id="@packageId" class="panel-collapse collapse">
+                                <div class="panel-body">
 
-                    foreach (Activity activity in package.Activities)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => activity.Name)
-                            </td>
+                                    @foreach (Activity activity in package.Activities)
+                                    {
+                                        <div class=" row">
+                                            @{
+                                        string discontinuedTitle = "";
+                                        
+                                        if (activity.Status == PackageStatusEnum.Discontinued)
+                                        {
+                                            discontinuedTitle = "discontinued-title";
+                                        }
+                                        
+                                        <div class="col-md-7 @discontinuedTitle">
+                                            @Html.DisplayFor(modelItem => activity.Name)
+                                        </div>
+                                            }
 
-                            <td>
-                                <div>
-                                    <button type="button" class="btn btn-xs btn-success">Available</button>
+                                            <div class="col-md-5">
+                                                @{ if (activity.Status == PackageStatusEnum.Available)
+                                                 {
+                                                    <button type="button" class="btn btn-xs btn-success">Available</button>
+                                                    <button type="submit" class="btn btn-xs btn-primary">Edit Activity Details</button>
+                                                 }
+                                                 else if (activity.Status == PackageStatusEnum.Discontinued)
+                                                 {
+                                                    <button type="button" class="discontinued-activity btn btn-xs btn-danger">Discontinued</button>
+                                                 }
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
                                 </div>
-                            </td>
+                            </div>
+                          }
+                        }
 
-                            <td>
-                                <button type="submit" class="btn btn-xs btn-primary">Edit Activity Details</button>
-                            </td>
-                        </tr>
-                    }
+                    </div>
                 }
 
-            </table>
-
+            </div>
         </div>
     </section>
+
 </div>
+
+<!-- Confirm discontinue package -->
+@using (Html.JQueryUI().Begin(new Dialog().Title("Discontinue Package").AutoOpen(false)
+        .ConfirmAjax(".confirm-discontinue-package", "Yes", "No",
+        new AjaxSettings() { Method = HttpVerbs.Post, Success = "discontinuePackageSuccess" })))
+    {
+        <p>You are about to discontinue this package. Are you sure?</p>
+    }
+
+<!-- Confirm discontinue activity -->
+@using (Html.JQueryUI().Begin(new Dialog().Title("Discontinue Activity").AutoOpen(false)
+        .ConfirmAjax(".confirm-discontinue-activity", "Yes", "No",
+        new AjaxSettings() { Method = HttpVerbs.Post, Success = "discontinueActivitySuccess" })))
+{
+    <p>You are about to discontinue this package. Are you sure?</p>
+}
+
+<!-- Discountinued package dialog -->
+@using (Html.JQueryUI().Begin(new Dialog().Title("Discontinued Package").AutoOpen(false).TriggerClick(".discontinued-package")
+    .Modal(true)))
+{
+    <p>This package has been discontinued. Please contact us if you would like to re-continue this package.</p>
+}
+
+<!-- Discountinued activity dialog -->
+@using (Html.JQueryUI().Begin(new Dialog().Title("Discontinued Actitity").AutoOpen(false).TriggerClick(".discontinued-activity")
+    .Modal(true)))
+{
+    <p>This activity has been discontinued. Please contact us if you would like to re-continue this activity.</p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script>
+        function discontinuePackageSuccess(data, textStatus, jqXHR) {
+            alert(data);
+            if (data !== "Success") {
+                // alert error message
+            }
+
+
+        }
+
+        $(document).ready(function () {
+           
+         
+            function discontinueActivitySuccess(data, textStatus, jqXHR) {
+
+            }
+
+            // Toggle icon on accordion header
+            function toggleChevron(e) {
+                $(e.target)
+                    .prev('.panel-heading')
+                    .find("i.indicator")
+                    .toggleClass('glyphicon-plus-sign glyphicon-minus-sign');
+            }
+            $('#accordion').on('hidden.bs.collapse', toggleChevron);
+            $('#accordion').on('shown.bs.collapse', toggleChevron);
+        });
+
+    </script>
+}
+
