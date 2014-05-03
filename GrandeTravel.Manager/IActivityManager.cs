@@ -16,4 +16,5 @@ namespace GrandeTravel.Manager
         void Update(Activity activity);
         void Delete(Activity activity);
     }
+
 }
