@@ -16,6 +16,7 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
+    [Authorize]
     public class PackagesController : Controller
     {
         // Fields
@@ -57,13 +58,37 @@ namespace GrandeTravel.Site.Controllers
 
         [Authorize(Roles = "Provider")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add(AddPackagesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Add", "Activities");
+                Package package = new Package
+                {
+                    Accomodation = model.Accomodation,
+                    City = model.City,
+                    ImageUrl = @"/Images/example.jpg",
+                    Name = model.PackageName,
+                    Price = model.Price,
+                    State = model.State,
+                    Status = PackageStatusEnum.Available,
+                    TravelUserId = WebSecurity.CurrentUserId
+                };
+
+                Result<Package> result = packageService.AddPackage(package);
+
+                if (result.Status == ResultEnum.Success)
+                {
+                    return RedirectToAction("Add", "Activities", new { packageId = result.Data.PackageId });
+                }
+                else
+                {
+                    ModelState.AddModelError("ErrorMessage", "Sorry, we were unable to create your package.");
+                    return View(model);
+                }
             }
-            // validation errors disable submit button allow back only
+
+            ModelState.AddModelError("ErrorMessage", "Sorry, we were unable to create your package.");
             return View(model);
         }
 
@@ -164,6 +189,7 @@ namespace GrandeTravel.Site.Controllers
 
         [Authorize(Roles = "Provider")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ProviderSearch(int packageId)
         {
             return RedirectToAction("Index", "Home");
@@ -174,14 +200,14 @@ namespace GrandeTravel.Site.Controllers
         #region Discontinue Package
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Provider")]
         public JsonResult Discontinue(int? id)
         {
-            // TODO : Security concern where providers can discontinue other provider's packages?
             if (id == null)
             {
-                return Json(new { success = false },JsonRequestBehavior.DenyGet);
-            } 
+                return Json(new { success = false }, JsonRequestBehavior.DenyGet);
+            }
 
             int packageId = id.GetValueOrDefault();
 

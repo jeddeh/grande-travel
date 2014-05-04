@@ -23,6 +23,27 @@ namespace GrandeTravel.Service.Implementation
 
         // Methods
 
+        #region Add Package
+
+        public Result<Package> AddPackage(Package package)
+        {
+            Result<Package> result = new Result<Package>();
+
+            try
+            {
+                result.Data = manager.Create(package);
+                result.Status = ResultEnum.Success;
+            }
+            catch
+            {
+                result.Status = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Get Package By Id
 
         public Result<Package> GetPackageById(int id)
@@ -82,7 +103,7 @@ namespace GrandeTravel.Service.Implementation
             {
                 result.Data = manager.GetObjectGraph(p => p.TravelUserId == providerId, "Activities")
                 .AsEnumerable<Package>();
-            
+
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)

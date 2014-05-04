@@ -16,6 +16,7 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
+    [Authorize]
     public class MembershipController : Controller
     {
         // Fields

@@ -58,7 +58,6 @@ namespace GrandeTravel.Site.Controllers
                     return View();
                 }
             }
-
             ModelState.AddModelError("ErrorMessage", "Unable to log in. Please contact us for assistance.");
             return View(model);
         }

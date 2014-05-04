@@ -11,5 +11,6 @@ namespace GrandeTravel.Service
     {
         Result<Activity> GetActivityById(int id);
         ResultEnum DiscontinueActivity(int packageId);
+        ResultEnum AddActivity(Activity activity);
     }
 }

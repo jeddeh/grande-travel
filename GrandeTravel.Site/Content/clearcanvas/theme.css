@@ -46,6 +46,10 @@ img {
     margin-bottom: 120px;
 }
 
+.error-message {
+    color: #ee95b2;
+}
+
 /*Main*/
 html {
     margin: 0;

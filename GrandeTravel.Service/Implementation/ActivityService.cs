@@ -23,6 +23,27 @@ namespace GrandeTravel.Service.Implementation
 
         // Methods
 
+        #region Add Activity to Package
+
+        public ResultEnum AddActivity(Activity activity)
+        {
+            ResultEnum result;
+
+            try 
+            {
+                manager.Create(activity);
+                result = ResultEnum.Success;
+            }
+            catch 
+            {
+                result = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Get Activity By Id
 
         public Result<Activity> GetActivityById(int id)

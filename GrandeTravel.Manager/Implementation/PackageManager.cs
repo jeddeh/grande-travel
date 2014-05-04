@@ -21,9 +21,9 @@ namespace GrandeTravel.Manager.Implementation
         }
 
         // Methods
-        public void Create(Package Package)
+        public Package Create(Package Package)
         {
-            this.repository.Insert(Package);
+            return this.repository.Insert(Package);
         }
 
         public Package GetById(int id)

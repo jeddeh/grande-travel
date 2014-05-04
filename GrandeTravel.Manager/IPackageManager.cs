@@ -10,7 +10,7 @@ namespace GrandeTravel.Manager
 {
     public interface IPackageManager
     {
-        void Create(Package package);
+        Package Create(Package package);
         IEnumerable<Package> Get(Func<Package, bool> predicate);
         IEnumerable<Package> GetObjectGraph(Func<Entity.Package, bool> predicate, string children);
         Package GetById(int id);

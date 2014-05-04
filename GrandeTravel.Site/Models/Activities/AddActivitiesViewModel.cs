@@ -9,6 +9,15 @@ namespace GrandeTravel.Site.Models
     public class AddActivitiesViewModel
     {
         [Required]
+        public int PackageId { get; set; }
+
+        [Required]
+        public string PackageName { get; set; }
+
+        [Required]
+        public int ActivityNumber { get; set; }
+
+        [Required]
         [MaxLength(50)]
         [Display(Name = "Activity Name", Prompt = "Activity Name")]
         [DataType(DataType.Text)]
@@ -25,5 +34,9 @@ namespace GrandeTravel.Site.Models
         [Display(Name = "Address", Prompt = "Address")]
         [DataType(DataType.Text)]
         public string Address { get; set; }
+
+        public string SuccessMessage { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

@@ -29,10 +29,12 @@ namespace GrandeTravel.Data.Implementation.EntityFramework
             return dbSet.Find(primaryKey);
         }
 
-        public void Insert(T entity)
+        public T Insert(T entity)
         {
             dbSet.Add(entity);
             context.SaveChanges();
+
+            return entity;
         }
 
         public void Update(T entity)

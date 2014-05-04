@@ -31,7 +31,7 @@
 
                                 <header class="register-header">
                                     <div class="header">
-                                        <h4>1. Add a New Package</h4>
+                                        <h4>Add a New Package</h4>
                                     </div>
                                 </header>
 
@@ -67,13 +67,22 @@
                                     <label class="label-blue" for="file">Upload Image:</label>
                                     <input type="file" name="file" id="file" class="form-control" />
                                 </div>
+
                             </section>
                         </div>
 
-                        <div>
-                            <button type="submit" class="btn btn-primary membership-submit register-submit">Next...</button>
-                        </div>
-
+                        @if (ViewData.ModelState.IsValid)
+                        {
+                            <div>
+                                <button type="submit" class="btn btn-primary membership-submit register-submit">Next...</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="error-message">
+                                <p>@Html.ValidationMessage("ErrorMessage")</p>
+                            </div>
+                        }
                     </fieldset>
                 }
 
@@ -81,8 +90,6 @@
         </div>
     </div>
 </div>
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
