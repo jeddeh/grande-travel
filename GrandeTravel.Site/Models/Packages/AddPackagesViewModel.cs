@@ -34,7 +34,12 @@ namespace GrandeTravel.Site.Models.Packages
         [DataType(DataType.Text)]
         public string Accomodation { get; set; }
 
-        // Image
+        [Display(Name = "Upload Image:")]
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase ImageUpload { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string ImageUrl { get; set; }
         
         [Required]
         [RegularExpression(@"^\d{2,4}(\.\d{1,2})?$", ErrorMessage = "The Currency field is not valid.")]
@@ -45,5 +50,7 @@ namespace GrandeTravel.Site.Models.Packages
         public string SuccessMessage { get; set; }
 
         public string ErrorMessage { get; set; }
+
+        public bool DisableSubmit { get; set; }
     }
 }

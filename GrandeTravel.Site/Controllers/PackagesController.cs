@@ -13,6 +13,8 @@ using GrandeTravel.Manager;
 using GrandeTravel.Site.Models.Packages;
 using GrandeTravel.Entity.Enums;
 using WebMatrix.WebData;
+using System.Drawing;
+using System.IO;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -61,13 +63,39 @@ namespace GrandeTravel.Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddPackagesViewModel model)
         {
+            if (model.ImageUpload == null || model.ImageUpload.ContentLength == 0)
+            {
+                ModelState.AddModelError("ErrorMessage", "The image field is required.");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
+                // Process image
+                string[] validImageTypes = new string[]
+                {
+                    "image/gif",
+                    "image/jpeg",
+                    "image/pjpeg",
+                    "image/png"
+                };
+
+                if (!validImageTypes.Contains(model.ImageUpload.ContentType))
+                {
+                    ModelState.AddModelError("ErrorMessage", "Please choose either a GIF, JPG or PNG image.");
+                    return View(model);
+                }
+
+                string uploadDir = @"~/Images/Package";
+                string imagePath = Path.Combine(Server.MapPath(uploadDir), model.ImageUpload.FileName);
+                string imageUrl = Path.Combine(uploadDir, model.ImageUpload.FileName);
+                model.ImageUpload.SaveAs(imagePath);
+
                 Package package = new Package
                 {
                     Accomodation = model.Accomodation,
                     City = model.City,
-                    ImageUrl = @"/Images/example.jpg",
+                    ImageUrl = imageUrl,
                     Name = model.PackageName,
                     Price = model.Price,
                     State = model.State,
@@ -84,11 +112,13 @@ namespace GrandeTravel.Site.Controllers
                 else
                 {
                     ModelState.AddModelError("ErrorMessage", "Sorry, we were unable to create your package.");
+                    model.DisableSubmit = true;
                     return View(model);
                 }
             }
 
             ModelState.AddModelError("ErrorMessage", "Sorry, we were unable to create your package.");
+            model.DisableSubmit = true;
             return View(model);
         }
 
@@ -119,6 +149,7 @@ namespace GrandeTravel.Site.Controllers
                 model.State = packageResult.Data.State;
                 model.Accomodation = packageResult.Data.Accomodation;
                 model.Price = packageResult.Data.Price;
+                model.ImageUrl = packageResult.Data.ImageUrl;
             }
             else
             {
@@ -154,7 +185,7 @@ namespace GrandeTravel.Site.Controllers
                     model.ErrorMessage = "Unable to edit the package.";
                     return View(model);
                 }
-                
+
                 ResultEnum result = packageService.UpdatePackage(package);
 
                 if (result == ResultEnum.Success)
