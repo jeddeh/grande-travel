@@ -36,7 +36,7 @@ namespace GrandeTravel.Manager.Implementation
             return repository.Query().Where(predicate).ToList();
         }
 
-        public IEnumerable<Package> GetObjectGraph(Func<Entity.Package, bool> predicate, string children)
+        public IEnumerable<Package> GetWithActivities(Func<Entity.Package, bool> predicate, string children)
         {
             return repository.QueryObjectGraph(children).Where(predicate).ToList();
         }

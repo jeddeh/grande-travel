@@ -14,13 +14,13 @@
 }
 
 <div class="container" id="my-packages">
-    <header class="section_header">
-        <h3>My Packages</h3>
-    </header>
-
     <section class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
+
+            <header class="section_header">
+                <h3>My Packages</h3>
+            </header>
 
             <div class="panel-group" id="accordion">
 
@@ -41,10 +41,16 @@
                                         @{
                     if (package.Status == PackageStatusEnum.Available)
                     {
+                        string packageTitle = "packageTitle" + package.PackageId;
+                        
                         <i class="indicator glyphicon-plus-sign glyphicon" id=@indicatorId></i>
+                        <span id="@packageTitle">@Html.DisplayFor(modelItem => package.Name)</span>
+                    }
+                    else
+                    {
+                        <span class="discontinued-title">   @Html.DisplayFor(modelItem => package.Name)</span>
                     }
                                         }
-                                        @Html.DisplayFor(modelItem => package.Name)
                                     </a>
                                 </h4>
                             </div>
@@ -54,7 +60,11 @@
                                  {
                                     <span><a class="confirm-discontinue-package btn btn-xs btn-success" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Available</a></span>
                                     <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Packages", new { id = @package.PackageId })">Edit Package Details</a></span>
-                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Add", "Activities", new { id = @package.PackageId })">Add New Activity</a></span>
+
+                                     if (package.Activities.Count < 3)
+                                     {
+                                        <span><a class="btn btn-xs btn-primary" href="@Url.Action("Add", "Activities", new { packageId = @package.PackageId })">Add New Activity</a></span>
+                                     }
                                  }
                                  else if (package.Status == PackageStatusEnum.Discontinued)
                                  {
@@ -73,6 +83,9 @@
 
                                     @foreach (Activity activity in package.Activities)
                                     {
+                                        string availableActivityId = "availableActivity" + activity.ActivityId;
+                                        string activityTitle = "activityTitle" + activity.ActivityId;
+                                        
                                         <div class=" row">
                                             @{
                                         string discontinuedTitle = "";
@@ -82,19 +95,19 @@
                                             discontinuedTitle = "discontinued-title";
                                         }
 
-                                        <div class="col-md-7 @discontinuedTitle">
+                                        <div class="col-md-7 @discontinuedTitle" id="@activityTitle">
                                             @Html.DisplayFor(modelItem => activity.Name)
                                         </div>
                                             }
 
-                                            <div class="col-md-5">
+                                            <div class="col-md-5" id="@availableActivityId">
                                                 @{ if (activity.Status == PackageStatusEnum.Available)
                                                  {
                                                     <span><a class="confirm-discontinue-activity btn btn-xs btn-success" href="@Url.Action("Discontinue", "Activities", new { id = @activity.ActivityId })">Available</a></span>
-                                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { id = @activity.ActivityId })">Edit Activity Details</a></span>
-                                                    }
-                                                    else if (activity.Status == PackageStatusEnum.Discontinued)
-                                                    {
+                                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { id = @activity.ActivityId, pId = package.PackageId })">Edit Activity Details</a></span>
+                                                 }
+                                                 else if (activity.Status == PackageStatusEnum.Discontinued)
+                                                 {
                                                     <button type="button" class="discontinued-activity btn btn-xs btn-danger">Discontinued</button>
                                                  }
                                                 }
@@ -161,6 +174,7 @@
                 $("#indicator" + data.packageId).remove();
                 $("#availablePackage" + data.packageId)
                     .html("<button type=\"button\" class=\"discontinued-package btn btn-xs btn-danger\">Discontinued</button>");
+                $("#packageTitle" + data.packageId).addClass("discontinued-title");
             }
         }
 
@@ -169,7 +183,9 @@
                 // alert error message
             }
             else {
-                alert("Activity discontinued");
+                $("#availableActivity" + data.activityId)
+                    .html("<button type=\"button\" class=\"discontinued-activity btn btn-xs btn-danger\">Discontinued</button>");
+                $("#activityTitle" + data.activityId).addClass("discontinued-title");
             }
         }
 

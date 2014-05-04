@@ -354,14 +354,14 @@ namespace GrandeTravel.Data.Migrations
                     Activities = new List<Activity> {
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Opera on Sydney Harbour",
+                            Name = "Opera on Sydney Harbour" + i,
                             Address = "Sample Address",
                             Description = "Indulge your love of opera performed on a shimmering stage on the waters of Sydney Harbour.",
                         },
 
                         new Activity {
                             Status = PackageStatusEnum.Discontinued,
-                            Name = "Sydney Royal Easter Show",
+                            Name = "Sydney Royal Easter Show" + i,
                             Address = "Sample Address",
                             Description = "Enjoy Australia’s agricultural heritage with great food, wine and carnival rides for the whole family.",
                         }
@@ -381,21 +381,21 @@ namespace GrandeTravel.Data.Migrations
                     Activities = new List<Activity> {
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Clipsal 500",
+                            Name = "Clipsal 500" + i,
                             Address = "Sample Address",
                             Description = "Feel the adrenalin rush during four days of street parties, live entertainment and extreme motor sport action.",
                          },
 
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Adelaide Festival",
+                            Name = "Adelaide Festival" + i,
                             Address = "Sample Address",
                             Description = "Excite your senses at one of the world’s most innovative festivals, the biennial Adelaide Festival with dance, theatre, and art.",
                         },
 
                          new Activity {
                              Status = PackageStatusEnum.Available,
-                             Name = "WOMADelaide",
+                             Name = "WOMADelaide" + i,
                              Address = "Sample Address",
                              Description = "Enjoy the world’s best traditional and contemporary musicians, dancers and DJs in this outdoor festival held in Botanic Park in Adelaide.",
                         }

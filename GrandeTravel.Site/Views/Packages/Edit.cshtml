@@ -4,7 +4,7 @@
 @using GrandeTravel.Entity.Enums
 
 @{
-    ViewBag.Title = "Add Package";
+    ViewBag.Title = "Edit Package";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
 }
@@ -18,12 +18,12 @@
         <div class="row">
 
             <div class="col-md-12 admin-form">
-                @using (Html.BeginForm("Add", "Packages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
                     <fieldset>
-                        <legend>Add Package</legend>
+                        <legend>Edit Package</legend>
 
                         <div class="row">
                             <section class="col-md-3"></section>
@@ -31,13 +31,16 @@
 
                                 <header class="register-header">
                                     <div class="header">
-                                        <h4>Add a New Package</h4>
+                                        <h4>Edit Package</h4>
                                     </div>
                                 </header>
 
+                                <div>
+                                    @Html.HiddenFor(model => model.PackageId)
+                                </div>
+
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.PackageName, new { maxlength = 50 })
-                                    @Html.ValidationMessageFor(model => model.PackageName)
+                                    @Html.TextBoxFor(model => model.PackageName, new { @readonly = "readonly", @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
@@ -63,25 +66,27 @@
                                     @Html.ValidationMessageFor(model => model.Price)
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="label-blue" for="file">Upload Image:</label>
-                                    <input type="file" name="file" id="file" class="form-control" />
-                                </div>
-
                             </section>
                         </div>
 
-                        @if (ViewData.ModelState.IsValid)
-                        {
+                        @{
+                    if (Model.ErrorMessage != null)
+                    {
+                        <p class="error-message">@Model.ErrorMessage</p>
+                    }
+                    else if (Model.SuccessMessage != null)
+                    {
+                        <p class="success-message">@Model.SuccessMessage</p>
                             <div>
-                                <button type="submit" class="btn btn-primary membership-submit register-submit">Next...</button>
+                                <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("ProviderSearch", "Packages")">Back to Manage Packages</a>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="error-message">
-                                <p>@Html.ValidationMessage("ErrorMessage")</p>
-                            </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <button type="submit" class="btn btn-primary membership-submit register-submit">Submit</button>
+                        </div>
+                    }
                         }
                     </fieldset>
                 }

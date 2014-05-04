@@ -94,6 +94,87 @@ namespace GrandeTravel.Site.Controllers
 
         #endregion
 
+        #region Edit Package
+
+        [Authorize(Roles = "Provider")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            int packageId = id.GetValueOrDefault();
+
+            AddPackagesViewModel model = new AddPackagesViewModel();
+
+            Result<Package> packageResult = new Result<Package>();
+            packageResult = packageService.GetPackageById(packageId);
+
+            if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+            {
+                model.PackageId = packageId;
+                model.PackageName = packageResult.Data.Name;
+                model.City = packageResult.Data.City;
+                model.State = packageResult.Data.State;
+                model.Accomodation = packageResult.Data.Accomodation;
+                model.Price = packageResult.Data.Price;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Provider")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Edit(AddPackagesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Result<Package> packageResult = new Result<Package>();
+                packageResult = packageService.GetPackageById(model.PackageId);
+
+                Package package = new Package();
+
+                if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+                {
+                    package = packageResult.Data;
+
+                    package.City = model.City;
+                    package.State = model.State;
+                    package.Accomodation = model.Accomodation;
+                    package.Price = model.Price;
+                }
+                else
+                {
+                    model.ErrorMessage = "Unable to edit the package.";
+                    return View(model);
+                }
+                
+                ResultEnum result = packageService.UpdatePackage(package);
+
+                if (result == ResultEnum.Success)
+                {
+                    model.SuccessMessage = "Package successfully edited.";
+                }
+                else
+                {
+                    model.ErrorMessage = "Unable to edit the package.";
+                }
+
+                return View(model);
+            }
+
+            model.ErrorMessage = "Unable to edit the package.";
+            return View(model);
+        }
+
+        #endregion
+
         #region Search Packages For Customer
 
         [AllowAnonymous]
@@ -200,7 +281,6 @@ namespace GrandeTravel.Site.Controllers
         #region Discontinue Package
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Provider")]
         public JsonResult Discontinue(int? id)
         {

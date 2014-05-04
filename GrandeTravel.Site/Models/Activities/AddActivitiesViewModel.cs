@@ -8,13 +8,12 @@ namespace GrandeTravel.Site.Models
 {
     public class AddActivitiesViewModel
     {
-        [Required]
         public int PackageId { get; set; }
 
-        [Required]
         public string PackageName { get; set; }
 
-        [Required]
+        public int ActivityId { get; set; }
+
         public int ActivityNumber { get; set; }
 
         [Required]

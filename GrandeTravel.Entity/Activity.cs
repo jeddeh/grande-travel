@@ -17,6 +17,7 @@ namespace GrandeTravel.Entity
         [Required]
         [MaxLength(50)]
         [DataType(DataType.Text)]
+        [Index("ActivityNameIndex", IsUnique = true)]
         public string Name { get; set; }
 
         [Required]

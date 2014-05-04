@@ -12,7 +12,7 @@ namespace GrandeTravel.Manager
     {
         Package Create(Package package);
         IEnumerable<Package> Get(Func<Package, bool> predicate);
-        IEnumerable<Package> GetObjectGraph(Func<Entity.Package, bool> predicate, string children);
+        IEnumerable<Package> GetWithActivities(Func<Entity.Package, bool> predicate, string children);
         Package GetById(int id);
         void Update(Package package);
         void Delete(Package package);

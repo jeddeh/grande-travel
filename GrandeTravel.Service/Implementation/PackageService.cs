@@ -44,15 +44,31 @@ namespace GrandeTravel.Service.Implementation
 
         #endregion
 
+        #region Update Package
+
+        public ResultEnum UpdatePackage(Package package)
+        {
+            try
+            {
+                manager.Update(package);
+                return ResultEnum.Success;
+            }
+            catch
+            {
+                return ResultEnum.Fail;
+            }
+        }
+
+        #endregion
+
         #region Get Package By Id
 
         public Result<Package> GetPackageById(int id)
         {
             Result<Package> result = new Result<Package>();
-
             try
             {
-                result.Data = manager.GetById(id);
+                result.Data = manager.GetWithActivities((p => p.PackageId == id), "Activities").First();
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)
@@ -101,7 +117,7 @@ namespace GrandeTravel.Service.Implementation
 
             try
             {
-                result.Data = manager.GetObjectGraph(p => p.TravelUserId == providerId, "Activities")
+                result.Data = manager.GetWithActivities(p => p.TravelUserId == providerId, "Activities")
                 .AsEnumerable<Package>();
 
                 result.Status = ResultEnum.Success;

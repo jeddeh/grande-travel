@@ -19,6 +19,7 @@ namespace GrandeTravel.Entity
         [Required]
         [DataType(DataType.Text)]
         [MaxLength(50)]
+        [Index("PackageNameIndex", IsUnique=true)]
         public string Name { get; set; }
 
         [Required]

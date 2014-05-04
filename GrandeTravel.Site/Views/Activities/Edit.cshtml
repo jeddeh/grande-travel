@@ -4,7 +4,7 @@
 @using GrandeTravel.Entity.Enums
 
 @{
-    ViewBag.Title = "Add Activity";
+    ViewBag.Title = "Edit Activity";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
 }
@@ -23,32 +23,26 @@
                     @Html.AntiForgeryToken()
 
                     <fieldset>
-                        <legend>Add Activity</legend>
+                        <legend>Edit Activity</legend>
 
                         <div class="row">
                             <section class="col-md-3"></section>
                             <section class="col-md-6">
                                 <header class="register-header">
                                     <div class="header">
-                                        <h4>Add an Activity</h4>
+                                        <h4>Edit Activity</h4>
                                     </div>
                                 </header>
 
                                 <div>
                                     <br />
-
-                                    <p class="label-blue">Adding Activity Number @Model.ActivityNumber to @Model.PackageName.</p>
-
-                                    @if (Model.ActivityNumber == 1)
-                                    {
-                                        <p class="label-blue">You must add at least one activity for your package to be displayed on Grande Travel.</p>
-                                    }
+                                    <p class="label-blue">Editing Activity from @Model.PackageName.</p>
                                 </div>
 
                                 <div>
+                                    @Html.HiddenFor(model => model.ActivityId)
                                     @Html.HiddenFor(model => model.PackageId)
                                     @Html.HiddenFor(model => model.PackageName)
-                                    @Html.HiddenFor(model => model.ActivityNumber)
                                 </div>
 
                                 <div class="form-group">
@@ -77,10 +71,6 @@
                     {
                         <p class="success-message">@Model.SuccessMessage</p>
                             <div>
-                                @if (Model.ActivityNumber < 3)
-                                {
-                                    <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("Add", "Activities", new { packageId = Model.PackageId })">Add Another Activity</a>
-                                }
                                 <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("ProviderSearch", "Packages")">Back to Manage Packages</a>
                             </div>
                     }

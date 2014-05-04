@@ -14,5 +14,6 @@ namespace GrandeTravel.Service
         Result<IEnumerable<Package>> GetPackagesByProviderId(int providerId);
         ResultEnum DiscontinuePackage(int packageId);
         Result<Package> AddPackage(Package package);
+        ResultEnum UpdatePackage(Package package);
     }
 }

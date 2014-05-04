@@ -24,7 +24,11 @@ body
 }
 
 .label-blue {
-    color:#32c9fa;
+    color: #32c9fa;
+}
+
+.success-message {
+    color: #55f714;
 }
 
 @media (min-width: 850px)

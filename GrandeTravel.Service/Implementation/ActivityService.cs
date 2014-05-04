@@ -83,5 +83,22 @@ namespace GrandeTravel.Service.Implementation
         }
 
         #endregion
+
+        #region Update Activity
+
+        public ResultEnum UpdateActivity(Activity activity)
+        {
+            try
+            {
+                manager.Update(activity);
+                return ResultEnum.Success;
+            }
+            catch
+            {
+                return ResultEnum.Fail;
+            }
+        }
+
+        #endregion
     }
 }

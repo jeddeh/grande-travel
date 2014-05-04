@@ -317,6 +317,8 @@
     <Content Include="Scripts\typeahead-v0.10.2.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\Site\theme.js" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

@@ -32,9 +32,10 @@ namespace GrandeTravel.Site.Controllers
             IPackageManager packageManager = ManagerFactory.GetPackageManager(packageRepository);
             this.packageService = ServiceFactory.GetPackageService(packageManager);
         }
+
         #region Add Activity
 
-        [Authorize (Roles = "Provider")]
+        [Authorize(Roles = "Provider")]
         public ActionResult Add(int packageId)
         {
             Result<Package> result = new Result<Package>();
@@ -42,7 +43,7 @@ namespace GrandeTravel.Site.Controllers
 
             AddActivitiesViewModel model = new AddActivitiesViewModel();
 
-            if (result.Status == ResultEnum.Success)
+            if (result.Status == ResultEnum.Success && result.Data.Activities.Count < 3)
             {
                 model.PackageId = result.Data.PackageId;
                 model.PackageName = result.Data.Name;
@@ -56,31 +57,122 @@ namespace GrandeTravel.Site.Controllers
             return View(model);
         }
 
-        [Authorize (Roles = "Provider")]
+        [Authorize(Roles = "Provider")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Add(AddActivitiesViewModel model)
         {
-            Activity activity = new Activity()
+            if (ModelState.IsValid)
             {
-                Name = model.ActivityName,
-                Description = model.Description,
-                Address = model.Address,
-                Status = PackageStatusEnum.Available,
-                PackageId = model.PackageId
-            };
+                Activity activity = new Activity()
+                {
+                    Name = model.ActivityName,
+                    Description = model.Description,
+                    Address = model.Address,
+                    Status = PackageStatusEnum.Available,
+                    PackageId = model.PackageId
+                };
 
-            ResultEnum result = activityService.AddActivity(activity);
+                ResultEnum result = activityService.AddActivity(activity);
 
-            if (result == ResultEnum.Success)
+                if (result == ResultEnum.Success)
+                {
+                    model.SuccessMessage = "The activity has been added to your package.";
+                }
+                else
+                {
+                    model.ErrorMessage = "Unable to add the activity to the package.";
+                }
+
+                return View(model);
+            }
+
+            model.ErrorMessage = "Unable to add the activity to the package.";
+            return View(model);
+        }
+
+        #endregion
+
+        #region Edit Activity
+
+        [Authorize(Roles = "Provider")]
+        public ActionResult Edit(int? id, int? pId)
+        {
+            if (id == null || pId == null)
             {
-                model.SuccessMessage = "The activity has been added to your package.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            int activityId = id.GetValueOrDefault();
+            int packageId = pId.GetValueOrDefault();
+
+            AddActivitiesViewModel model = new AddActivitiesViewModel();
+            
+            // Get name of package
+            Result<Package> packageResult = new Result<Package>();
+            packageResult = packageService.GetPackageById(packageId);
+
+            if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+            {
+                model.PackageId = packageId;
+                model.PackageName = packageResult.Data.Name;
             }
             else
             {
-                model.ErrorMessage = "Unable to add the activity to the package.";
+                return RedirectToAction("Index", "Home");
             }
 
+            // Get activity details
+            Result<Activity> activityResult = new Result<Activity>();
+            activityResult = activityService.GetActivityById(activityId);
+
+            if (activityResult.Status == ResultEnum.Success && activityResult.Data.Status == PackageStatusEnum.Available)
+            {
+                model.ActivityName = activityResult.Data.Name;
+                model.Address = activityResult.Data.Address;
+                model.Description = activityResult.Data.Description;
+                model.ActivityId = activityResult.Data.ActivityId;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Provider")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Edit(AddActivitiesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Activity activity = new Activity()
+                {
+                    ActivityId = model.ActivityId,
+                    Name = model.ActivityName,
+                    Description = model.Description,
+                    Address = model.Address,
+                    Status = PackageStatusEnum.Available,
+                    PackageId = model.PackageId
+                };
+
+                ResultEnum result = activityService.UpdateActivity(activity);
+
+                if (result == ResultEnum.Success)
+                {
+                    model.SuccessMessage = "Activity successfully edited.";
+                }
+                else
+                {
+                    model.ErrorMessage = "Unable to edit the activity.";
+                }
+
+                return View(model);
+            }
+
+            model.ErrorMessage = "Unable to edit the activity.";
             return View(model);
         }
 
@@ -119,5 +211,5 @@ namespace GrandeTravel.Site.Controllers
         }
 
         #endregion
-	}
+    }
 }

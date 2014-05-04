@@ -9,6 +9,8 @@ namespace GrandeTravel.Site.Models.Packages
 {
     public class AddPackagesViewModel
     {
+        public int PackageId { get; set; }
+
         [Required]
         [MaxLength(50)]
         [Display(Name = "Package Name", Prompt = "Package Name")]
@@ -39,5 +41,9 @@ namespace GrandeTravel.Site.Models.Packages
         [Display(Name = "Price", Prompt = "Price")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+
+        public string SuccessMessage { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }
