@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GrandeTravel.Manager;
 using GrandeTravel.Service.Implementation;
+using GrandeTravel.Entity;
 
 namespace GrandeTravel.Service
 {
@@ -15,12 +16,12 @@ namespace GrandeTravel.Service
             return new PackageService(manager);
         }
 
-        public static IApplicationUserService GetApplicationUserService(IApplicationUserManager manager)
+        public static IApplicationUserService GetApplicationUserService(IManager<ApplicationUser> manager)
         {
             return new ApplicationUserService(manager);
         }
 
-        public static IActivityService GetActivityService(IActivityManager manager)
+        public static IActivityService GetActivityService(IManager<Activity> manager)
         {
             return new ActivityService(manager);
         }

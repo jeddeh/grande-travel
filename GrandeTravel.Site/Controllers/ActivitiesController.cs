@@ -25,11 +25,11 @@ namespace GrandeTravel.Site.Controllers
             IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DefaultConnection");
 
             IRepository<Activity> activityRepository = RepositoryFactory.GetRepository<Activity>(unitOfWork);
-            IActivityManager activityManager = ManagerFactory.GetActivityManager(activityRepository);
+            IManager<Activity> activityManager = ManagerFactory.GetManager(activityRepository);
             this.activityService = ServiceFactory.GetActivityService(activityManager);
 
             IRepository<Package> packageRepository = RepositoryFactory.GetRepository<Package>(unitOfWork);
-            IPackageManager packageManager = ManagerFactory.GetPackageManager(packageRepository);
+            IManager<Package> packageManager = ManagerFactory.GetManager(packageRepository);
             this.packageService = ServiceFactory.GetPackageService(packageManager);
         }
 

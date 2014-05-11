@@ -13,10 +13,10 @@ namespace GrandeTravel.Service.Implementation
     internal class PackageService : IPackageService
     {
         // Fields
-        private IPackageManager manager;
+        private IManager<Package> manager;
 
         // Constructors
-        public PackageService(IPackageManager manager)
+        public PackageService(IManager<Package> manager)
         {
             this.manager = manager;
         }

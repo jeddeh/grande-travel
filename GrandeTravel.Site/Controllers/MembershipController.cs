@@ -29,9 +29,9 @@ namespace GrandeTravel.Site.Controllers
 
             IRepository<ApplicationUser> repository = RepositoryFactory.GetRepository<ApplicationUser>(unitOfWork);
 
-            IApplicationUserManager ApplicationUserManager = ManagerFactory.GetApplicationUserManager(repository);
+            IManager<ApplicationUser> applicationUserManager = ManagerFactory.GetManager(repository);
 
-            this.userService = ServiceFactory.GetApplicationUserService(ApplicationUserManager);
+            this.userService = ServiceFactory.GetApplicationUserService(applicationUserManager);
         }
 
         // Methods

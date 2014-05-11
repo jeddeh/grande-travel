@@ -11,10 +11,10 @@ namespace GrandeTravel.Service.Implementation
     internal class ApplicationUserService : IApplicationUserService
     {
         // Fields
-        private IApplicationUserManager manager;
+        private IManager<ApplicationUser> manager;
 
         // Constructors
-        public ApplicationUserService(IApplicationUserManager manager)
+        public ApplicationUserService(IManager<ApplicationUser> manager)
         {
             this.manager = manager;
         }

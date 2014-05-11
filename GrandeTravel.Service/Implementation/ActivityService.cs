@@ -13,10 +13,10 @@ namespace GrandeTravel.Service.Implementation
     internal class ActivityService : IActivityService
     {
         // Fields
-        private IActivityManager manager;
+        private IManager<Activity> manager;
 
         // Constructors
-        public ActivityService(IActivityManager manager)
+        public ActivityService(IManager<Activity> manager)
         {
             this.manager = manager;
         }

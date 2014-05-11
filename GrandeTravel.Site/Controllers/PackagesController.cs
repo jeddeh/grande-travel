@@ -32,7 +32,7 @@ namespace GrandeTravel.Site.Controllers
 
             IRepository<Package> repository = RepositoryFactory.GetRepository<Package>(unitOfWork);
 
-            IPackageManager packageManager = ManagerFactory.GetPackageManager(repository);
+            IManager<Package> packageManager = ManagerFactory.GetManager(repository);
 
             this.packageService = ServiceFactory.GetPackageService(packageManager);
         }
