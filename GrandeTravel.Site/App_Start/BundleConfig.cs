@@ -11,7 +11,7 @@ namespace GrandeTravel.Site
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include( 
                     "~/Scripts/jquery-ui-{version}.js",
                     "~/Scripts/jquery-ui.unobtrusive-{version}.js"));
 
