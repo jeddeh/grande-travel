@@ -14,9 +14,6 @@ namespace GrandeTravel.Site
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Attribute Routing
-            routes.MapMvcAttributeRoutes();
-
             // Configuration Routing
             routes.MapRoute(
                name: "Default",

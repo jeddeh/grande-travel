@@ -201,7 +201,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    State = AustralianStateEnum.NSW,
             //    //    Accomodation = "2 nights at the Grace Hotel, Sydney",
             //    //    Price = 400.00m,
-            //    //    ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
+            //    //    ImageUrl = @"../../Images/Packages/OperaOnSydneyHarbour.jpg",
             //    //    ApplicationUserId = ApplicationUserId1,
             //    //    Status = PackageStatus.Available },
 
@@ -215,7 +215,7 @@ namespace GrandeTravel.Data.Migrations
             //        State = AustralianStateEnum.VIC,
             //        Accomodation = "3 nights at the Hotel Windsor, Melbourne",
             //        Price = 300.00m,
-            //        ImageUrl = @"../../Images/Package/MelbourneFoodAndWine.jpg",
+            //        ImageUrl = @"../../Images/Packages/MelbourneFoodAndWine.jpg",
             //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
@@ -229,7 +229,7 @@ namespace GrandeTravel.Data.Migrations
             //        State = AustralianStateEnum.ACT,
             //        Accomodation = "2 nights at the Old Canberra Inn, Canberra",
             //        Price = 350.00m,
-            //        ImageUrl = @"../../Images/Package/Ballooning.jpg",
+            //        ImageUrl = @"../../Images/Packages/Ballooning.jpg",
             //        ApplicationUserId = ApplicationUserId2,
             //        Status = PackageStatus.Available },
 
@@ -243,7 +243,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    State = AustralianStateEnum.SA,
             //    //    Accomodation = "4 nights at the Majestic Roof Garden Hotel, Adelaide",
             //    //    Price = 500.00m,
-            //    //    ImageUrl = @"../../Images/Package/Womadelaide.jpg",
+            //    //    ImageUrl = @"../../Images/Packages/Womadelaide.jpg",
             //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
@@ -255,7 +255,7 @@ namespace GrandeTravel.Data.Migrations
             //        State = AustralianStateEnum.VIC,
             //        Accomodation = "3 nights at the Swanston Hotel, Melbourne",
             //        Price = 400.00m,
-            //        ImageUrl = @"../../Images/Package/AustralianGrandPrix.jpg",
+            //        ImageUrl = @"../../Images/Packages/AustralianGrandPrix.jpg",
             //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Discontinued },
 
@@ -267,7 +267,7 @@ namespace GrandeTravel.Data.Migrations
             //        State = AustralianStateEnum.WA,
             //        Accomodation = "3 nights at the Mosman Park, Cottesloe",
             //        Price = 650.00m,
-            //        ImageUrl = @"../../Images/Package/SculpturesByTheSea.jpg",
+            //        ImageUrl = @"../../Images/Packages/SculpturesByTheSea.jpg",
             //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
@@ -281,7 +281,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    State = AustralianStateEnum.SA,
             //    //    Accomodation = "2 nights at The Hilton, Adelaide",
             //    //    Price = 400.00m,
-            //    //    ImageUrl = @"../../Images/Package/AdelaideFestival.jpg",
+            //    //    ImageUrl = @"../../Images/Packages/AdelaideFestival.jpg",
             //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
@@ -295,7 +295,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    State = AustralianStateEnum.SA,
             //    //    Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
             //    //    Price = 500.00m,
-            //    //    ImageUrl = @"../../Images/Package/Clipsal500.jpg",
+            //    //    ImageUrl = @"../../Images/Packages/Clipsal500.jpg",
             //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
@@ -307,7 +307,7 @@ namespace GrandeTravel.Data.Migrations
             //        State = AustralianStateEnum.WA,
             //        Accomodation = "3 nights at the McLarty Ranges Inn, Talbot Bay",
             //        Price = 400.00m,
-            //        ImageUrl = @"../../Images/Package/TalbotBay.jpg",
+            //        ImageUrl = @"../../Images/Packages/TalbotBay.jpg",
             //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
@@ -321,7 +321,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    State = AustralianStateEnum.NSW,
             //    //    Accomodation = "1 night at the Sebel Townhouse, Sydney",
             //    //    Price = 400.00m,
-            //    //    ImageUrl = @"../../Images/Package/RoyalEasterShow.jpg",
+            //    //    ImageUrl = @"../../Images/Packages/RoyalEasterShow.jpg",
             //    //    ApplicationUserId = ApplicationUserId1,
             //    //    Status = PackageStatus.Available },
             //};
@@ -343,7 +343,7 @@ namespace GrandeTravel.Data.Migrations
                     State = AustralianStateEnum.NSW,
                     Accomodation = "2 nights at the Grace Hotel, Sydney",
                     Price = 400.00m,
-                    ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
+                    ImageUrl = @"../../Images/Packages/OperaOnSydneyHarbour.jpg",
                     ApplicationUserId = ApplicationUserId4,
                     Status = PackageStatusEnum.Available,
 
@@ -370,7 +370,7 @@ namespace GrandeTravel.Data.Migrations
                     State = AustralianStateEnum.SA,
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
                     Price = 900.00m,
-                    ImageUrl = @"../../Images/Package/AdelaideFestival.jpg",
+                    ImageUrl = @"../../Images/Packages/AdelaideFestival.jpg",
                     ApplicationUserId = ApplicationUserId4,
                     Status = PackageStatusEnum.Available,
 

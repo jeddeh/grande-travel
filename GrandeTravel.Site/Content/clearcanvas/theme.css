@@ -1,4 +1,3 @@
-/*Alterations*/
 .login-row {
     background-color: #fff;
 }
@@ -91,9 +90,6 @@ textarea {
 body.pull_top {
     padding-top: 0px !important;
 }
-
-/*header {
-  background: rgba(0, 0, 0, 0.6) !important; }*/
 
 /* Navbar
 -------------------------------------------------- */
@@ -227,14 +223,10 @@ body.pull_top {
 #footer {
     border-top: 1px solid #585858;
     min-height: 260px;
-    /*margin-top: 140px;*/
     background-color: #252528;
     color: #fff;
     padding-top: 100px;
-    /* testimonials */
-    /* contact */
-    /* credits */
-    /* inner footer */
+
 }
 
     #footer .footer_header {

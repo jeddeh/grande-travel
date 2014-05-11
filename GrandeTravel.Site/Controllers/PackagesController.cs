@@ -87,7 +87,7 @@ namespace GrandeTravel.Site.Controllers
                     return View(model);
                 }
 
-                string uploadDir = @"~/Images/Package";
+                string uploadDir = @"~/Images/Packages";
                 string imagePath = Path.Combine(Server.MapPath(uploadDir), model.ImageUpload.FileName);
                 string imageUrl = Path.Combine(uploadDir, model.ImageUpload.FileName);
                 model.ImageUpload.SaveAs(imagePath);
