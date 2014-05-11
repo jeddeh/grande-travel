@@ -1,19 +1,15 @@
 namespace GrandeTravel.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     using GrandeTravel.Entity;
     using GrandeTravel.Entity.Enums;
 
-    using WebMatrix.Data;
-    using WebMatrix.WebData;
-    using System.Web.Security;
     using System.Collections.Generic;
+    using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
     using System.Diagnostics;
+    using System.Linq;
+    using System.Web.Security;
+    using WebMatrix.WebData;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GrandeTravel.Data.ApplicationDbContext>
     {

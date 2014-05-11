@@ -40,14 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IActivityManager.cs" />
     <Compile Include="IManager.cs" />
-    <Compile Include="Implementation\ActivityManager.cs" />
     <Compile Include="Implementation\Manager.cs" />
-    <Compile Include="IPackageManager.cs" />
-    <Compile Include="IApplicationUserManager.cs" />
-    <Compile Include="Implementation\PackageManager.cs" />
-    <Compile Include="Implementation\ApplicationUserManager.cs" />
     <Compile Include="ManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

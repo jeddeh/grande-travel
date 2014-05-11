@@ -1,11 +1,8 @@
-﻿using System;
+﻿using GrandeTravel.Data;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
-using GrandeTravel.Data;
-using GrandeTravel.Entity;
 
 namespace GrandeTravel.Manager.Implementation
 {
