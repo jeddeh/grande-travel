@@ -1,10 +1,6 @@
 ﻿@model GrandeTravel.Site.Models.EditUserViewModel
 
-@using GrandeTravel.Site.Helpers
-@using GrandeTravel.Entity.Enums
-
 @{
-
     ViewBag.Title = "My Account";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
@@ -19,7 +15,7 @@
         <div class="row">
 
             <div class="col-md-12 admin-form">
-                @using (Html.BeginForm("Edit", "Membership", FormMethod.Post))
+                @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
@@ -76,45 +72,8 @@
 
                             </section>
 
-                            <section class="col-md-6">
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.FirstName, new { maxlength = 50 })
-                                    @Html.ValidationMessageFor(model => model.FirstName)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.LastName, new { maxlength = 50 })
-                                    @Html.ValidationMessageFor(model => model.LastName)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.Address, new { maxlength = 100 })
-                                    @Html.ValidationMessageFor(model => model.Address)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.City, new { maxlength = 50 })
-                                    @Html.ValidationMessageFor(model => model.City)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.DropDownListFor(model => model.State,
-                                        SelectListItemHelpers.GetEnumSelectListItems<AustralianStateEnum>(),
-                                        new { @class = "form-control" })
-
-                                    @Html.ValidationMessageFor(model => model.State)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.Postcode, new { maxlength = 4 })
-                                    @Html.ValidationMessageFor(model => model.Postcode)
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.Phone, new { maxlength = 15 })
-                                    @Html.ValidationMessageFor(model => model.Phone)
-                                </div>
-                            </section>
+                            @{Html.RenderPartial("_Partial_UserDetails");}
+                           
                         </div>
 
                         <div>

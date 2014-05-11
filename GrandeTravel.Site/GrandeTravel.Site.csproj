@@ -281,8 +281,6 @@
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\flexslider.js" />
-    <Content Include="Scripts\index-slider.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
@@ -302,9 +300,9 @@
     <Content Include="Scripts\Site\locations-search.js" />
     <Content Include="Scripts\typeahead-v0.10.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Scripts\Site\theme.js" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Shared\_Partial_UserDetails.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
