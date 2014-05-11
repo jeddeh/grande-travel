@@ -9,20 +9,20 @@ using GrandeTravel.Entity;
 
 namespace GrandeTravel.Data
 {
-    public class GrandeTravelDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public GrandeTravelDbContext()
+        public ApplicationDbContext()
         {
-            Database.SetInitializer<GrandeTravelDbContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
 
-        public GrandeTravelDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public ApplicationDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
-            Database.SetInitializer<GrandeTravelDbContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
         
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<TravelUser> TravelUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<Activity> Activities { get; set; }
     }

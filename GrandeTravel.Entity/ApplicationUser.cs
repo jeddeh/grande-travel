@@ -10,11 +10,11 @@ using GrandeTravel.Entity.Enums;
 
 namespace GrandeTravel.Entity
 {
-    public class TravelUser
+    public class ApplicationUser
     {
         // Properties
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TravelUserId { get; set; }
+        public int ApplicationUserId { get; set; }
 
         [Required]
         [EmailAddress]
@@ -63,7 +63,7 @@ namespace GrandeTravel.Entity
         public ICollection<Package> Packages { get; set; }
 
         // Constructors
-        public TravelUser()
+        public ApplicationUser()
         {
             Bookings = new List<Booking>();
         }

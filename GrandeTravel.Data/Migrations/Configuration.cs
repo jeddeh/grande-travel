@@ -15,14 +15,14 @@ namespace GrandeTravel.Data.Migrations
     using System.Data.Entity.Validation;
     using System.Diagnostics;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GrandeTravel.Data.GrandeTravelDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GrandeTravel.Data.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(GrandeTravel.Data.GrandeTravelDbContext context)
+        protected override void Seed(GrandeTravel.Data.ApplicationDbContext context)
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
             var roles = (SimpleRoleProvider)Roles.Provider;
@@ -52,10 +52,10 @@ namespace GrandeTravel.Data.Migrations
             WebSecurity.CreateUserAndAccount(adminEmail, "111111");
             int adminId = WebSecurity.GetUserId(adminEmail);
 
-            TravelUser[] admin = new TravelUser[]
+            ApplicationUser[] admin = new ApplicationUser[]
             {
-                new TravelUser {
-                    TravelUserId = adminId,
+                new ApplicationUser {
+                    ApplicationUserId = adminId,
                      FirstName = "Claire",
                      LastName = "Rivera",
                      Address = "201 Walker Street",
@@ -66,7 +66,7 @@ namespace GrandeTravel.Data.Migrations
                     Email = adminEmail }
             };
 
-            context.TravelUsers.AddOrUpdate(admin);
+            context.ApplicationUsers.AddOrUpdate(admin);
             context.SaveChanges();
 
             Roles.AddUserToRole(adminEmail, "Admin");
@@ -75,36 +75,36 @@ namespace GrandeTravel.Data.Migrations
 
             #endregion
 
-            #region TravelUsers
+            #region ApplicationUsers
 
             string email1 = "customer1@sample.com";
             WebSecurity.CreateUserAndAccount(email1, "111111");
-            int travelUserId1 = WebSecurity.GetUserId(email1);
+            int ApplicationUserId1 = WebSecurity.GetUserId(email1);
 
             string email2 = "customer2@sample.com";
             WebSecurity.CreateUserAndAccount(email2, "111111");
-            int travelUserId2 = WebSecurity.GetUserId(email2);
+            int ApplicationUserId2 = WebSecurity.GetUserId(email2);
 
             string email3 = "customer3@sample.com";
             WebSecurity.CreateUserAndAccount(email3, "111111");
-            int travelUserId3 = WebSecurity.GetUserId(email3);
+            int ApplicationUserId3 = WebSecurity.GetUserId(email3);
 
             string email4 = "provider1@sample.com";
             WebSecurity.CreateUserAndAccount(email4, "111111");
-            int travelUserId4 = WebSecurity.GetUserId(email4);
+            int ApplicationUserId4 = WebSecurity.GetUserId(email4);
 
             string email5 = "provider2@sample.com";
             WebSecurity.CreateUserAndAccount(email5, "111111");
-            int travelUserId5 = WebSecurity.GetUserId(email5);
+            int ApplicationUserId5 = WebSecurity.GetUserId(email5);
 
             string email6 = "provider3@sample.com";
             WebSecurity.CreateUserAndAccount(email6, "111111");
-            int travelUserId6 = WebSecurity.GetUserId(email6);
+            int ApplicationUserId6 = WebSecurity.GetUserId(email6);
 
-            TravelUser[] travelUsers = new TravelUser[]
+            ApplicationUser[] ApplicationUsers = new ApplicationUser[]
             {
-                new TravelUser {
-                    TravelUserId = travelUserId1,
+                new ApplicationUser {
+                    ApplicationUserId = ApplicationUserId1,
                      FirstName = "John",
                      LastName = "Stanton",
                      Address = "5 Short Street, Petersham",
@@ -114,8 +114,8 @@ namespace GrandeTravel.Data.Migrations
                      Phone = "0401 605 650",
                      Email = email1 },
 
-                new TravelUser { 
-                    TravelUserId = travelUserId2,
+                new ApplicationUser { 
+                    ApplicationUserId = ApplicationUserId2,
                     FirstName = "Bridget",
                     LastName = "Jones",
                     Address = "6/10 Smith Street",
@@ -125,8 +125,8 @@ namespace GrandeTravel.Data.Migrations
                     Phone = "0403 605 650",
                     Email = email2 },
 
-                new TravelUser { 
-                    TravelUserId = travelUserId3,
+                new ApplicationUser { 
+                    ApplicationUserId = ApplicationUserId3,
                     FirstName = "Chris",
                     LastName = "Nguyen",
                     Address = "101 Harry's Place",
@@ -136,8 +136,8 @@ namespace GrandeTravel.Data.Migrations
                     Phone = "0401 605 651",
                     Email = email3 },
 
-               new TravelUser {
-                    TravelUserId = travelUserId4,
+               new ApplicationUser {
+                    ApplicationUserId = ApplicationUserId4,
                     FirstName = "Peter",
                     LastName = "Montgomery",
                     Address = "158 Walker Street",
@@ -147,8 +147,8 @@ namespace GrandeTravel.Data.Migrations
                     Phone = "0403 605 650",
                     Email = email4 },
 
-                new TravelUser { 
-                    TravelUserId = travelUserId5,
+                new ApplicationUser { 
+                    ApplicationUserId = ApplicationUserId5,
                     FirstName = "Julius",
                     LastName = "Dutton",
                     Address = "158 Georges Terrace",
@@ -158,8 +158,8 @@ namespace GrandeTravel.Data.Migrations
                     Phone = "0403 605 650",
                     Email = email5 },
 
-                new TravelUser { 
-                    TravelUserId = travelUserId6,
+                new ApplicationUser { 
+                    ApplicationUserId = ApplicationUserId6,
                     FirstName = "Mary",
                     LastName = "Poulson",
                     Address = "101 Jareys Close",
@@ -172,7 +172,7 @@ namespace GrandeTravel.Data.Migrations
 
             try
             {
-                context.TravelUsers.AddOrUpdate(travelUsers);
+                context.ApplicationUsers.AddOrUpdate(ApplicationUsers);
                 context.SaveChanges();
             }
             catch (DbEntityValidationException e)
@@ -206,7 +206,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    Accomodation = "2 nights at the Grace Hotel, Sydney",
             //    //    Price = 400.00m,
             //    //    ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
-            //    //    TravelUserId = travelUserId1,
+            //    //    ApplicationUserId = ApplicationUserId1,
             //    //    Status = PackageStatus.Available },
 
             //    new Activity {
@@ -220,7 +220,7 @@ namespace GrandeTravel.Data.Migrations
             //        Accomodation = "3 nights at the Hotel Windsor, Melbourne",
             //        Price = 300.00m,
             //        ImageUrl = @"../../Images/Package/MelbourneFoodAndWine.jpg",
-            //        TravelUserId = travelUserId1,
+            //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
             //    new Activity {
@@ -234,7 +234,7 @@ namespace GrandeTravel.Data.Migrations
             //        Accomodation = "2 nights at the Old Canberra Inn, Canberra",
             //        Price = 350.00m,
             //        ImageUrl = @"../../Images/Package/Ballooning.jpg",
-            //        TravelUserId = travelUserId2,
+            //        ApplicationUserId = ApplicationUserId2,
             //        Status = PackageStatus.Available },
 
             //    //new Activity {
@@ -248,7 +248,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    Accomodation = "4 nights at the Majestic Roof Garden Hotel, Adelaide",
             //    //    Price = 500.00m,
             //    //    ImageUrl = @"../../Images/Package/Womadelaide.jpg",
-            //    //    TravelUserId = travelUserId2,
+            //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
             //    new Activity {
@@ -260,7 +260,7 @@ namespace GrandeTravel.Data.Migrations
             //        Accomodation = "3 nights at the Swanston Hotel, Melbourne",
             //        Price = 400.00m,
             //        ImageUrl = @"../../Images/Package/AustralianGrandPrix.jpg",
-            //        TravelUserId = travelUserId1,
+            //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Discontinued },
 
             //    new Activity {
@@ -272,7 +272,7 @@ namespace GrandeTravel.Data.Migrations
             //        Accomodation = "3 nights at the Mosman Park, Cottesloe",
             //        Price = 650.00m,
             //        ImageUrl = @"../../Images/Package/SculpturesByTheSea.jpg",
-            //        TravelUserId = travelUserId1,
+            //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
             //    //new Activity {
@@ -286,7 +286,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    Accomodation = "2 nights at The Hilton, Adelaide",
             //    //    Price = 400.00m,
             //    //    ImageUrl = @"../../Images/Package/AdelaideFestival.jpg",
-            //    //    TravelUserId = travelUserId2,
+            //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
             //    //new Activity {
@@ -300,7 +300,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
             //    //    Price = 500.00m,
             //    //    ImageUrl = @"../../Images/Package/Clipsal500.jpg",
-            //    //    TravelUserId = travelUserId2,
+            //    //    ApplicationUserId = ApplicationUserId2,
             //    //    Status = PackageStatus.Available },
 
             //    new Activity {
@@ -312,7 +312,7 @@ namespace GrandeTravel.Data.Migrations
             //        Accomodation = "3 nights at the McLarty Ranges Inn, Talbot Bay",
             //        Price = 400.00m,
             //        ImageUrl = @"../../Images/Package/TalbotBay.jpg",
-            //        TravelUserId = travelUserId1,
+            //        ApplicationUserId = ApplicationUserId1,
             //        Status = PackageStatus.Available },
 
             //    //new Activity {
@@ -326,7 +326,7 @@ namespace GrandeTravel.Data.Migrations
             //    //    Accomodation = "1 night at the Sebel Townhouse, Sydney",
             //    //    Price = 400.00m,
             //    //    ImageUrl = @"../../Images/Package/RoyalEasterShow.jpg",
-            //    //    TravelUserId = travelUserId1,
+            //    //    ApplicationUserId = ApplicationUserId1,
             //    //    Status = PackageStatus.Available },
             //};
 
@@ -348,7 +348,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "2 nights at the Grace Hotel, Sydney",
                     Price = 400.00m,
                     ImageUrl = @"../../Images/Package/OperaOnSydneyHarbour.jpg",
-                    TravelUserId = travelUserId4,
+                    ApplicationUserId = ApplicationUserId4,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
@@ -375,7 +375,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
                     Price = 900.00m,
                     ImageUrl = @"../../Images/Package/AdelaideFestival.jpg",
-                    TravelUserId = travelUserId4,
+                    ApplicationUserId = ApplicationUserId4,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {

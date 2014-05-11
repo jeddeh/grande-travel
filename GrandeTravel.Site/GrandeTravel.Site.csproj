@@ -162,16 +162,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\SelectListItemHelpers.cs" />
-    <Compile Include="Mappers\PackageMapper.cs" />
-    <Compile Include="Mappers\TravelUserMapper.cs" />
-    <Compile Include="Models\Activities\AddActivitiesViewModel.cs" />
+    <Compile Include="Helpers\Mappers\PackageMapper.cs" />
+    <Compile Include="Helpers\Mappers\ApplicationUserMapper.cs" />
+    <Compile Include="Models\Activities\ActivitiesViewModel.cs" />
     <Compile Include="Models\Membership\EditUserViewModel.cs" />
     <Compile Include="Models\Membership\RegisterUserViewModel.cs" />
     <Compile Include="Models\Membership\LoginViewModel.cs" />
     <Compile Include="Models\Membership\MembershipViewModel.cs" />
-    <Compile Include="Models\Packages\AddPackagesViewModel.cs" />
+    <Compile Include="Models\Packages\PackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

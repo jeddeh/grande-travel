@@ -50,8 +50,8 @@ namespace GrandeTravel.Entity
 
         public ICollection<Booking> Bookings { get; set; }
 
-        public int TravelUserId { get; set; }
-        public virtual TravelUser TravelUser { get; set; }
+        public int ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<Activity> Activities { get; set; }
 

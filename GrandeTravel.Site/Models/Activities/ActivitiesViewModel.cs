@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GrandeTravel.Site.Models
 {
-    public class AddActivitiesViewModel
+    public class ActivitiesViewModel
     {
         public int PackageId { get; set; }
 

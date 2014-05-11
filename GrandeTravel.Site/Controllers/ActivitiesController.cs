@@ -41,7 +41,7 @@ namespace GrandeTravel.Site.Controllers
             Result<Package> result = new Result<Package>();
             result = packageService.GetPackageById(packageId);
 
-            AddActivitiesViewModel model = new AddActivitiesViewModel();
+            ActivitiesViewModel model = new ActivitiesViewModel();
 
             if (result.Status == ResultEnum.Success && result.Data.Activities.Count < 3)
             {
@@ -60,7 +60,7 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "Provider")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Add(AddActivitiesViewModel model)
+        public ActionResult Add(ActivitiesViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace GrandeTravel.Site.Controllers
             int activityId = id.GetValueOrDefault();
             int packageId = pId.GetValueOrDefault();
 
-            AddActivitiesViewModel model = new AddActivitiesViewModel();
+            ActivitiesViewModel model = new ActivitiesViewModel();
             
             // Get name of package
             Result<Package> packageResult = new Result<Package>();
@@ -144,7 +144,7 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "Provider")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Edit(AddActivitiesViewModel model)
+        public ActionResult Edit(ActivitiesViewModel model)
         {
             if (ModelState.IsValid)
             {

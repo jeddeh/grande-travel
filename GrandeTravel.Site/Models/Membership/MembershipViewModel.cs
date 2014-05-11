@@ -65,5 +65,7 @@ namespace GrandeTravel.Site.Models
         public string Phone { get; set; }
 
         public bool IsProvider { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

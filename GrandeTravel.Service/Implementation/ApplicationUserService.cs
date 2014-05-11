@@ -8,13 +8,13 @@ using GrandeTravel.Manager;
 
 namespace GrandeTravel.Service.Implementation
 {
-    internal class TravelUserService : ITravelUserService
+    internal class ApplicationUserService : IApplicationUserService
     {
         // Fields
-        private ITravelUserManager manager;
+        private IApplicationUserManager manager;
 
         // Constructors
-        public TravelUserService(ITravelUserManager manager)
+        public ApplicationUserService(IApplicationUserManager manager)
         {
             this.manager = manager;
         }
@@ -23,13 +23,13 @@ namespace GrandeTravel.Service.Implementation
 
         #region Create Travel User
 
-        public ResultEnum CreateTravelUser(TravelUser travelUser)
+        public ResultEnum CreateApplicationUser(ApplicationUser ApplicationUser)
         {
             ResultEnum result;
 
             try
             {
-                manager.Create(travelUser);
+                manager.Create(ApplicationUser);
                 result = ResultEnum.Success;
             }
             catch (Exception)
@@ -44,9 +44,9 @@ namespace GrandeTravel.Service.Implementation
 
         #region Get Travel User By Id
 
-        public Result<TravelUser> GetTravelUserById(int id)
+        public Result<ApplicationUser> GetApplicationUserById(int id)
         {
-            Result<TravelUser> result = new Result<TravelUser>();
+            Result<ApplicationUser> result = new Result<ApplicationUser>();
 
             try
             {
@@ -65,13 +65,13 @@ namespace GrandeTravel.Service.Implementation
 
         #region Update Travel User
 
-        public ResultEnum UpdateTravelUser(TravelUser travelUser)
+        public ResultEnum UpdateApplicationUser(ApplicationUser ApplicationUser)
         {
             ResultEnum result;
 
             try
             {
-                manager.Update(travelUser);
+                manager.Update(ApplicationUser);
                 result = ResultEnum.Success;
             }
             catch (Exception)

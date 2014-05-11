@@ -20,18 +20,18 @@ namespace GrandeTravel.Site.Controllers
     public class MembershipController : Controller
     {
         // Fields
-        private ITravelUserService userService;
+        private IApplicationUserService userService;
 
         // Constructors
         public MembershipController()
         {
             IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DefaultConnection");
 
-            IRepository<TravelUser> repository = RepositoryFactory.GetRepository<TravelUser>(unitOfWork);
+            IRepository<ApplicationUser> repository = RepositoryFactory.GetRepository<ApplicationUser>(unitOfWork);
 
-            ITravelUserManager travelUserManager = ManagerFactory.GetTravelUserManager(repository);
+            IApplicationUserManager ApplicationUserManager = ManagerFactory.GetApplicationUserManager(repository);
 
-            this.userService = ServiceFactory.GetTravelUserService(travelUserManager);
+            this.userService = ServiceFactory.GetApplicationUserService(ApplicationUserManager);
         }
 
         // Methods
@@ -81,20 +81,12 @@ namespace GrandeTravel.Site.Controllers
                     }
 
                     WebSecurity.CreateUserAndAccount(userLogin, model.Password);
-                    TravelUser user = new TravelUser
-                    {
-                        TravelUserId = WebSecurity.GetUserId(userLogin),
-                        Email = userLogin,
-                        Address = model.Address,
-                        City = model.City,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Phone = model.Phone,
-                        Postcode = model.Postcode,
-                        State = model.State
-                    };
 
-                    ResultEnum result = userService.CreateTravelUser(user);
+                    ApplicationUser user = model.ToApplicationUser();
+                    user.ApplicationUserId = WebSecurity.GetUserId(userLogin);
+                    user.Email = userLogin;
+
+                    ResultEnum result = userService.CreateApplicationUser(user);
                     switch (result)
                     {
                         case ResultEnum.Success:
@@ -149,7 +141,7 @@ namespace GrandeTravel.Site.Controllers
             {
                 int userId = WebSecurity.CurrentUserId;
 
-                Result<TravelUser> result = userService.GetTravelUserById(userId);
+                Result<ApplicationUser> result = userService.GetApplicationUserById(userId);
 
                 switch (result.Status)
                 {
@@ -202,20 +194,11 @@ namespace GrandeTravel.Site.Controllers
                         }
                     }
 
-                    TravelUser user = new TravelUser
-                    {
-                        TravelUserId = userId,
-                        Email = userLogin,
-                        Address = model.Address,
-                        City = model.City,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Phone = model.Phone,
-                        Postcode = model.Postcode,
-                        State = model.State
-                    };
+                    ApplicationUser user = model.ToApplicationUser();
+                    user.ApplicationUserId = WebSecurity.GetUserId(userLogin);
+                    user.Email = userLogin;
 
-                    ResultEnum result = userService.UpdateTravelUser(user);
+                    ResultEnum result = userService.UpdateApplicationUser(user);
                     switch (result)
                     {
                         case ResultEnum.Success:

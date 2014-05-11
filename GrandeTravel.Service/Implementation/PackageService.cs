@@ -68,7 +68,7 @@ namespace GrandeTravel.Service.Implementation
             Result<Package> result = new Result<Package>();
             try
             {
-                result.Data = manager.GetWithActivities((p => p.PackageId == id), "Activities").First();
+                result.Data = manager.EagerGet((p => p.PackageId == id), "Activities").First();
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)
@@ -117,7 +117,7 @@ namespace GrandeTravel.Service.Implementation
 
             try
             {
-                result.Data = manager.GetWithActivities(p => p.TravelUserId == providerId, "Activities")
+                result.Data = manager.EagerGet(p => p.ApplicationUserId == providerId, "Activities")
                 .AsEnumerable<Package>();
 
                 result.Status = ResultEnum.Success;

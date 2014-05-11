@@ -30,6 +30,6 @@ namespace GrandeTravel.Entity
         public virtual Package Package { get; set; }
 
         public int CustomerId { get; set; }
-        public virtual TravelUser Customer { get; set; }
+        public virtual ApplicationUser Customer { get; set; }
     }
 }

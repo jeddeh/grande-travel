@@ -9,12 +9,12 @@ namespace GrandeTravel.Data.Implementation.EntityFramework
 {
     internal class UnitOfWork : IUnitOfWork
     {
-        private GrandeTravelDbContext context;
+        private ApplicationDbContext context;
         private DbContextTransaction transaction;
 
         public UnitOfWork(string connectionOrConfig)
         {
-            context = new GrandeTravelDbContext(connectionOrConfig);
+            context = new ApplicationDbContext(connectionOrConfig);
         }
 
         public object Context

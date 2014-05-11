@@ -10,14 +10,14 @@ namespace GrandeTravel.Service
 {
     public static class ServiceFactory
     {
-        public static IPackageService GetPackageService(IPackageManager manager)
+        public static IPackageService GetPackageService(IManager<Package> manager)
         {
             return new PackageService(manager);
         }
 
-        public static ITravelUserService GetTravelUserService(ITravelUserManager manager)
+        public static IApplicationUserService GetApplicationUserService(IApplicationUserManager manager)
         {
-            return new TravelUserService(manager);
+            return new ApplicationUserService(manager);
         }
 
         public static IActivityService GetActivityService(IActivityManager manager)

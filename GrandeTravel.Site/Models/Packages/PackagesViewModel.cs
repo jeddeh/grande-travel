@@ -7,7 +7,7 @@ using GrandeTravel.Entity.Enums;
 
 namespace GrandeTravel.Site.Models.Packages
 {
-    public class AddPackagesViewModel
+    public class PackagesViewModel
     {
         public int PackageId { get; set; }
 

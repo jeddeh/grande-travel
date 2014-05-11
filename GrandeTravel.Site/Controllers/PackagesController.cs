@@ -1,20 +1,21 @@
-﻿using System;
+﻿using GrandeTravel.Data;
+using GrandeTravel.Entity;
+using GrandeTravel.Entity.Enums;
+using GrandeTravel.Manager;
+using GrandeTravel.Service;
+using GrandeTravel.Site.Models;
+using GrandeTravel.Site.Models.Packages;
+using GrandeTravel.Site.Mappers;
+
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
-using GrandeTravel.Entity;
-using GrandeTravel.Site.Models;
 using System.Web.Routing;
-using GrandeTravel.Service;
-using GrandeTravel.Data;
-using GrandeTravel.Manager;
-using GrandeTravel.Site.Models.Packages;
-using GrandeTravel.Entity.Enums;
 using WebMatrix.WebData;
-using System.Drawing;
-using System.IO;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -46,7 +47,7 @@ namespace GrandeTravel.Site.Controllers
             Random random = new Random();
             int randomNumber = random.Next(0, 10000);
 
-            AddPackagesViewModel model = new AddPackagesViewModel
+            PackagesViewModel model = new PackagesViewModel
             {
                 PackageName = "Package " + randomNumber,
                 Price = 900.00m,
@@ -61,7 +62,7 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "Provider")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddPackagesViewModel model)
+        public ActionResult Add(PackagesViewModel model)
         {
             if (model.ImageUpload == null || model.ImageUpload.ContentLength == 0)
             {
@@ -91,17 +92,10 @@ namespace GrandeTravel.Site.Controllers
                 string imageUrl = Path.Combine(uploadDir, model.ImageUpload.FileName);
                 model.ImageUpload.SaveAs(imagePath);
 
-                Package package = new Package
-                {
-                    Accomodation = model.Accomodation,
-                    City = model.City,
-                    ImageUrl = imageUrl,
-                    Name = model.PackageName,
-                    Price = model.Price,
-                    State = model.State,
-                    Status = PackageStatusEnum.Available,
-                    TravelUserId = WebSecurity.CurrentUserId
-                };
+                Package package = model.ToPackage();
+                package.ImageUrl = imageUrl;
+                package.Status = PackageStatusEnum.Available;
+                package.ApplicationUserId = WebSecurity.CurrentUserId;
 
                 Result<Package> result = packageService.AddPackage(package);
 
@@ -136,20 +130,14 @@ namespace GrandeTravel.Site.Controllers
 
             int packageId = id.GetValueOrDefault();
 
-            AddPackagesViewModel model = new AddPackagesViewModel();
+            PackagesViewModel model = new PackagesViewModel();
 
             Result<Package> packageResult = new Result<Package>();
             packageResult = packageService.GetPackageById(packageId);
 
             if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
             {
-                model.PackageId = packageId;
-                model.PackageName = packageResult.Data.Name;
-                model.City = packageResult.Data.City;
-                model.State = packageResult.Data.State;
-                model.Accomodation = packageResult.Data.Accomodation;
-                model.Price = packageResult.Data.Price;
-                model.ImageUrl = packageResult.Data.ImageUrl;
+                model = packageResult.Data.ToPackagesViewModel();
             }
             else
             {
@@ -162,7 +150,7 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "Provider")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Edit(AddPackagesViewModel model)
+        public ActionResult Edit(PackagesViewModel model)
         {
             if (ModelState.IsValid)
             {
