@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Membership
 {
     public class EditUserViewModel : MembershipViewModel
     {
@@ -23,5 +23,11 @@ namespace GrandeTravel.Site.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The Password fields do not match.")]
         public override string ConfirmPassword { get; set; }
+
+        [Required]
+        public bool IsAdminEdit { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GrandeTravel.Entity;
-using GrandeTravel.Site.Models;
+using GrandeTravel.Site.Models.Membership;
 
-namespace GrandeTravel.Site.Mappers
+namespace GrandeTravel.Site.Helpers.Mappers
 {
     public static class ApplicationUserMapper
     {

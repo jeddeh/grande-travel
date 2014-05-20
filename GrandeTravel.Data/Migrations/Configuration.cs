@@ -25,6 +25,11 @@ namespace GrandeTravel.Data.Migrations
 
             #region roles
 
+            if (!roles.RoleExists("ActiveUser"))
+            {
+                roles.CreateRole("ActiveUser");
+            }
+
             if (!roles.RoleExists("Admin"))
             {
                 roles.CreateRole("Admin");
@@ -50,24 +55,25 @@ namespace GrandeTravel.Data.Migrations
 
             ApplicationUser[] admin = new ApplicationUser[]
             {
-                new ApplicationUser {
+                new ApplicationUser 
+                {
                     ApplicationUserId = adminId,
-                     FirstName = "Claire",
-                     LastName = "Rivera",
-                     Address = "201 Walker Street",
-                     City = "Townsville",
-                     Postcode = "4810",
-                     State = AustralianStateEnum.QLD,
+                    FirstName = "Claire",
+                    LastName = "Rivera",
+                    Address = "201 Walker Street",
+                    City = "Townsville",
+                    Postcode = "4810",
+                    State = AustralianStateEnum.QLD,
                     Phone = "0401 605 651",
-                    Email = adminEmail }
+                    Email = adminEmail,
+                }
             };
 
             context.ApplicationUsers.AddOrUpdate(admin);
             context.SaveChanges();
 
             Roles.AddUserToRole(adminEmail, "Admin");
-            //Roles.AddUserToRole(adminEmail, "Provider");
-            //Roles.AddUserToRole(adminEmail, "Customer");
+            Roles.AddUserToRole(adminEmail, "ActiveUser");
 
             #endregion
 
@@ -99,18 +105,21 @@ namespace GrandeTravel.Data.Migrations
 
             ApplicationUser[] ApplicationUsers = new ApplicationUser[]
             {
-                new ApplicationUser {
+                new ApplicationUser 
+                {
                     ApplicationUserId = ApplicationUserId1,
-                     FirstName = "John",
-                     LastName = "Stanton",
-                     Address = "5 Short Street, Petersham",
-                     City = "Sydney",
-                     Postcode = "2049",
-                     State = AustralianStateEnum.NSW,
-                     Phone = "0401 605 650",
-                     Email = email1 },
+                    FirstName = "John",
+                    LastName = "Stanton",
+                    Address = "5 Short Street, Petersham",
+                    City = "Sydney",
+                    Postcode = "2049",
+                    State = AustralianStateEnum.NSW,
+                    Phone = "0401 605 650",
+                    Email = email1,
+                },
 
-                new ApplicationUser { 
+                new ApplicationUser 
+                { 
                     ApplicationUserId = ApplicationUserId2,
                     FirstName = "Bridget",
                     LastName = "Jones",
@@ -119,9 +128,11 @@ namespace GrandeTravel.Data.Migrations
                     Postcode = "3666",
                     State = AustralianStateEnum.VIC,
                     Phone = "0403 605 650",
-                    Email = email2 },
+                    Email = email2,
+                },
 
-                new ApplicationUser { 
+                new ApplicationUser
+                { 
                     ApplicationUserId = ApplicationUserId3,
                     FirstName = "Chris",
                     LastName = "Nguyen",
@@ -130,9 +141,11 @@ namespace GrandeTravel.Data.Migrations
                     Postcode = "7001",
                     State = AustralianStateEnum.TAS,
                     Phone = "0401 605 651",
-                    Email = email3 },
+                    Email = email3,
+                },
 
-               new ApplicationUser {
+               new ApplicationUser 
+               {
                     ApplicationUserId = ApplicationUserId4,
                     FirstName = "Peter",
                     LastName = "Montgomery",
@@ -141,9 +154,11 @@ namespace GrandeTravel.Data.Migrations
                     Postcode = "4810",
                     State = AustralianStateEnum.QLD,
                     Phone = "0403 605 650",
-                    Email = email4 },
+                    Email = email4,
+               },
 
-                new ApplicationUser { 
+                new ApplicationUser
+                { 
                     ApplicationUserId = ApplicationUserId5,
                     FirstName = "Julius",
                     LastName = "Dutton",
@@ -152,7 +167,8 @@ namespace GrandeTravel.Data.Migrations
                     Postcode = "5046",
                     State = AustralianStateEnum.SA,
                     Phone = "0403 605 650",
-                    Email = email5 },
+                    Email = email5,     
+                },
 
                 new ApplicationUser { 
                     ApplicationUserId = ApplicationUserId6,
@@ -163,7 +179,8 @@ namespace GrandeTravel.Data.Migrations
                     Postcode = "7001",
                     State = AustralianStateEnum.TAS,
                     Phone = "0401 605 651",
-                    Email = email6 },
+                    Email = email6,
+                }
             };
 
             try
@@ -182,8 +199,8 @@ namespace GrandeTravel.Data.Migrations
                 }
             }
 
-            Roles.AddUsersToRole(new string[] { email1, email2, email3 }, "Customer");
-            Roles.AddUsersToRole(new string[] { email4, email5, email6 }, "Provider");
+            Roles.AddUsersToRoles(new string[] { email1, email2, email3 }, new string[] { "Customer", "ActiveUser" });
+            Roles.AddUsersToRoles(new string[] { email4, email5, email6 }, new string[] { "Provider", "ActiveUser" });
 
             #endregion
 
@@ -336,8 +353,9 @@ namespace GrandeTravel.Data.Migrations
             List<Package> packageList = new List<Package>();
 
             for (int i = 0; i < 10; i++)
-			{
-                packageList.Add(new Package {
+            {
+                packageList.Add(new Package
+                {
                     Name = "Sydney Package" + i,
                     City = "Sydney",
                     State = AustralianStateEnum.NSW,
@@ -364,7 +382,8 @@ namespace GrandeTravel.Data.Migrations
                     }
                 });
 
-                packageList.Add(new Package {
+                packageList.Add(new Package
+                {
                     Name = "Adelaide Package" + i,
                     City = "Adelaide",
                     State = AustralianStateEnum.SA,

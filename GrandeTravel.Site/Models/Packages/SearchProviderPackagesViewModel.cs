@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using GrandeTravel.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Packages
 {
     public class SearchProviderPackagesViewModel
     {

@@ -1,7 +1,7 @@
-﻿@model GrandeTravel.Site.Models.EditUserViewModel
+﻿@model GrandeTravel.Site.Models.Membership.EditUserViewModel
 
 @{
-    ViewBag.Title = "My Account";
+    ViewBag.Title = "User Account";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
 }
@@ -24,12 +24,23 @@
 
                         <header class="register-header">
                             <div class="header">
-                                <h4>Manage your account</h4>
+
+                                @if (Model.IsAdmin)
+                                {
+                                    <h4>Manage your account</h4>
+                                }
+                                else
+                                {
+                                    <h4>Manage User Account</h4>
+                                }
                             </div>
                         </header>
 
                         <div class="row">
                             <section class="col-md-6">
+
+                                <span>@Html.HiddenFor(model => model.IsAdminEdit)</span>
+                                <span>@Html.HiddenFor(model => model.UserId)</span>
 
                                 <div class="form-group">
                                     @Html.TextBoxFor(model => model.Email, new
@@ -64,16 +75,16 @@
                                 </div>
 
                                 <div class="register-error">
-                                    <p class="error-message">
-                                        @Html.ValidationMessage("ErrorMessage")
-                                        @ViewBag.Message
+                                    <p>
+                                        <span class="error-message">@Html.ValidationMessage("ErrorMessage")</span>
+                                        <span class="success-message">@ViewBag.Message</span>
                                     </p>
                                 </div>
 
                             </section>
 
                             @{Html.RenderPartial("_Partial_UserDetails");}
-                           
+
                         </div>
 
                         <div>

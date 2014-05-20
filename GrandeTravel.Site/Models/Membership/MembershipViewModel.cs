@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Membership
 {
     public abstract class MembershipViewModel
     {

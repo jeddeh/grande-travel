@@ -1,4 +1,4 @@
-﻿@model GrandeTravel.Site.Models.SearchProviderPackagesViewModel
+﻿@model GrandeTravel.Site.Models.Packages.SearchProviderPackagesViewModel
 
 @using GrandeTravel.Entity.Enums
 @using GrandeTravel.Entity
@@ -29,7 +29,7 @@
                     Package package = Model.Packages[i];
                     string packageId = "package" + package.PackageId;
                     string indicatorId = "indicator" + package.PackageId;
-                    string availablePackageId = "availablePackage" + package.PackageId;
+                    string availableId = "availablePackage" + package.PackageId;
 
                     <div class="panel panel-default">
 
@@ -55,7 +55,7 @@
                                 </h4>
                             </div>
 
-                            <div class="col-md-5" id=@availablePackageId>
+                            <div class="col-md-5" id=@availableId>
                                 @{ if (package.Status == PackageStatusEnum.Available)
                                  {
                                     <span><a class="confirm-discontinue-package btn btn-xs btn-success" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Available</a></span>

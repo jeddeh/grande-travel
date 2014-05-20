@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 
 using GrandeTravel.Entity;
-using GrandeTravel.Site.Models;
 using GrandeTravel.Entity.Enums;
 using WebMatrix.WebData;
 using System.Web.Security;
+using GrandeTravel.Site.Models.Membership;
 
 namespace GrandeTravel.Site.Controllers
 {

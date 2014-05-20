@@ -112,7 +112,7 @@ body
         font-weight: normal;
     }
 
-.register-error
+.register-error, .register-success
 {
     margin-top: 20px;
     margin-bottom: 30px;

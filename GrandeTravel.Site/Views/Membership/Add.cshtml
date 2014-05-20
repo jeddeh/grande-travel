@@ -1,4 +1,4 @@
-﻿@model GrandeTravel.Site.Models.RegisterUserViewModel
+﻿@model GrandeTravel.Site.Models.Membership.RegisterUserViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -22,9 +22,25 @@
                     <fieldset>
                         <legend>Create Account</legend>
 
+                        @{
+                    string heading;
+                    string providerMessage;
+
+                    if (Model.IsAdmin)
+                    {
+                        heading = "Add User Account";
+                        providerMessage = "Register user as a travel provider.";
+                    }
+                    else
+                    {
+                        heading = "Create your account";
+                        providerMessage = "I want to register as a travel provider.";
+                    }
+                        }
+
                         <header class="register-header">
                             <div class="header">
-                                <h4>Create your account</h4>
+                                <h4>@heading</h4>
                             </div>
                         </header>
 
@@ -51,28 +67,43 @@
 
                                 <div class="check-provider">
                                     @Html.CheckBoxFor(model => model.IsProvider)
-                                    @Html.LabelFor(model => model.IsProvider, "I want to register as a travel provider.")
+                                    @Html.LabelFor(model => model.IsProvider, providerMessage)
                                 </div>
 
-                                <div class="has-account">
-                                    <span>Already have an account?</span>
-                                    @Html.ActionLink("Login", "Index", "Login")
-                                </div>
+                                @if (!Model.IsAdmin)
+                                {
+                                    <div class="has-account">
+                                        <span>Already have an account?</span>
+                                        @Html.ActionLink("Login", "Index", "Login")
+                                    </div>
+                                }
 
-                                <div class="register-error">
-                                    <p class="error-message">@Html.ValidationMessage("ErrorMessage")</p>
-                                </div>
+                                @if (IsPost)
+                                {
+                                    if (Model.AccountCreatedSuccessfully)
+                                    {
+                                        // Admin has created a user account
+                                        <div class="register-success">
+                                            <p class="success-message" id="success-message">User account successfully created.</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="register-error">
+                                            <p class="error-message">@Html.ValidationMessage("ErrorMessage")</p>
+                                        </div>
+                                    }
+                                }
 
                             </section>
 
                             @{Html.RenderPartial("_Partial_UserDetails");}
 
                         </div>
-
+                        
                         <div>
                             <button type="submit" class="btn btn-primary membership-submit register-submit">Register</button>
                         </div>
-
                     </fieldset>
                 }
 
@@ -86,9 +117,13 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-        // AJAX validation for email address
         $(document).ready(function () {
+            // Disable form fields if returning from successful post
+            if ($("#success-message").html()) {
+                $("#membership").find("input, textarea, button, select").attr("disabled", "disabled");
+            }
 
+            // AJAX validation for email address
             var isEmailValid = true;
 
             $("#Email").blur(function () {
@@ -116,6 +151,6 @@
             });
         });
 
-     
+
     </script>
 }

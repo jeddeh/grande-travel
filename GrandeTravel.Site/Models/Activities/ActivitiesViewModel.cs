@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Activities
 {
     public class ActivitiesViewModel
     {

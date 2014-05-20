@@ -9,7 +9,7 @@ namespace GrandeTravel.Site.Models.Packages
 {
     public class PackagesViewModel
     {
-        public int PackageId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]

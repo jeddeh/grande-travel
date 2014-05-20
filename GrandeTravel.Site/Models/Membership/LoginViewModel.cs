@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using GrandeTravel.Entity;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Membership
 {
     public class LoginViewModel
     {
@@ -21,7 +21,7 @@ namespace GrandeTravel.Site.Models
         [Display(Name = "Password", Prompt = "Password")]
         [DataType(DataType.Password)]
         [StringLength(50)]
-        [MinLength(6, ErrorMessage = "Invalid Password.")]
+        [MinLength(6, ErrorMessage = "The email or password is incorrect.")]
         public string Password { get; set; }
     }
 }

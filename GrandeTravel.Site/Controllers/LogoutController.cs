@@ -7,7 +7,6 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [Authorize]
     public class LogoutController : Controller
     {
         [HttpGet]

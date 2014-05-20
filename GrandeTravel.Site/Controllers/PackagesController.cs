@@ -5,7 +5,7 @@ using GrandeTravel.Manager;
 using GrandeTravel.Service;
 using GrandeTravel.Site.Models;
 using GrandeTravel.Site.Models.Packages;
-using GrandeTravel.Site.Mappers;
+using GrandeTravel.Site.Helpers.Mappers;
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ActiveUser")]
     public class PackagesController : Controller
     {
         // Fields
@@ -40,6 +40,7 @@ namespace GrandeTravel.Site.Controllers
         #region Add Package
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         [HttpGet]
         public ActionResult Add()
         {
@@ -60,8 +61,9 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [Authorize(Roles = "Provider")]
-        [HttpPost]
+        [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Add(PackagesViewModel model)
         {
             if (model.ImageUpload == null || model.ImageUpload.ContentLength == 0)
@@ -95,7 +97,7 @@ namespace GrandeTravel.Site.Controllers
                 Package package = model.ToPackage();
                 package.ImageUrl = imageUrl;
                 package.Status = PackageStatusEnum.Available;
-                package.ApplicationUserId = WebSecurity.CurrentUserId;
+                package.PackageId = WebSecurity.CurrentUserId;
 
                 Result<Package> result = packageService.AddPackage(package);
 
@@ -121,6 +123,7 @@ namespace GrandeTravel.Site.Controllers
         #region Edit Package
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -148,6 +151,7 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Edit(PackagesViewModel model)
@@ -155,7 +159,7 @@ namespace GrandeTravel.Site.Controllers
             if (ModelState.IsValid)
             {
                 Result<Package> packageResult = new Result<Package>();
-                packageResult = packageService.GetPackageById(model.PackageId);
+                packageResult = packageService.GetPackageById(model.Id);
 
                 Package package = new Package();
 
@@ -223,6 +227,7 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Search(int packageId)
         {
@@ -264,6 +269,7 @@ namespace GrandeTravel.Site.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public ActionResult ProviderSearch()
         {
             SearchProviderPackagesViewModel model = new SearchProviderPackagesViewModel();
@@ -288,8 +294,9 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [Authorize(Roles = "Provider")]
-        [HttpPost]
+        [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult ProviderSearch(int packageId)
         {
             return RedirectToAction("Index", "Home");
@@ -301,6 +308,7 @@ namespace GrandeTravel.Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public JsonResult Discontinue(int? id)
         {
             if (id == null)

@@ -1,0 +1,102 @@
+﻿@model GrandeTravel.Site.Models.Membership.SearchUserViewModel
+
+@using GrandeTravel.Entity.Enums
+@using GrandeTravel.Entity
+@using GrandeTravel.Site.Helpers
+@using GrandeTravel.Site.Models.Membership
+@using PagedList
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Manage User Accounts";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+<div class="container" id="manageUsers">
+
+    <header class="section_header">
+        <h3>Manage User Accounts</h3>
+    </header>
+
+    <section id="searchUserAccounts">
+        @using (Html.BeginForm("Search", "Membership", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <h4><i><span id="filterHeading">Showing all accounts</span></i></h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input id="txtSearch" class="form-control" type="search" maxlength="30" placeholder="Search User Accounts" />
+                        <div class="input-group-btn">
+                            <button id="btnSearch" class="btn btn-success" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.SearchCriteria, " By ")
+
+                    @Html.DropDownListFor(model => model.SearchCriteria,
+                                        SelectListItemHelpers.GetEnumSelectListItems<SearchUserEnum>(),
+                                        new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" value="Show All Accounts" id="btnAllAccounts" />
+                </div>
+            </div>
+        }
+    </section>
+
+    <section>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    foreach (PagedUserViewModel userModel in Model.PagedUsers)
+                    {
+                        <tr>
+                            <td>@userModel.ApplicationUserId</td>
+                            <td>@userModel.FirstName</td>
+                            <td>@userModel.LastName</td>
+                            <td>@userModel.Email</td>
+                            <td>@userModel.Role</td>
+                            <td>@Html.CheckBoxFor(model => model.PagedUsers.FirstOrDefault(m => m.ApplicationUserId == userModel.ApplicationUserId).IsActive)</td>
+                            <td>
+                                <span>
+                                    <a class="btn btn-xs btn-primary"
+                                       href="@Url.Action("Edit", "Membership", new { user = @userModel.ApplicationUserId })">Edit Account</a>
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @Html.PagedListPager((IPagedList)Model.PagedList, page => Url.Action("Search", new { page }))
+    </section>
+
+</div>

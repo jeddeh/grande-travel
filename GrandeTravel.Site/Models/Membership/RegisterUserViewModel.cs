@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 
-namespace GrandeTravel.Site.Models
+namespace GrandeTravel.Site.Models.Membership
 {
     public class RegisterUserViewModel : MembershipViewModel
     {
@@ -25,5 +25,8 @@ namespace GrandeTravel.Site.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The Password fields do not match.")]
         public override string ConfirmPassword { get; set; }
+
+        // Used when an Admin creates a new user account.
+        public bool AccountCreatedSuccessfully { get; set; }
     }
 }

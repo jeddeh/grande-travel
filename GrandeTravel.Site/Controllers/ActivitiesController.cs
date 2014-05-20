@@ -4,6 +4,7 @@ using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
 using GrandeTravel.Service;
 using GrandeTravel.Site.Models;
+using GrandeTravel.Site.Models.Activities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ActiveUser")]
     public class ActivitiesController : Controller
     {
         // Fields
@@ -36,6 +37,7 @@ namespace GrandeTravel.Site.Controllers
         #region Add Activity
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public ActionResult Add(int packageId)
         {
             Result<Package> result = new Result<Package>();
@@ -58,6 +60,7 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Add(ActivitiesViewModel model)
@@ -96,6 +99,7 @@ namespace GrandeTravel.Site.Controllers
         #region Edit Activity
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public ActionResult Edit(int? id, int? pId)
         {
             if (id == null || pId == null)
@@ -142,6 +146,7 @@ namespace GrandeTravel.Site.Controllers
         }
 
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Edit(ActivitiesViewModel model)
@@ -182,6 +187,7 @@ namespace GrandeTravel.Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Provider")]
+        [Authorize(Roles = "ActiveUser")]
         public JsonResult Discontinue(int? id)
         {
             if (id == null)

@@ -11,6 +11,7 @@ namespace GrandeTravel.Service
     {
         ResultEnum CreateApplicationUser(ApplicationUser ApplicationUser);
         Result<ApplicationUser> GetApplicationUserById(int id);
+        Result<IEnumerable<ApplicationUser>> GetAllUsers();
         ResultEnum UpdateApplicationUser(ApplicationUser ApplicationUser);
     }
 }

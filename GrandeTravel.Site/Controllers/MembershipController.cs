@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using GrandeTravel.Data;
+﻿using GrandeTravel.Data;
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
 using GrandeTravel.Service;
-using GrandeTravel.Site.Mappers;
-using GrandeTravel.Site.Models;
-using WebMatrix.Data;
+using GrandeTravel.Site.Helpers.Mappers;
+using GrandeTravel.Site.Models.Membership;
+
+using PagedList;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
+
 using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ActiveUser")]
     public class MembershipController : Controller
     {
         // Fields
@@ -59,19 +62,35 @@ namespace GrandeTravel.Site.Controllers
                 State = AustralianStateEnum.WA
             };
 
+            // Set IsAdmin property on model
+            if (Roles.IsUserInRole("Admin"))
+            {
+                model.IsAdmin = true;
+            }
+            else
+            {
+                model.IsAdmin = false;
+            }
+
             return View(model);
         }
 
-        [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Add(RegisterUserViewModel model)
         {
-            string errorMessage = "Unable to register.  Please contact us for assistance.";
+            string errorMessage = "Unable to register. Please contact us for assistance.";
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (Roles.IsUserInRole("Admin"))
+                    {
+                        model.IsAdmin = true;
+                    }
+
                     string userLogin = model.Email.ToLower();
 
                     if (WebSecurity.UserExists(userLogin))
@@ -92,22 +111,31 @@ namespace GrandeTravel.Site.Controllers
                         case ResultEnum.Success:
                             if (model.IsProvider)
                             {
-                                Roles.AddUserToRole(userLogin, "Provider");
+                                Roles.AddUserToRoles(userLogin, new string[] { "Provider", "ActiveUser" });
                             }
                             else
                             {
-                                Roles.AddUserToRole(userLogin, "Customer");
+                                Roles.AddUserToRoles(userLogin, new string[] { "Customer", "ActiveUser" });
                             }
 
-                            if (WebSecurity.Login(model.Email, model.Password))
+                            if (!Roles.IsUserInRole("Admin"))
                             {
-                                // Login successful
-                                return RedirectToAction("Index", "Home");
+                                if (WebSecurity.Login(model.Email, model.Password))
+                                {
+                                    // Login successful
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                else
+                                {
+                                    // Login unsuccessful
+                                    ModelState.AddModelError("ErrorMessage", errorMessage);
+                                    return View(model);
+                                }
                             }
                             else
                             {
-                                // Login unsuccessful
-                                ModelState.AddModelError("ErrorMessage", errorMessage);
+                                // Admin user - Create user only. Show success message, but do not log in.
+                                model.AccountCreatedSuccessfully = true;
                                 return View(model);
                             }
 
@@ -130,16 +158,29 @@ namespace GrandeTravel.Site.Controllers
         #region Edit User
 
         [HttpGet]
-        [Authorize]
-        public ActionResult Edit()
+        [Authorize(Roles = "ActiveUser")]
+        public ActionResult Edit(int? user)
         {
-            string errorMessage = "We were unable to retrieve your account details.";
-            MembershipViewModel model = new EditUserViewModel();
+            EditUserViewModel model = new EditUserViewModel();
+            int userId;
+            bool isAdminEdit;
+
+            string errorMessage = (user != null) ? "Unable to retrieve the account details." :
+                    "We were unable to retrieve your account details.";
 
             // Get user data for model
             try
             {
-                int userId = WebSecurity.CurrentUserId;
+                if (user != null)
+                {
+                    isAdminEdit = true;
+                    userId = user.GetValueOrDefault();
+                }
+                else
+                {
+                    isAdminEdit = false;
+                    userId = WebSecurity.CurrentUserId;
+                }
 
                 Result<ApplicationUser> result = userService.GetApplicationUserById(userId);
 
@@ -147,6 +188,8 @@ namespace GrandeTravel.Site.Controllers
                 {
                     case ResultEnum.Success:
                         model = result.Data.ToMembershipViewModel<EditUserViewModel>();
+                        model.UserId = userId;
+                        model.IsAdminEdit = isAdminEdit;
                         return View(model);
 
                     case ResultEnum.Fail:
@@ -166,8 +209,9 @@ namespace GrandeTravel.Site.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "ActiveUser")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        [Authorize]
         public ActionResult Edit(EditUserViewModel model)
         {
             string errorMessage = "Sorry, we were unable to edit your account.";
@@ -176,8 +220,19 @@ namespace GrandeTravel.Site.Controllers
             {
                 try
                 {
-                    int userId = WebSecurity.CurrentUserId;
-                    string userLogin = WebSecurity.CurrentUserName;
+                    int userId;
+                    string userLogin;
+
+                    if (model.IsAdminEdit)
+                    {
+                        userId = model.UserId;
+                        userLogin = model.Email;
+                    }
+                    else
+                    {
+                        userId = WebSecurity.CurrentUserId;
+                        userLogin = WebSecurity.CurrentUserName;
+                    }
 
                     if (model.Password != null)
                     {
@@ -186,11 +241,13 @@ namespace GrandeTravel.Site.Controllers
                         {
                             string tempToken = WebSecurity.GeneratePasswordResetToken(userLogin);
                             WebSecurity.ResetPassword(tempToken, model.Password);
-                            ViewBag.Message = "Your password has been changed. ";
+                            ViewBag.Message = model.IsAdminEdit ? "The password has been changed. " :
+                                "Your password has been changed. ";
                         }
                         catch
                         {
-                            ViewBag.Message = "We were unable to change your password. ";
+                            ViewBag.Message = model.IsAdminEdit ? "Unable to change the password. " :
+                                "We were unable to change your password. ";
                         }
                     }
 
@@ -202,7 +259,9 @@ namespace GrandeTravel.Site.Controllers
                     switch (result)
                     {
                         case ResultEnum.Success:
-                            ViewBag.Message += "Your account details have been updated.";
+                            ViewBag.Message += model.IsAdminEdit ? "The account details have been updated." :
+                                "Your account details have been updated.";
+
                             return View(model);
 
                         case ResultEnum.Fail:
@@ -217,6 +276,77 @@ namespace GrandeTravel.Site.Controllers
                 }
             }
 
+            return View(model);
+        }
+
+        #endregion
+
+        #region Search Users
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ActiveUser")]
+        public ActionResult Search(int? page)
+        {
+            int pageNumber = page ?? 1;
+            SearchUserViewModel model = new SearchUserViewModel();
+
+            try
+            {
+                // TODO : Better to move paging to the Manager project.
+                Result<IEnumerable<ApplicationUser>> result = userService.GetAllUsers();
+
+                switch (result.Status)
+                {
+                    case ResultEnum.Success:
+                        IEnumerable<ApplicationUser> pagedList = result.Data.ToPagedList<ApplicationUser>(pageNumber, 2);
+                        IEnumerable<PagedUserViewModel> pagedUsers = pagedList.ToPagedUserViewModels();
+                        model.PagedList = pagedList;
+                        model.PagedUsers = pagedUsers;
+
+                        // Get the roles for each user
+                        foreach (PagedUserViewModel userModel in pagedUsers)
+                        {
+                            string[] userRoles = Roles.GetRolesForUser(userModel.Email);
+                            if (userRoles.Contains("ActiveUser"))
+                            {
+                                userModel.IsActive = true;
+                            }
+                            else
+                            {
+                                userModel.IsActive = false;
+                            }
+
+                            if (userRoles.Contains("Admin"))
+                            {
+                                userModel.Role = "Admin";
+                            }
+                            else if (userRoles.Contains("Provider"))
+                            {
+                                userModel.Role = "Provider";
+                            }
+                            else if (userRoles.Contains("Customer"))
+                            {
+                                userModel.Role = "Customer";
+                            }
+                        }
+
+                        return View(model);
+
+                    case ResultEnum.Fail:
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("ErrorMessage", "Fail");
+                return View(model);
+            }
+
+            ModelState.AddModelError("ErrorMessage", "Fail");
             return View(model);
         }
 

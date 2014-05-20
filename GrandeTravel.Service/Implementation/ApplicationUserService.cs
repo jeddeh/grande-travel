@@ -63,6 +63,27 @@ namespace GrandeTravel.Service.Implementation
 
         #endregion
 
+        #region Get All Users
+
+        public Result<IEnumerable<ApplicationUser>> GetAllUsers()
+        {
+            Result<IEnumerable<ApplicationUser>> result = new Result<IEnumerable<ApplicationUser>>();
+
+            try
+            {
+                result.Data = manager.Get(p => true);
+                result.Status = ResultEnum.Success;
+            }
+            catch (Exception)
+            {
+                result.Status = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Update Travel User
 
         public ResultEnum UpdateApplicationUser(ApplicationUser ApplicationUser)

@@ -54,6 +54,8 @@
     <Compile Include="Enums\AustralianStateEnum.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Enums\PackageStatusEnum.cs" />
+    <Compile Include="Enums\RoleEnum.cs" />
+    <Compile Include="Enums\SearchUserEnum.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

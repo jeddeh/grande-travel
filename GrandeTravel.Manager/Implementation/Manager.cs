@@ -1,4 +1,5 @@
-﻿using GrandeTravel.Data;
+﻿using GrandeTravel.Entity;
+using GrandeTravel.Data;
 
 using System;
 using System.Collections.Generic;

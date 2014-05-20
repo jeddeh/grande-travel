@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GrandeTravel.Site.Mappers
+namespace GrandeTravel.Site.Helpers.Mappers
 {
     public static class PackageMapper
     {
@@ -13,7 +13,7 @@ namespace GrandeTravel.Site.Mappers
         {
             return new PackagesViewModel
             {
-                PackageId = package.PackageId,
+                Id = package.PackageId,
                 PackageName = package.Name,
                 City = package.City,
                 State = package.State,
