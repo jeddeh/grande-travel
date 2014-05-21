@@ -25,7 +25,7 @@
                         <header class="register-header">
                             <div class="header">
 
-                                @if (Model.IsAdmin)
+                                @if (Model.IsAdminEdit)
                                 {
                                     <h4>Manage User Account</h4>
                                 }
@@ -74,7 +74,7 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
-                                @if (Model.IsAdmin)
+                                @if (Model.IsAdminEdit)
                                 {
                                     <div class="membership-checkbox">
                                         @Html.CheckBoxFor(model => model.IsInactiveUser)
