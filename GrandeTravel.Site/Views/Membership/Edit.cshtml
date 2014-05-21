@@ -27,11 +27,11 @@
 
                                 @if (Model.IsAdmin)
                                 {
-                                    <h4>Manage your account</h4>
+                                    <h4>Manage User Account</h4>
                                 }
                                 else
                                 {
-                                    <h4>Manage User Account</h4>
+                                    <h4>Manage your account</h4>
                                 }
                             </div>
                         </header>
@@ -74,10 +74,13 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
-                                <div class="membership-checkbox">
-                                    @Html.CheckBoxFor(model => model.IsInactiveUser)
-                                    @Html.LabelFor(model => model.IsInactiveUser, "Inactivate user account")
-                                </div>
+                                @if (Model.IsAdmin)
+                                {
+                                    <div class="membership-checkbox">
+                                        @Html.CheckBoxFor(model => model.IsInactiveUser)
+                                        @Html.LabelFor(model => model.IsInactiveUser, "Inactivate user account")
+                                    </div>
+                                }
 
                                 <div class="register-error">
                                     <p>

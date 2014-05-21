@@ -163,7 +163,6 @@ namespace GrandeTravel.Site.Controllers
         {
             EditUserViewModel model = new EditUserViewModel();
             int userId;
-            bool userStatus;
             bool isAdminEdit;
 
             string errorMessage = (user != null) ? "Unable to retrieve the account details." :
