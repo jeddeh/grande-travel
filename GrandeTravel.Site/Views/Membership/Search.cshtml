@@ -59,7 +59,7 @@
         }
     </section>
 
-    <section>
+    <section id="userTable">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -68,7 +68,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Active</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -83,7 +83,18 @@
                             <td>@userModel.LastName</td>
                             <td>@userModel.Email</td>
                             <td>@userModel.Role</td>
-                            <td>@Html.CheckBoxFor(model => model.PagedUsers.FirstOrDefault(m => m.ApplicationUserId == userModel.ApplicationUserId).IsActive)</td>
+
+                            <td>
+                                @if (userModel.IsActive)
+                                {
+                                    <span class="active">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="inactive">Inactive</span>
+                                }
+                            </td>
+
                             <td>
                                 <span>
                                     <a class="btn btn-xs btn-primary"
@@ -100,3 +111,4 @@
     </section>
 
 </div>
+

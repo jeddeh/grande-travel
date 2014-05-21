@@ -163,6 +163,7 @@ namespace GrandeTravel.Site.Controllers
         {
             EditUserViewModel model = new EditUserViewModel();
             int userId;
+            bool userStatus;
             bool isAdminEdit;
 
             string errorMessage = (user != null) ? "Unable to retrieve the account details." :
@@ -190,6 +191,8 @@ namespace GrandeTravel.Site.Controllers
                         model = result.Data.ToMembershipViewModel<EditUserViewModel>();
                         model.UserId = userId;
                         model.IsAdminEdit = isAdminEdit;
+                        model.IsInactiveUser = !Roles.GetRolesForUser(model.Email).Contains("ActiveUser");
+                        
                         return View(model);
 
                     case ResultEnum.Fail:
@@ -227,6 +230,15 @@ namespace GrandeTravel.Site.Controllers
                     {
                         userId = model.UserId;
                         userLogin = model.Email;
+
+                        if (model.IsInactiveUser && Roles.IsUserInRole("ActiveUser"))
+                        {
+                            Roles.RemoveUserFromRole(model.Email, "ActiveUser");
+                        }
+                        else if (!Roles.IsUserInRole("ActiveUser"))
+                        {
+                            Roles.AddUserToRole(model.Email, "ActiveUser");
+                        }
                     }
                     else
                     {

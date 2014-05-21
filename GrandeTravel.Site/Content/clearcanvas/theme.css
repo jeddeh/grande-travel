@@ -53,8 +53,16 @@ img {
     margin-bottom: 120px;
 }
 
-.error-message {
-    color: #ee95b2;
+.success-message {
+    color: #55f714;
+}
+
+.error-message, .inactive {
+    color: red;
+}
+
+.active {
+    color: green;
 }
 
 /*Main*/
@@ -234,7 +242,6 @@ body.pull_top {
     background-color: #252528;
     color: #fff;
     padding-top: 100px;
-
 }
 
     #footer .footer_header {

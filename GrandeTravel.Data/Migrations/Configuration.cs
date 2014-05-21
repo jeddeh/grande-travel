@@ -1,8 +1,9 @@
 namespace GrandeTravel.Data.Migrations
 {
+    using GrandeTravel.Data.Seed;
     using GrandeTravel.Entity;
     using GrandeTravel.Entity.Enums;
-
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
@@ -20,10 +21,16 @@ namespace GrandeTravel.Data.Migrations
 
         protected override void Seed(GrandeTravel.Data.ApplicationDbContext context)
         {
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //    System.Diagnostics.Debugger.Launch();
+
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
             var roles = (SimpleRoleProvider)Roles.Provider;
 
-            #region roles
+            int numberOfCustomers = 10;
+            int numberOfProviders = 10;
+
+            #region Roles
 
             if (!roles.RoleExists("ActiveUser"))
             {
@@ -47,7 +54,7 @@ namespace GrandeTravel.Data.Migrations
 
             #endregion
 
-            #region admin
+            #region Admin
 
             string adminEmail = "admin@sample.com";
             WebSecurity.CreateUserAndAccount(adminEmail, "111111");
@@ -77,130 +84,51 @@ namespace GrandeTravel.Data.Migrations
 
             #endregion
 
-            #region ApplicationUsers
+            #region Customers
 
-            string email1 = "customer1@sample.com";
-            WebSecurity.CreateUserAndAccount(email1, "111111");
-            int ApplicationUserId1 = WebSecurity.GetUserId(email1);
+            List<FakeUserWithPassword> customers = UserGenerator.GenerateUsers(@"GrandeTravel.Data\Seed\CustomerNameGenerator.csv", numberOfCustomers);
 
-            string email2 = "customer2@sample.com";
-            WebSecurity.CreateUserAndAccount(email2, "111111");
-            int ApplicationUserId2 = WebSecurity.GetUserId(email2);
-
-            string email3 = "customer3@sample.com";
-            WebSecurity.CreateUserAndAccount(email3, "111111");
-            int ApplicationUserId3 = WebSecurity.GetUserId(email3);
-
-            string email4 = "provider1@sample.com";
-            WebSecurity.CreateUserAndAccount(email4, "111111");
-            int ApplicationUserId4 = WebSecurity.GetUserId(email4);
-
-            string email5 = "provider2@sample.com";
-            WebSecurity.CreateUserAndAccount(email5, "111111");
-            int ApplicationUserId5 = WebSecurity.GetUserId(email5);
-
-            string email6 = "provider3@sample.com";
-            WebSecurity.CreateUserAndAccount(email6, "111111");
-            int ApplicationUserId6 = WebSecurity.GetUserId(email6);
-
-            ApplicationUser[] ApplicationUsers = new ApplicationUser[]
+            foreach (FakeUserWithPassword customer in customers)
             {
-                new ApplicationUser 
+                WebSecurity.CreateUserAndAccount(customer.User.Email, customer.Password);
+                int applicationUserId = WebSecurity.GetUserId(customer.User.Email);
+                customer.User.ApplicationUserId = applicationUserId;
+
+                try
                 {
-                    ApplicationUserId = ApplicationUserId1,
-                    FirstName = "John",
-                    LastName = "Stanton",
-                    Address = "5 Short Street, Petersham",
-                    City = "Sydney",
-                    Postcode = "2049",
-                    State = AustralianStateEnum.NSW,
-                    Phone = "0401 605 650",
-                    Email = email1,
-                },
-
-                new ApplicationUser 
-                { 
-                    ApplicationUserId = ApplicationUserId2,
-                    FirstName = "Bridget",
-                    LastName = "Jones",
-                    Address = "6/10 Smith Street",
-                    City = "Euroa",
-                    Postcode = "3666",
-                    State = AustralianStateEnum.VIC,
-                    Phone = "0403 605 650",
-                    Email = email2,
-                },
-
-                new ApplicationUser
-                { 
-                    ApplicationUserId = ApplicationUserId3,
-                    FirstName = "Chris",
-                    LastName = "Nguyen",
-                    Address = "101 Harry's Place",
-                    City = "Hobart",
-                    Postcode = "7001",
-                    State = AustralianStateEnum.TAS,
-                    Phone = "0401 605 651",
-                    Email = email3,
-                },
-
-               new ApplicationUser 
-               {
-                    ApplicationUserId = ApplicationUserId4,
-                    FirstName = "Peter",
-                    LastName = "Montgomery",
-                    Address = "158 Walker Street",
-                    City = "Townsville",
-                    Postcode = "4810",
-                    State = AustralianStateEnum.QLD,
-                    Phone = "0403 605 650",
-                    Email = email4,
-               },
-
-                new ApplicationUser
-                { 
-                    ApplicationUserId = ApplicationUserId5,
-                    FirstName = "Julius",
-                    LastName = "Dutton",
-                    Address = "158 Georges Terrace",
-                    City = "Oatlands Park",
-                    Postcode = "5046",
-                    State = AustralianStateEnum.SA,
-                    Phone = "0403 605 650",
-                    Email = email5,     
-                },
-
-                new ApplicationUser { 
-                    ApplicationUserId = ApplicationUserId6,
-                    FirstName = "Mary",
-                    LastName = "Poulson",
-                    Address = "101 Jareys Close",
-                    City = "Hobart",
-                    Postcode = "7001",
-                    State = AustralianStateEnum.TAS,
-                    Phone = "0401 605 651",
-                    Email = email6,
+                    context.ApplicationUsers.AddOrUpdate(customer.User);
+                    context.SaveChanges();
+                    Roles.AddUserToRoles(customer.User.Email, new string[] { "Customer", "ActiveUser" });
                 }
-            };
-
-            try
-            {
-                context.ApplicationUsers.AddOrUpdate(ApplicationUsers);
-                context.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var validationErrors in e.EntityValidationErrors)
+                catch (DbEntityValidationException e)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
+                    TraceValidationErrors(e);
                 }
             }
 
-            Roles.AddUsersToRoles(new string[] { email1, email2, email3 }, new string[] { "Customer", "ActiveUser" });
-            Roles.AddUsersToRoles(new string[] { email4, email5, email6 }, new string[] { "Provider", "ActiveUser" });
+            #endregion
+
+            #region Providers
+
+            List<FakeUserWithPassword> providers = UserGenerator.GenerateUsers(@"GrandeTravel.Data\Seed\ProviderNameGenerator.csv", numberOfProviders);
+
+            foreach (FakeUserWithPassword provider in providers)
+            {
+                WebSecurity.CreateUserAndAccount(provider.User.Email, provider.Password);
+                int applicationUserId = WebSecurity.GetUserId(provider.User.Email);
+                provider.User.ApplicationUserId = applicationUserId;
+
+                try
+                {
+                    context.ApplicationUsers.AddOrUpdate(provider.User);
+                    context.SaveChanges();
+                    Roles.AddUserToRoles(provider.User.Email, new string[] { "Provider", "ActiveUser" });
+                }
+                catch (DbEntityValidationException e)
+                {
+                    TraceValidationErrors(e);
+                }
+            }
 
             #endregion
 
@@ -354,6 +282,11 @@ namespace GrandeTravel.Data.Migrations
 
             for (int i = 0; i < 10; i++)
             {
+                Random random = new Random();
+                int providerNum = random.Next(0, numberOfProviders - 1);
+                ApplicationUser provider = providers.ElementAt(providerNum).User;
+                int providerId = WebSecurity.GetUserId(provider.Email);
+
                 packageList.Add(new Package
                 {
                     Name = "Sydney Package" + i,
@@ -362,7 +295,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "2 nights at the Grace Hotel, Sydney",
                     Price = 400.00m,
                     ImageUrl = @"../../Images/Packages/OperaOnSydneyHarbour.jpg",
-                    ApplicationUserId = ApplicationUserId4,
+                    ApplicationUserId = 12,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
@@ -390,7 +323,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
                     Price = 900.00m,
                     ImageUrl = @"../../Images/Packages/AdelaideFestival.jpg",
-                    ApplicationUserId = ApplicationUserId4,
+                    ApplicationUserId = 12,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
@@ -423,8 +356,19 @@ namespace GrandeTravel.Data.Migrations
             context.Packages.AddOrUpdate(c => c.Name, packages);
             context.SaveChanges();
 
-
             #endregion
+        }
+
+        // Show validation errors
+        public void TraceValidationErrors(DbEntityValidationException e)
+        {
+            foreach (var validationErrors in e.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                }
+            }
         }
     }
 }

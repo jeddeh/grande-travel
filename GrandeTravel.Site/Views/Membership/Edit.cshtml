@@ -74,6 +74,11 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
+                                <div class="membership-checkbox">
+                                    @Html.CheckBoxFor(model => model.IsInactiveUser)
+                                    @Html.LabelFor(model => model.IsInactiveUser, "Inactivate user account")
+                                </div>
+
                                 <div class="register-error">
                                     <p>
                                         <span class="error-message">@Html.ValidationMessage("ErrorMessage")</span>

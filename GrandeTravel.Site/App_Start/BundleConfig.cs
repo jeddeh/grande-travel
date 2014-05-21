@@ -41,7 +41,7 @@ namespace GrandeTravel.Site
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include("~/Content/bootstrap*"));
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include("~/Scripts/bootstrap*"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include("~/Scripts/bootstrap*", "~/Scripts/bootbox.js"));
         }
     }
 }

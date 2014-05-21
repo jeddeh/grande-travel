@@ -99,7 +99,7 @@ body
     background-size: cover;
 }
 
-.register .admin-form .check-provider
+.membership-checkbox
 {
     margin-top: 30px;
     text-align: left;
@@ -107,7 +107,7 @@ body
     font-size: 14px;
 }
 
-    .register .admin-form .check-provider label
+    .membership-checkbox label
     {
         font-weight: normal;
     }

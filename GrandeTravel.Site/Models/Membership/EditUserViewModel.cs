@@ -29,5 +29,8 @@ namespace GrandeTravel.Site.Models.Membership
 
         [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public bool IsInactiveUser { get; set; }
     }
 }
