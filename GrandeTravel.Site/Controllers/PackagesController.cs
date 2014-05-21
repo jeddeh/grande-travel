@@ -97,7 +97,7 @@ namespace GrandeTravel.Site.Controllers
                 Package package = model.ToPackage();
                 package.ImageUrl = imageUrl;
                 package.Status = PackageStatusEnum.Available;
-                package.PackageId = WebSecurity.CurrentUserId;
+                package.ApplicationUserId = WebSecurity.CurrentUserId;
 
                 Result<Package> result = packageService.AddPackage(package);
 

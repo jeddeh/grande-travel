@@ -27,8 +27,8 @@ namespace GrandeTravel.Data.Migrations
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
             var roles = (SimpleRoleProvider)Roles.Provider;
 
-            int numberOfCustomers = 10;
-            int numberOfProviders = 10;
+            int numberOfCustomers = 100;
+            int numberOfProviders = 100;
 
             #region Roles
 
@@ -93,17 +93,19 @@ namespace GrandeTravel.Data.Migrations
                 WebSecurity.CreateUserAndAccount(customer.User.Email, customer.Password);
                 int applicationUserId = WebSecurity.GetUserId(customer.User.Email);
                 customer.User.ApplicationUserId = applicationUserId;
+            }
+            try
+            {
+                ApplicationUser[] users = customers.Select(m => m.User).ToArray<ApplicationUser>();
+                string[] userEmails = users.Select(m => m.Email).ToArray<string>();
 
-                try
-                {
-                    context.ApplicationUsers.AddOrUpdate(customer.User);
-                    context.SaveChanges();
-                    Roles.AddUserToRoles(customer.User.Email, new string[] { "Customer", "ActiveUser" });
-                }
-                catch (DbEntityValidationException e)
-                {
-                    TraceValidationErrors(e);
-                }
+                context.ApplicationUsers.AddOrUpdate(users);
+                context.SaveChanges();
+                Roles.AddUsersToRoles(userEmails, new string[] { "Customer", "ActiveUser" });
+            }
+            catch (DbEntityValidationException e)
+            {
+                TraceValidationErrors(e);
             }
 
             #endregion
@@ -117,17 +119,20 @@ namespace GrandeTravel.Data.Migrations
                 WebSecurity.CreateUserAndAccount(provider.User.Email, provider.Password);
                 int applicationUserId = WebSecurity.GetUserId(provider.User.Email);
                 provider.User.ApplicationUserId = applicationUserId;
+            }
 
-                try
-                {
-                    context.ApplicationUsers.AddOrUpdate(provider.User);
-                    context.SaveChanges();
-                    Roles.AddUserToRoles(provider.User.Email, new string[] { "Provider", "ActiveUser" });
-                }
-                catch (DbEntityValidationException e)
-                {
-                    TraceValidationErrors(e);
-                }
+            try
+            {
+                ApplicationUser[] users = providers.Select(m => m.User).ToArray<ApplicationUser>();
+                string[] userEmails = users.Select(m => m.Email).ToArray<string>();
+
+                context.ApplicationUsers.AddOrUpdate(users);
+                context.SaveChanges();
+                Roles.AddUsersToRoles(userEmails, new string[] { "Provider", "ActiveUser" });
+            }
+            catch (DbEntityValidationException e)
+            {
+                TraceValidationErrors(e);
             }
 
             #endregion
@@ -295,7 +300,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "2 nights at the Grace Hotel, Sydney",
                     Price = 400.00m,
                     ImageUrl = @"../../Images/Packages/OperaOnSydneyHarbour.jpg",
-                    ApplicationUserId = 12,
+                    ApplicationUserId = providerId,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {
@@ -323,7 +328,7 @@ namespace GrandeTravel.Data.Migrations
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
                     Price = 900.00m,
                     ImageUrl = @"../../Images/Packages/AdelaideFestival.jpg",
-                    ApplicationUserId = 12,
+                    ApplicationUserId = providerId,
                     Status = PackageStatusEnum.Available,
 
                     Activities = new List<Activity> {

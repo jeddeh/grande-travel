@@ -231,13 +231,13 @@ namespace GrandeTravel.Site.Controllers
                         userId = model.UserId;
                         userLogin = model.Email;
 
-                        if (model.IsInactiveUser && Roles.IsUserInRole("ActiveUser"))
+                        if (model.IsInactiveUser && Roles.IsUserInRole(userLogin, "ActiveUser"))
                         {
-                            Roles.RemoveUserFromRole(model.Email, "ActiveUser");
+                            Roles.RemoveUserFromRole(userLogin, "ActiveUser");
                         }
-                        else if (!Roles.IsUserInRole("ActiveUser"))
+                        else if (!Roles.IsUserInRole(userLogin, "ActiveUser"))
                         {
-                            Roles.AddUserToRole(model.Email, "ActiveUser");
+                            Roles.AddUserToRole(userLogin, "ActiveUser");
                         }
                     }
                     else
@@ -311,7 +311,7 @@ namespace GrandeTravel.Site.Controllers
                 switch (result.Status)
                 {
                     case ResultEnum.Success:
-                        IEnumerable<ApplicationUser> pagedList = result.Data.ToPagedList<ApplicationUser>(pageNumber, 2);
+                        IEnumerable<ApplicationUser> pagedList = result.Data.ToPagedList<ApplicationUser>(pageNumber, 10);
                         IEnumerable<PagedUserViewModel> pagedUsers = pagedList.ToPagedUserViewModels();
                         model.PagedList = pagedList;
                         model.PagedUsers = pagedUsers;

@@ -31,7 +31,7 @@ namespace GrandeTravel.Site.Controllers
                 {
                     string userLogin = model.Email.ToLower();
 
-                    if (WebSecurity.UserExists(userLogin) && Roles.GetRolesForUser(userLogin).Length == 0)
+                    if (WebSecurity.UserExists(userLogin) && !Roles.GetRolesForUser(userLogin).Contains("ActiveUser"))
                     {
                         // User is inactive
                         ModelState.AddModelError("ErrorMessage", "Your account has been disabled. Please contact us for further information.");
