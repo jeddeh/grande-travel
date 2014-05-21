@@ -248,6 +248,8 @@ namespace GrandeTravel.Site.Controllers
             public string ImageUrl { get; set; }
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public JsonResult GetPackageDetails(int id)
         {
             Result<Package> result = packageService.GetPackageById(id);

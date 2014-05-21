@@ -220,7 +220,7 @@
 
                 $("#imgPackage").attr("src", data[0].ImageUrl);
             },
-            error: function () {
+            error: function (xhr, status, error) {
                 $("#startDate").show();
                 $("#packageStartDate").html("We are currently unable to show information for this package.");
                 $("#btnSubmit").hide();
