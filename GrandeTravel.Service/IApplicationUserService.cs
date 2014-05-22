@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GrandeTravel.Entity;
+using GrandeTravel.Entity.Enums;
 
 namespace GrandeTravel.Service
 {
@@ -12,6 +13,7 @@ namespace GrandeTravel.Service
         ResultEnum CreateApplicationUser(ApplicationUser ApplicationUser);
         Result<ApplicationUser> GetApplicationUserById(int id);
         Result<IEnumerable<ApplicationUser>> GetAllUsers();
+        Result<IEnumerable<ApplicationUser>> GetUsersByFilter(SearchUserEnum filter, string searchText);
         ResultEnum UpdateApplicationUser(ApplicationUser ApplicationUser);
     }
 }

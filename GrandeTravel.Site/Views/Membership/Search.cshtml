@@ -19,7 +19,7 @@
 
 <div class="container" id="manageUsers">
 
-    <header class="section_header">
+    <header class="section-header small-margin-header">
         <h3>Manage User Accounts</h3>
     </header>
 
@@ -29,15 +29,15 @@
             @Html.AntiForgeryToken()
 
             <div>
-                <h4><i><span id="filterHeading">Showing all accounts</span></i></h4>
+                <h4><i>@Model.SearchHeading</i></h4>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <input id="txtSearch" class="form-control" type="search" maxlength="30" placeholder="Search User Accounts" />
+                        @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control", type = "search", maxlength = "30", placeholder = "Search User Accounts" })
                         <div class="input-group-btn">
-                            <button id="btnSearch" class="btn btn-success" type="button">
+                            <button type="submit" class="btn btn-success membership-submit register-submit">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </div>
@@ -60,21 +60,30 @@
     </section>
 
     <section id="userTable">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>User Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
+        @{
+            if (!ViewData.ModelState.IsValid || Model.PagedUsers == null || Model.PagedList == null)
+            {
+                <div class="error-message">Unable to get the user account information.</div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>User Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                @{
+                    <tbody>
+                        @{
+                if (Model.PagedUsers != null)
+                {
                     foreach (PagedUserViewModel userModel in Model.PagedUsers)
                     {
                         <tr>
@@ -104,11 +113,23 @@
                         </tr>
                     }
                 }
-            </tbody>
-        </table>
+                        }
+                    </tbody>
+                </table>
 
-        @Html.PagedListPager((IPagedList)Model.PagedList, page => Url.Action("Search", new { page }))
+                @Html.PagedListPager((IPagedList)Model.PagedList, page => Url.Action("Search", new { filter = Model.SearchCriteria.ToString(), searchText = Model.SearchText, Page = page }))
+            }
+        }
     </section>
 
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnAllAccounts").click(function (eventArgs) {
+                window.location = '@Url.Action("Search")';
+            });
+        });
+    </script>
+}

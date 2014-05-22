@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GrandeTravel.Entity;
 using GrandeTravel.Manager;
+using GrandeTravel.Entity.Enums;
 
 namespace GrandeTravel.Service.Implementation
 {
@@ -82,6 +83,40 @@ namespace GrandeTravel.Service.Implementation
             return result;
         }
 
+        #endregion
+
+        #region Get Users By Filter
+        
+        public Result<IEnumerable<ApplicationUser>> GetUsersByFilter(SearchUserEnum filter, string searchText)
+        {
+            Result<IEnumerable<ApplicationUser>> result = new Result<IEnumerable<ApplicationUser>>();
+
+            try
+            {
+                switch (filter)
+                {
+                    case SearchUserEnum.Email:
+                        result.Data = manager.Get(p => p.Email.ToLower().Contains(searchText.ToLower()));
+                        break;
+
+                    case SearchUserEnum.Name:
+                        result.Data = manager.Get(p => (p.FirstName +  " " + p.LastName).ToLower()
+                            .Contains(searchText.ToLower()));
+                        break;
+
+                    default:
+                        break;
+                }
+                result.Status = ResultEnum.Success;
+            }
+            catch (Exception)
+            {
+                result.Status = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+        
         #endregion
 
         #region Update Travel User

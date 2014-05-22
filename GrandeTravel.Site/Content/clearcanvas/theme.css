@@ -1,11 +1,8 @@
-/*Manage User Accounts*/
-#manageUsers {
-    margin-top: 60px;
+/*General*/
+#manageUsers, #searchUserAccounts {
+    margin: 30px auto;
 }
 
-
-
-/*General*/
 .login-row {
     background-color: #fff;
 }
@@ -218,12 +215,15 @@ body.pull_top {
                 background: #444;
             }
 
-.section_header {
-    width: 100%;
+.large-margin-header {
     margin-bottom: 60px;
 }
 
-    .section_header h3 {
+.section-header {
+    width: 100%;
+}
+
+    .section-header h3 {
         color: #646464;
         font-weight: 300;
         font-style: italic;

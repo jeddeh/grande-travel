@@ -11,7 +11,7 @@ namespace GrandeTravel.Site.Models.Membership
 {
     public class EditUserViewModel : MembershipViewModel
     {
-        // Not required password fields - used for editing user accounts
+        // Not [Required] password fields - used for editing user accounts
         [MaxLength(50)]
         [Display(Name = "Password", Prompt = "Password")]
         [DataType(DataType.Password)]
