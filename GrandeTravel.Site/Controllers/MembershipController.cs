@@ -3,18 +3,18 @@ using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
 using GrandeTravel.Service;
+using GrandeTravel.Site.Communications;
+using GrandeTravel.Site.Communications.Implementation;
 using GrandeTravel.Site.Helpers.Mappers;
 using GrandeTravel.Site.Models.Membership;
-
 using PagedList;
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
-
 using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
@@ -57,7 +57,7 @@ namespace GrandeTravel.Site.Controllers
                 FirstName = "Andrew",
                 LastName = "Jones",
                 Password = "111111",
-                Phone = "123456789",
+                Phone = "0400 000 000",
                 Postcode = "2016",
                 State = AustralianStateEnum.WA
             };
@@ -126,6 +126,19 @@ namespace GrandeTravel.Site.Controllers
                             if (WebSecurity.Login(model.Email, model.Password))
                             {
                                 // Login successful
+
+                                // Send SMS message to confirm successful registration
+                                string phoneNumber = CommunicationsValidation.ValidateMobileNumber(model.Phone);
+
+                                if (phoneNumber != null)
+                                {
+                                    string message = String.Format(
+    "Hi {0}, We're just confirming your successful registration with Grande Travel.", model.FirstName);
+
+                                    ICommunicationsClient commClient = new TwilioClient();
+                                    commClient.SendSMS(phoneNumber, message);
+                                }
+
                                 return RedirectToAction("Index", "Home");
                             }
                             else

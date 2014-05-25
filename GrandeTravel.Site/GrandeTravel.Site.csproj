@@ -72,6 +72,9 @@
     <Reference Include="PagedList.Mvc">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -141,6 +144,15 @@
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Twilio.Api">
+      <HintPath>..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\packages\Twilio.Mvc.3.1.12\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml">
+      <HintPath>..\packages\Twilio.TwiML.3.3.3\lib\3.5\Twilio.Twiml.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
@@ -163,6 +175,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
+    <Compile Include="Communications\CommunicationsValidation.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -177,6 +190,8 @@
     <Compile Include="Helpers\SelectListItemHelpers.cs" />
     <Compile Include="Helpers\Mappers\PackageMapper.cs" />
     <Compile Include="Helpers\Mappers\ApplicationUserMapper.cs" />
+    <Compile Include="Communications\ICommunicationsClient.cs" />
+    <Compile Include="Communications\Implementation\TwilioClient.cs" />
     <Compile Include="Models\Activities\ActivitiesViewModel.cs" />
     <Compile Include="Models\Membership\EditUserViewModel.cs" />
     <Compile Include="Models\Membership\PagedUserViewModel.cs" />
