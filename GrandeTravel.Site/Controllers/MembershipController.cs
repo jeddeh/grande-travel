@@ -137,7 +137,7 @@ namespace GrandeTravel.Site.Controllers
                                     string message = String.Format(
     "Hi {0}, We're just confirming your successful registration with Grande Travel.", model.FirstName);
 
-                                    GrandeTravel.Utility.IPhoneService commClient = UtilityFactory.GetPhoneClient(
+                                    GrandeTravel.Utility.IPhoneService commClient = UtilityFactory.GetPhoneService(
                                         new TwilioAuthentication
                                         {
                                             AccountSid = WebConfigurationManager.AppSettings["twilioAccountSid"],

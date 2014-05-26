@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{259BABE3-B477-4C25-BE3A-D74EDA4EFD3C}</ProjectGuid>
+    <ProjectGuid>{53B568EA-72A1-4B08-85AC-EB61F5DAF220}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GrandeTravel.Entity</RootNamespace>
-    <AssemblyName>GrandeTravel.Entity</AssemblyName>
+    <RootNamespace>GrandeTravel.Utility</RootNamespace>
+    <AssemblyName>GrandeTravel.Utility</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,37 +30,49 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="Braintree-2.30.1">
+      <HintPath>..\packages\Braintree.2.30.1\lib\Braintree-2.30.1.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Twilio.Api">
+      <HintPath>..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\packages\Twilio.Mvc.3.1.12\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml">
+      <HintPath>..\packages\Twilio.TwiML.3.3.3\lib\3.5\Twilio.Twiml.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="Enums\AustralianStateEnum.cs" />
-    <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Enums\PackageStatusEnum.cs" />
-    <Compile Include="Enums\RoleEnum.cs" />
-    <Compile Include="Enums\SearchUserEnum.cs" />
-    <Compile Include="Package.cs" />
-    <Compile Include="Payment.cs" />
+    <Compile Include="Helpers\PhoneValidation.cs" />
+    <Compile Include="Implementation\BrainTreeAuthentication.cs" />
+    <Compile Include="Implementation\BrainTreeService.cs" />
+    <Compile Include="Implementation\TwilioAuthentication.cs" />
+    <Compile Include="Implementation\TwilioService.cs" />
+    <Compile Include="IPaymentService.cs" />
+    <Compile Include="IPhoneService.cs" />
+    <Compile Include="PaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilityFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GrandeTravel.Entity\GrandeTravel.Entity.csproj">
+      <Project>{259babe3-b477-4c25-be3a-d74eda4efd3c}</Project>
+      <Name>GrandeTravel.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

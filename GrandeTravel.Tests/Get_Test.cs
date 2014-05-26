@@ -98,7 +98,7 @@ namespace GrandeTravel.Tests
                 City = "Melbourne",
                 ImageUrl = "~/Images/sample",
                 Name = "Sample Package",
-                Price = 900.0m,
+                Amount = 900.0m,
                 State = Entity.Enums.AustralianStateEnum.QLD,
                 Status = Entity.Enums.PackageStatusEnum.Available
             };

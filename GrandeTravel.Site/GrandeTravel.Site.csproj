@@ -164,11 +164,13 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\Mappers\PagedUsersMapper.cs" />
+    <Compile Include="Helpers\Mappers\PaymentMapper.cs" />
     <Compile Include="Helpers\SelectListItemHelpers.cs" />
     <Compile Include="Helpers\Mappers\PackageMapper.cs" />
     <Compile Include="Helpers\Mappers\ApplicationUserMapper.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
     <Compile Include="Models\Packages\ShowMapViewModel.cs" />
+    <Compile Include="Models\Payment\PaymentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

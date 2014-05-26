@@ -170,7 +170,7 @@ namespace GrandeTravel.Site.Controllers
                     package.City = model.City;
                     package.State = model.State;
                     package.Accomodation = model.Accomodation;
-                    package.Price = model.Price;
+                    package.Amount = model.Price;
                 }
                 else
                 {
@@ -258,7 +258,7 @@ namespace GrandeTravel.Site.Controllers
                 Accomodation = result.Data.Accomodation,
                 City = result.Data.City,
                 State = result.Data.State.ToString(),
-                Price = result.Data.Price,
+                Price = result.Data.Amount,
                 ImageUrl = result.Data.ImageUrl
             }
         };

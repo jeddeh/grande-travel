@@ -51,7 +51,6 @@ namespace GrandeTravel.Site.Models.Membership
         public AustralianStateEnum State { get; set; }
 
         [Required]
-
         [Display(Name = "Postcode", Prompt = "Postcode")]
         [RegularExpression(@"^[0-9]{4}$", ErrorMessage = "The Postcode field is invalid.")]
         [DataType(DataType.PostalCode)]

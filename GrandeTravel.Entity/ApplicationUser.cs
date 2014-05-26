@@ -54,14 +54,14 @@ namespace GrandeTravel.Entity
         [DataType(DataType.PostalCode)]
         public string Postcode { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public ICollection<Package> Packages { get; set; }
 
         // Constructors
         public ApplicationUser()
         {
-            Bookings = new List<Booking>();
+            Orders = new List<Order>();
         }
     }
 }

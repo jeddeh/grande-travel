@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GrandeTravel.Entity
 {
-    public class Booking
+    public class Order
     {
         // Properties
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BookingId { get; set; }
+        public int OrderId { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -16,7 +16,7 @@ namespace GrandeTravel.Entity
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal Price { get; set; }
+        public decimal Amount { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]

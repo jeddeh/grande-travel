@@ -19,7 +19,7 @@ namespace GrandeTravel.Site.Helpers.Mappers
                 State = package.State,
                 Accomodation = package.Accomodation,
                 ImageUrl = package.ImageUrl,
-                Price = package.Price
+                Price = package.Amount
             };
         }
 
@@ -31,7 +31,7 @@ namespace GrandeTravel.Site.Helpers.Mappers
                 City = model.City,
                 ImageUrl = model.ImageUrl,
                 Name = model.PackageName,
-                Price = model.Price,
+                Amount = model.Price,
                 State = model.State,
             };
         }

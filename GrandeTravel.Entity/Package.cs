@@ -38,13 +38,13 @@ namespace GrandeTravel.Entity
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal Price { get; set; }
+        public decimal Amount { get; set; }
 
         [Required]
         [EnumDataType(typeof(PackageStatusEnum))]
         public PackageStatusEnum Status { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public int ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
@@ -54,7 +54,7 @@ namespace GrandeTravel.Entity
         // Constructors
         public Package()
         {
-            Bookings = new List<Booking>();
+            Orders = new List<Order>();
             Activities = new List<Activity>();
         }
     }
