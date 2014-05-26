@@ -16,6 +16,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using WebMatrix.WebData;
+using System.Web.Security;
+using GrandeTravel.Site.Models.Payment;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -231,6 +233,30 @@ namespace GrandeTravel.Site.Controllers
         [HttpPost]
         public ActionResult Search(int packageId)
         {
+            // User wants to book a package.
+            // Redirect to the Register page if the user is not registered,
+            // or straight to the payment page if already registered as a customer.
+
+            try
+            {
+                if (Roles.IsUserInRole("Provider") || Roles.IsUserInRole("Admin") || !Roles.IsUserInRole("ActiveUser"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // TODO : Redirect Anonymous to Register Page then to Checkout
+                if (!Roles.IsUserInRole("Customer"))
+                {
+                    return RedirectToAction("Add", "Membership");
+                }
+
+                return RedirectToAction("CreateTransaction", "Payment", new { packageId = packageId });
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

@@ -84,6 +84,8 @@
                                 <div class="modal-footer">
                                     @using (Html.BeginForm())
                                     {
+                                        @Html.AntiForgeryToken()
+                                        
                                         <input type="hidden" name="packageId" id="packageId" />
 
                                         <div class="form-actions">

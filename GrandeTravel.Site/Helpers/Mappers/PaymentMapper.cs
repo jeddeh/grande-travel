@@ -14,10 +14,12 @@ namespace GrandeTravel.Site.Helpers.Mappers
             return new Payment
             {
                 CCNumber = model.CCNumber,
-                CVV = model.CCV,
+                CVV = model.CVV,
                 ExpirationMonth = model.ExpirationMonth,
                 ExpirationYear = model.ExpirationYear,
-                Amount = model.Amount
+                Amount = model.Amount,
+                PackageId = model.PackageId,
+                PackageName = model.PackageName
             };
         }
     }

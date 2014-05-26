@@ -14,5 +14,8 @@ namespace GrandeTravel.Entity
         public string ExpirationMonth { get; set; }
         public string ExpirationYear { get; set; }
         public decimal Amount { get; set; }
+
+        public int PackageId { get; set; }
+        public string PackageName { get; set; }
     }
 }
