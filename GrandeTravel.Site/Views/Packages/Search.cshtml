@@ -109,13 +109,18 @@
                                 foreach (Package package in Model.Packages)
                                 {
                                     <div class="photo active-image">
-                                        <img src="@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
-                                        <a id="@package.PackageId" class="mask">
-                                            <h3 class="packageName">@package.Name</h3>
-                                            <small>
-                                                <span class="city">@package.City</span>, <span class="state">@package.State</span>
-                                            </small>
-                                        </a>
+                                        <div>
+                                            <img src="@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
+                                            <a id="@package.PackageId" class="mask">
+                                                <h3 class="packageName">@package.Name</h3>
+                                                <small>
+                                                    <span class="city">@package.City</span>, <span class="state">@package.State</span>
+                                                </small>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            @Html.ActionLink("Show on Map", "ShowMap", "Packages")
+                                        </div>
                                     </div>
                                 }
                             }

@@ -3,8 +3,8 @@ using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
 using GrandeTravel.Service;
-using GrandeTravel.Site.Communications;
-using GrandeTravel.Site.Communications.Implementation;
+using GrandeTravel.Utility;
+using GrandeTravel.Utility.Implementation;
 using GrandeTravel.Site.Helpers.Mappers;
 using GrandeTravel.Site.Models.Membership;
 using PagedList;
@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
+using GrandeTravel.Utility.Helpers;
+using System.Web.Configuration;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -128,14 +130,21 @@ namespace GrandeTravel.Site.Controllers
                                 // Login successful
 
                                 // Send SMS message to confirm successful registration
-                                string phoneNumber = CommunicationsValidation.ValidateMobileNumber(model.Phone);
+                                string phoneNumber = PhoneValidation.ValidateMobileNumber(model.Phone);
 
                                 if (phoneNumber != null)
                                 {
                                     string message = String.Format(
     "Hi {0}, We're just confirming your successful registration with Grande Travel.", model.FirstName);
 
-                                    ICommunicationsClient commClient = new TwilioClient();
+                                    GrandeTravel.Utility.IPhoneService commClient = UtilityFactory.GetPhoneClient(
+                                        new TwilioAuthentication
+                                        {
+                                            AccountSid = WebConfigurationManager.AppSettings["twilioAccountSid"],
+                                            AuthToken = WebConfigurationManager.AppSettings["twilioAuthToken"],
+                                            TwilioPhoneNumber = WebConfigurationManager.AppSettings["twilioPhoneNumber"]
+                                        });
+
                                     commClient.SendSMS(phoneNumber, message);
                                 }
 

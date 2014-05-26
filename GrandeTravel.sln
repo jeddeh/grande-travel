@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandeTravel.Service", "Gra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandeTravel.Site", "GrandeTravel.Site\GrandeTravel.Site.csproj", "{5A659BD6-B091-489A-8409-BC82ADA9E871}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandeTravel.Utility", "GrandeTravel.Utility\GrandeTravel.Utility.csproj", "{53B568EA-72A1-4B08-85AC-EB61F5DAF220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5A659BD6-B091-489A-8409-BC82ADA9E871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A659BD6-B091-489A-8409-BC82ADA9E871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A659BD6-B091-489A-8409-BC82ADA9E871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B568EA-72A1-4B08-85AC-EB61F5DAF220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B568EA-72A1-4B08-85AC-EB61F5DAF220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B568EA-72A1-4B08-85AC-EB61F5DAF220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B568EA-72A1-4B08-85AC-EB61F5DAF220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

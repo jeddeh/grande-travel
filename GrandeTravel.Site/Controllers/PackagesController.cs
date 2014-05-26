@@ -339,5 +339,16 @@ namespace GrandeTravel.Site.Controllers
             }
         }
         #endregion
+
+        #region Show Map
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ShowMap()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }
