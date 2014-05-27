@@ -22,7 +22,6 @@ namespace GrandeTravel.Service.Implementation
         }
 
         // Methods
-
         #region Add Package
 
         public Result<Package> AddPackage(Package package)

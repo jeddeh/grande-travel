@@ -25,20 +25,25 @@ namespace GrandeTravel.Utility.Implementation
                 {
                     try
                     {
-                        MailMessage mail = new MailMessage();
+                        MailMessage mail = new MailMessage
+                        {
+                            From = new MailAddress(email.From),
+                            Subject = email.Subject,
+                            Body = email.Body,
+                            IsBodyHtml = true
+                        };
+
                         mail.To.Add(email.To);
-                        mail.From = new MailAddress(email.From);
-                        mail.Subject = email.Subject;
-                        string Body = email.Body;
-                        mail.Body = Body;
-                        mail.IsBodyHtml = true;
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = authentication.Host;
-                        smtp.Port = authentication.Port;
-                        smtp.UseDefaultCredentials = false;
-                        smtp.Credentials =
-                            new System.Net.NetworkCredential(authentication.UserName, authentication.Password);
-                        smtp.EnableSsl = true;
+
+                        SmtpClient smtp = new SmtpClient
+                        {
+                            Host = authentication.Host,
+                            Port = authentication.Port,
+                            UseDefaultCredentials = false,
+                            Credentials = new System.Net.NetworkCredential(authentication.UserName, authentication.Password),
+                            EnableSsl = true
+                        };
+                      
                         smtp.Send(mail);
                     }
                     catch

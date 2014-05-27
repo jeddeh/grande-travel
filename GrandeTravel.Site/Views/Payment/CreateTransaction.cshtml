@@ -35,6 +35,9 @@
                         <input type="submit" id="submit" />
                     </form>*@
 
+                    @Html.HiddenFor(model => model.Amount)
+                    @Html.HiddenFor(model => model.PackageId)
+                    @Html.HiddenFor(model => model.PackageName)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.CCNumber)

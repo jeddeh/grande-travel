@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\ActivityService.cs" />
+    <Compile Include="Implementation\OrderService.cs" />
     <Compile Include="Implementation\PackageService.cs" />
     <Compile Include="Implementation\ApplicationUserService.cs" />
     <Compile Include="IActivityService.cs" />
+    <Compile Include="IOrderService.cs" />
     <Compile Include="IPackageService.cs" />
     <Compile Include="IApplicationUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

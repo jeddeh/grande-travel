@@ -40,7 +40,7 @@ namespace GrandeTravel.Site.Helpers
                 FirstName = "Andrew",
                 LastName = "Jones",
                 Password = "111111",
-                Phone = "0400 000 000",
+                Phone = "0434 412 749",
                 Postcode = "2016",
                 State = AustralianStateEnum.WA
             };

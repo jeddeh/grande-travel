@@ -25,5 +25,10 @@ namespace GrandeTravel.Service
         {
             return new ActivityService(manager);
         }
+
+        public static IOrderService GetOrderService(IManager<Order> manager)
+        {
+            return new OrderService(manager);
+        }
     }
 }

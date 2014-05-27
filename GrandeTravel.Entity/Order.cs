@@ -18,9 +18,16 @@ namespace GrandeTravel.Entity
         [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
 
-        [Required]
         [DataType(DataType.MultilineText)]
         public string Feedback { get; set; }
+
+        [Required]
+        public bool Paid { get; set; }
+
+        [DataType(DataType.Text)]
+        public string TransactionId { get; set; }
+
+        public Guid VoucherCode { get; set; }
 
         public int PackageId { get; set; }
         public virtual Package Package { get; set; }

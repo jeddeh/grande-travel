@@ -169,7 +169,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AuthenticationFactory.cs" />
+    <Compile Include="Helpers\Authentication.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\Mappers\PagedUsersMapper.cs" />
     <Compile Include="Helpers\Mappers\PaymentMapper.cs" />

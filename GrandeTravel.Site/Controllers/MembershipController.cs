@@ -129,7 +129,7 @@ namespace GrandeTravel.Site.Controllers
     "Hi {0}, We're just confirming your successful registration with Grande Travel.", model.FirstName);
 
                                     GrandeTravel.Utility.IPhoneService commClient =
-                                        UtilityFactory.GetPhoneService(AuthenticationFactory.GetTwilioAuthentication());
+                                        UtilityFactory.GetPhoneService(Authentication.GetTwilioAuthentication());
 
                                     commClient.SendSMS(phoneNumber, message);
                                 }

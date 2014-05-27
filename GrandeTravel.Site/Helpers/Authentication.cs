@@ -7,7 +7,7 @@ using System.Web.Configuration;
 
 namespace GrandeTravel.Site.Helpers
 {
-    public static class AuthenticationFactory
+    public static class Authentication
     {
         public static BrainTreeAuthentication GetBrainTreeAuthentication()
         {
@@ -38,6 +38,11 @@ namespace GrandeTravel.Site.Helpers
                 UserName = WebConfigurationManager.AppSettings["defaultEmailUserName"],
                 Password = WebConfigurationManager.AppSettings["defaultEmailPassword"]
             };
+        }
+
+        public static string GetDefaultEmailSenderAddress()
+        {
+            return WebConfigurationManager.AppSettings["defaultEmailSenderAddress"];
         }
     }
 }
