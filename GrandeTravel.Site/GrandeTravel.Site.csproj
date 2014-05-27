@@ -166,6 +166,7 @@
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +190,7 @@
     <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
     <Compile Include="Models\Packages\ShowMapViewModel.cs" />
     <Compile Include="Models\Payment\PaymentViewModel.cs" />
+    <Compile Include="Models\Statistics\StatisticsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +324,7 @@
     <Content Include="Views\Membership\Search.cshtml" />
     <Content Include="Views\Packages\ShowMap.cshtml" />
     <Content Include="Views\Payment\CreateTransaction.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

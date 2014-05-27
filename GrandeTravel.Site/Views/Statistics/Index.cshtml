@@ -1,0 +1,102 @@
+﻿@model GrandeTravel.Site.Models.Statistics.StatisticsViewModel
+
+@using GrandeTravel.Entity.Enums
+
+@{
+    ViewBag.Title = "Statistics";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+<section class="container">
+    <div class="row">
+        <div class="col-md-4" id="users-by-state"></div>
+        <div class="col-md-4" id="average-package-price-by-state"></div>
+        <div class="col-md-4" id="revenue-by-year"></div>
+    </div>
+</section>
+
+@section Scripts {
+
+    <!--Load the AJAX API-->
+    <script src="https://www.google.com/jsapi"></script>
+
+    <script>
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            // Users By State
+            var options = {
+                'title': 'Registered Users By State',
+                'width': 400,
+                'height': 300
+            };
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'State');
+            data.addColumn('number', 'Users');
+            data.addRows([
+                @{
+                    foreach (KeyValuePair<AustralianStateEnum, int> users in Model.RegisteredUsersByState)
+                    {
+                        @:['@users.Key.ToString()', @users.Value],
+                    }
+                }]);
+
+            var chart = new google.visualization.PieChart(document.getElementById('users-by-state'));
+            chart.draw(data, options);
+
+            // Average Package Price By State
+            options = {
+                'title': 'Average Package Price By State',
+                'width': 400,
+                'height': 300,
+                'hAxis': { title: 'Average Price ($)' },
+                'legend': 'none'
+            };
+
+            data = new google.visualization.DataTable();
+            data.addColumn('string', 'State');
+            data.addColumn('number', '');
+            data.addRows([
+                @{
+                    foreach (KeyValuePair<AustralianStateEnum, decimal> prices in Model.AveragePackagePriceByState)
+                    {
+                        @:['@prices.Key.ToString()', @prices.Value.ToString("n2")],
+                    }
+                }]);
+
+            chart = new google.visualization.BarChart(document.getElementById('average-package-price-by-state'));
+            chart.draw(data, options);
+
+            // Revenue By Year
+            options = {
+                'title': 'Revenue By Year',
+                'width': 400,
+                'height': 300,
+                'hAxis': { title: 'Year' },
+                'vAxis': { title: 'Revenue ($)' },
+                'legend': 'none'
+            };
+
+            data = new google.visualization.DataTable();
+            data.addColumn('string', 'Year');
+            data.addColumn('number', 'Revenue');
+            data.addRows([
+                @{
+                    foreach (KeyValuePair<int, decimal> revenue in Model.RevenueByYear)
+                    {
+                        @:['@revenue.Key.ToString()', @revenue.Value.ToString()],
+                    }
+             }]);
+
+            chart = new google.visualization.LineChart(document.getElementById('revenue-by-year'));
+            chart.draw(data, options);
+        }
+    </script>
+}
