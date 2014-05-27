@@ -48,7 +48,7 @@
                     @Html.LabelFor(model => model.SearchCriteria, " By ")
 
                     @Html.DropDownListFor(model => model.SearchCriteria,
-                                        SelectListItemHelpers.GetEnumSelectListItems<SearchUserEnum>(),
+                                        SelectListItemHelper.GetEnumSelectListItems<SearchUserEnum>(),
                                         new { @class = "form-control" })
                 </div>
 

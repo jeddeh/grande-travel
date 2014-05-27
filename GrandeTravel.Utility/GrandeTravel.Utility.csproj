@@ -54,9 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Email.cs" />
     <Compile Include="Helpers\PhoneValidation.cs" />
+    <Compile Include="IEmailService.cs" />
     <Compile Include="Implementation\BrainTreeAuthentication.cs" />
     <Compile Include="Implementation\BrainTreeService.cs" />
+    <Compile Include="Implementation\DefaultEmailAuthentication.cs" />
+    <Compile Include="Implementation\DefaultEmailService.cs" />
     <Compile Include="Implementation\TwilioAuthentication.cs" />
     <Compile Include="Implementation\TwilioService.cs" />
     <Compile Include="IPaymentService.cs" />

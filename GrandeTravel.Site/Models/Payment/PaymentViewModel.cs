@@ -15,13 +15,11 @@ namespace GrandeTravel.Site.Models.Payment
 
         [Required]
         [Display(Name = "CVV", Prompt = "CVV")]
-        [DataType(DataType.Text)]
         public string CVV { get; set; }
 
         [Required]
         [Display(Name = "Expiration Month", Prompt = "Expiration Month")]
         public string ExpirationMonth { get; set; }
-
 
         [Required]
         [Display(Name = "Expiration Year", Prompt = "Expiration Year")]

@@ -11,7 +11,7 @@ namespace GrandeTravel.Utility.Implementation
         private readonly TwilioAuthentication authentication;
 
         // Constructor
-        public TwilioService(TwilioAuthentication authentication)
+        internal TwilioService(TwilioAuthentication authentication)
         {
             this.authentication = authentication;
         }

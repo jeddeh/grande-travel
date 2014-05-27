@@ -13,10 +13,11 @@ using System.Web.Configuration;
 using GrandeTravel.Service;
 using GrandeTravel.Data;
 using GrandeTravel.Manager;
+using GrandeTravel.Site.Helpers;
 
 namespace GrandeTravel.Site.Controllers
 {
-    [Authorize(Roles="Customer")]
+    [Authorize(Roles = "Customer")]
     [Authorize(Roles = "ActiveUser")]
     public class PaymentController : Controller
     {
@@ -45,17 +46,18 @@ namespace GrandeTravel.Site.Controllers
                 RedirectToAction("Index", "Home");
             }
 
-            PaymentViewModel model = new PaymentViewModel
+            PaymentViewModel model = new PaymentViewModel();
+
+            if (MvcApplication.ShowSampleFormData)
             {
-                PackageId = 1,
-                PackageName = "The first package",
-                Amount = 500m
-            };
+                // Show dummy user data for model
+                model = SampleModelData.GetSamplePaymentViewModel();
+            }
 
             return View(model);
         }
 
-        [Authorize(Roles="Customer")]
+        [Authorize(Roles = "Customer")]
         [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
         [HttpPost]
@@ -66,18 +68,40 @@ namespace GrandeTravel.Site.Controllers
                 return View(model);
             }
 
-            Payment payment = model.ToPayment();
+            try
+            {
+                // Payment
+                Payment payment = model.ToPayment();
+                IPaymentService paymentService = UtilityFactory.GetBrainTreeService(AuthenticationFactory.GetBrainTreeAuthentication());
+                PaymentResult result = paymentService.SubmitPayment(payment);
+            }
+            catch
+            {
+                ModelState.AddModelError("ErrorMessage", "Unable to process payment. Please contact us.");
+                return View(model);
+            }
 
-            IPaymentService paymentService = UtilityFactory.GetBrainTreeService(new BrainTreeAuthentication
+            try
+            {
+                // Send Email
+                IEmailService emailService = UtilityFactory.GetEmailService(AuthenticationFactory.GetDefaultEmailAuthentication());
+
+                Email email = new Email
                 {
-                    MerchantId = WebConfigurationManager.AppSettings["brainTreeMerchantId"],
-                    PrivateKey = WebConfigurationManager.AppSettings["brainTreePrivateKey"],
-                    PublicKey = WebConfigurationManager.AppSettings["brainTreePublicKey"]
-                });
+                    From = "grandetraveller@gmail.com",
+                    To = "robgrantj@yahoo.com.au",
+                    Subject = "Test",
+                    Body = "Body"
+                };
 
-            PaymentResult result = paymentService.SubmitPayment(payment);
+                emailService.SendEmail(email);
 
-            return View();
+                return View(model);
+            }
+            catch
+            {
+                return View(model);
+            }
         }
     }
 }

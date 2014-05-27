@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace GrandeTravel.Site.Helpers
 {
-    public static class SelectListItemHelpers
+    public static class SelectListItemHelper
     {
         // Converts an Enum to an IEnumerable of SelectListItems for use with dropdown menus
         public static IEnumerable<SelectListItem> GetEnumSelectListItems<T>()

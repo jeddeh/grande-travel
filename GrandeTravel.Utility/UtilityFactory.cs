@@ -14,9 +14,14 @@ namespace GrandeTravel.Utility
             return new TwilioService(authentication);
         }
 
-        public static BrainTreeService GetBrainTreeService(BrainTreeAuthentication authentication)
+        public static IPaymentService GetBrainTreeService(BrainTreeAuthentication authentication)
         {
             return new BrainTreeService(authentication);
+        }
+
+        public static IEmailService GetEmailService(DefaultEmailAuthentication authentication)
+        {
+            return new DefaultEmailService(authentication);
         }
     }
 }

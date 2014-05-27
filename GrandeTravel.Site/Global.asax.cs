@@ -19,6 +19,8 @@ namespace GrandeTravel.Site
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static readonly bool ShowSampleFormData = true;
+
         protected void Application_Start()
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);

@@ -28,7 +28,7 @@
 
         <div class="form-group">
             @Html.DropDownListFor(model => model.State,
-                                        SelectListItemHelpers.GetEnumSelectListItems<AustralianStateEnum>(),
+                                        SelectListItemHelper.GetEnumSelectListItems<AustralianStateEnum>(),
                                         new { @class = "form-control" })
 
             @Html.ValidationMessageFor(model => model.State)

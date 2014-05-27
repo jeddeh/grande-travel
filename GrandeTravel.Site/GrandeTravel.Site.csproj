@@ -169,10 +169,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthenticationFactory.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\Mappers\PagedUsersMapper.cs" />
     <Compile Include="Helpers\Mappers\PaymentMapper.cs" />
-    <Compile Include="Helpers\SelectListItemHelpers.cs" />
+    <Compile Include="Helpers\SampleModelData.cs" />
+    <Compile Include="Helpers\SelectListItemHelper.cs" />
     <Compile Include="Helpers\Mappers\PackageMapper.cs" />
     <Compile Include="Helpers\Mappers\ApplicationUserMapper.cs" />
     <Compile Include="Models\Activities\ActivitiesViewModel.cs" />

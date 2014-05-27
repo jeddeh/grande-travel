@@ -18,6 +18,7 @@ using System.Web.Security;
 using WebMatrix.WebData;
 using GrandeTravel.Utility.Helpers;
 using System.Web.Configuration;
+using GrandeTravel.Site.Helpers;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -46,23 +47,13 @@ namespace GrandeTravel.Site.Controllers
         [AllowAnonymous]
         public ActionResult Add()
         {
-            // Dummy user data for model
-            Random random = new Random();
-            int randomNumber = random.Next(0, 10000);
+            MembershipViewModel model = new RegisterUserViewModel();
 
-            MembershipViewModel model = new RegisterUserViewModel
+            if (MvcApplication.ShowSampleFormData)
             {
-                Address = "5 Short Street",
-                City = "Sydney",
-                ConfirmPassword = "111111",
-                Email = "andrewjones" + randomNumber + "@aj.com.au",
-                FirstName = "Andrew",
-                LastName = "Jones",
-                Password = "111111",
-                Phone = "0400 000 000",
-                Postcode = "2016",
-                State = AustralianStateEnum.WA
-            };
+                // Show dummy user data for model
+                model = SampleModelData.GetSampleRegisterViewModel();
+            }
 
             // Set IsAdmin property on model
             if (Roles.IsUserInRole("Admin"))
@@ -137,13 +128,8 @@ namespace GrandeTravel.Site.Controllers
                                     string message = String.Format(
     "Hi {0}, We're just confirming your successful registration with Grande Travel.", model.FirstName);
 
-                                    GrandeTravel.Utility.IPhoneService commClient = UtilityFactory.GetPhoneService(
-                                        new TwilioAuthentication
-                                        {
-                                            AccountSid = WebConfigurationManager.AppSettings["twilioAccountSid"],
-                                            AuthToken = WebConfigurationManager.AppSettings["twilioAuthToken"],
-                                            TwilioPhoneNumber = WebConfigurationManager.AppSettings["twilioPhoneNumber"]
-                                        });
+                                    GrandeTravel.Utility.IPhoneService commClient =
+                                        UtilityFactory.GetPhoneService(AuthenticationFactory.GetTwilioAuthentication());
 
                                     commClient.SendSMS(phoneNumber, message);
                                 }

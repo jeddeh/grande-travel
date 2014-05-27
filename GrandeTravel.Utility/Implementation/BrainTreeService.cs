@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace GrandeTravel.Utility.Implementation
 {
-    public class BrainTreeService : IPaymentService
+    internal class BrainTreeService : IPaymentService
     {
         // Fields
         private readonly BrainTreeAuthentication authentication;
 
         // Constructor
-        public BrainTreeService(BrainTreeAuthentication authentication)
+        internal BrainTreeService(BrainTreeAuthentication authentication)
         {
             this.authentication = authentication;
         }

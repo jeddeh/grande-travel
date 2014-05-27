@@ -18,6 +18,7 @@ using System.Web.Routing;
 using WebMatrix.WebData;
 using System.Web.Security;
 using GrandeTravel.Site.Models.Payment;
+using GrandeTravel.Site.Helpers;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -46,18 +47,13 @@ namespace GrandeTravel.Site.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            // Dummy user data for model
-            Random random = new Random();
-            int randomNumber = random.Next(0, 10000);
+            PackagesViewModel model = new PackagesViewModel();
 
-            PackagesViewModel model = new PackagesViewModel
+            if (MvcApplication.ShowSampleFormData)
             {
-                PackageName = "Package " + randomNumber,
-                Price = 900.00m,
-                City = "Melbourne",
-                State = AustralianStateEnum.VIC,
-                Accomodation = "5 nights at the Grand Hotel, Melbourne"
-            };
+                // Show dummy user data for model
+                model = SampleModelData.GetSamplePackagesViewModel();
+            }
 
             return View(model);
         }
@@ -256,8 +252,6 @@ namespace GrandeTravel.Site.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
         }
 
         // AJAX Get Package details

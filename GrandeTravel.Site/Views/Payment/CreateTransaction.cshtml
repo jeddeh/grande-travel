@@ -17,34 +17,52 @@
                 @Html.AntiForgeryToken()
                 <fieldset>
                     <legend>Create Transaction</legend>
+
+
+                    @*<form action="/create_transaction" method="POST" id="braintree-payment-form">
+                        <p>
+                            <label>Card Number</label>
+                            <input type="text" size="20" autocomplete="off" data-encrypted-name="number" />
+                        </p>
+                        <p>
+                            <label>CVV</label>
+                            <input type="text" size="4" autocomplete="off" data-encrypted-name="cvv" />
+                        </p>
+                        <p>
+                            <label>Expiration (MM/YYYY)</label>
+                            <input type="text" size="2" data-encrypted-name="month" /> / <input type="text" size="4" data-encrypted-name="year" />
+                        </p>
+                        <input type="submit" id="submit" />
+                    </form>*@
+
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.CCNumber)
-                        @Html.EditorFor(model => model.CCNumber)
+                        @Html.TextBoxFor(model => model.CCNumber)
                         @Html.ValidationMessageFor(model => model.CCNumber)
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.CVV)
-                        @Html.EditorFor(model => model.CVV)
+                        @Html.TextBoxFor(model => model.CVV)
                         @Html.ValidationMessageFor(model => model.CVV)
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CCNumber)
-                        @Html.EditorFor(model => model.ExpirationMonth)
+                        @Html.LabelFor(model => model.ExpirationMonth)
+                        @Html.TextBoxFor(model => model.ExpirationMonth)
                         @Html.ValidationMessageFor(model => model.ExpirationMonth)
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CCNumber)
-                        @Html.EditorFor(model => model.ExpirationYear)
+                        @Html.LabelFor(model => model.ExpirationYear)
+                        @Html.TextBoxFor(model => model.ExpirationYear)
                         @Html.ValidationMessageFor(model => model.ExpirationYear)
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CCNumber)
-                        @Html.EditorFor(model => model.Amount)
-                        @Html.ValidationMessageFor(model => model.Amount)
+                        <p>Package : @Model.PackageName</p>
+                        <p>Total Amount : @String.Format("{0:C}", Model.Amount)</p>                        
                     </div>
 
                     <div>
