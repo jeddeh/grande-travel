@@ -1,4 +1,5 @@
-﻿@model GrandeTravel.Site.Models.Payment.PaymentViewModel
+﻿@using System.Web.Configuration
+@using GrandeTravel.Entity
 
 @{
     ViewBag.Title = "Payment";
@@ -6,81 +7,95 @@
     ViewBag.Description = "";
 }
 
-@using System.Web.Configuration;
+@section styles {
+    <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
+}
 
-<h1>Braintree Credit Card Transaction Form</h1>
-<section class="container">
-    <section class="row">
-        <div class="col-md-12">
-            @using (Html.BeginForm("CreateTransaction", "Payment", FormMethod.Post, new { id = "braintree-payment-form" }))
-            {
-                @Html.AntiForgeryToken()
-                <fieldset>
-                    <legend>Create Transaction</legend>
+<div id="membership" class="register">
+    <section>
+        <section class="row">
+            <div class="col-md-12 admin-form">
 
-
-                    @*<form action="/create_transaction" method="POST" id="braintree-payment-form">
-                        <p>
-                            <label>Card Number</label>
-                            <input type="text" size="20" autocomplete="off" data-encrypted-name="number" />
-                        </p>
-                        <p>
-                            <label>CVV</label>
-                            <input type="text" size="4" autocomplete="off" data-encrypted-name="cvv" />
-                        </p>
-                        <p>
-                            <label>Expiration (MM/YYYY)</label>
-                            <input type="text" size="2" data-encrypted-name="month" /> / <input type="text" size="4" data-encrypted-name="year" />
-                        </p>
-                        <input type="submit" id="submit" />
-                    </form>*@
-
-                    @Html.HiddenFor(model => model.Amount)
-                    @Html.HiddenFor(model => model.PackageId)
-                    @Html.HiddenFor(model => model.PackageName)
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CCNumber)
-                        @Html.TextBoxFor(model => model.CCNumber)
-                        @Html.ValidationMessageFor(model => model.CCNumber)
+                <header class="register-header">
+                    <div class="header">
+                        <h4>Payment</h4>
                     </div>
+                </header>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CVV)
-                        @Html.TextBoxFor(model => model.CVV)
-                        @Html.ValidationMessageFor(model => model.CVV)
-                    </div>
+                <section class="row">
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("CreateTransaction", "Payment",
+                                FormMethod.Post, new
+                                {
+                                    id = "braintree-payment-form",
+                                    @class = "form-horizontal",
+                                    @role = "form"
+                                }))
+                        {
+                            @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ExpirationMonth)
-                        @Html.TextBoxFor(model => model.ExpirationMonth)
-                        @Html.ValidationMessageFor(model => model.ExpirationMonth)
-                    </div>
+                            <fieldset>
+                                <legend>Create Transaction</legend>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ExpirationYear)
-                        @Html.TextBoxFor(model => model.ExpirationYear)
-                        @Html.ValidationMessageFor(model => model.ExpirationYear)
-                    </div>
+                                @{
+                            Package package = (Package)ViewData["Package"];
+                                }
 
-                    <div class="form-group">
-                        <p>Package : @Model.PackageName</p>
-                        <p>Total Amount : @String.Format("{0:C}", Model.Amount)</p>                        
-                    </div>
+                                <input type="hidden" name="packageId" value="@package.PackageId">
+                                <input type="hidden" name="packageName" value="@package.Name">
+                                <input type="hidden" name="amount" value="@package.Amount">
 
-                    <div>
-                        <input type="submit" id="submit" class="btn btn-primary" />
+                                <div class="form-group">
+                                    <p>Package : @package.Name</p>
+                                    <p>Total Amount : @package.Amount</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Card Number</label>
+                                    <div class="col-md-10">
+                                        <input type="text" size="20" autocomplete="off" data-encrypted-name="number"
+                                               class="form-control" id="number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">CVV</label>
+                                    <div class="col-md-10">
+                                        <input type="text" size="4" autocomplete="off" data-encrypted-name="cvv"
+                                               class="form-control" id="cvv">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Expiration (MM/YYYY)</label>
+                                    <div class="col-md-10">
+                                        <input type="text" size="2" autocomplete="off" data-encrypted-name="month"
+                                               class="form-control" id="number">
+
+                                        <input type="text" size="4" autocomplete="off" data-encrypted-name="year"
+                                               class="form-control" id="number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <input type="submit" id="submit" class="btn btn-default" value="SUBMIT" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
                     </div>
-                </fieldset>
-            }
-        </div>
+                </section>
+
+            </div>
+        </section>
     </section>
-</section>
+</div>
 
 @section Scripts {
     <script src="https://js.braintreegateway.com/v1/braintree.js"></script>
     <script>
-        var braintree = Braintree.create(@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]);
+        var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
         braintree.onSubmitEncryptForm('braintree-payment-form');
     </script>
 }

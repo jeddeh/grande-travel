@@ -20,9 +20,9 @@ namespace GrandeTravel.Site.Helpers
             {
                 PackageName = "Package " + randomNumber,
                 Price = 900.00m,
-                City = "Melbourne",
-                State = AustralianStateEnum.VIC,
-                Accomodation = "5 nights at the Grand Hotel, Melbourne"
+                City = "Sydney",
+                State = AustralianStateEnum.NSW,
+                Accomodation = "5 nights at Petersham TAFE, Sydney"
             };
         }
 

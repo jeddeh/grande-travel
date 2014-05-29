@@ -34,11 +34,16 @@
       <HintPath>..\packages\Braintree.2.30.1\lib\Braintree-2.30.1.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,12 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Email.cs" />
+    <Compile Include="Lib\JsonObject.cs" />
     <Compile Include="Helpers\PhoneValidation.cs" />
     <Compile Include="IEmailService.cs" />
+    <Compile Include="IGeolocationService.cs" />
     <Compile Include="Implementation\BrainTreeAuthentication.cs" />
     <Compile Include="Implementation\BrainTreeService.cs" />
     <Compile Include="Implementation\DefaultEmailAuthentication.cs" />
     <Compile Include="Implementation\DefaultEmailService.cs" />
+    <Compile Include="Implementation\GoogleGeolocationService.cs" />
     <Compile Include="Implementation\TwilioAuthentication.cs" />
     <Compile Include="Implementation\TwilioService.cs" />
     <Compile Include="IPaymentService.cs" />

@@ -4,16 +4,29 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using GrandeTravel.Entity.Enums;
+
 namespace GrandeTravel.Site.Models.Activities
 {
     public class ActivitiesViewModel
     {
+        [Required]
         public int PackageId { get; set; }
 
+        [Required]
         public string PackageName { get; set; }
 
-        public int ActivityId { get; set; }
+        [Required]
+        public string PackageCity { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(AustralianStateEnum))]
+        public AustralianStateEnum PackageState { get; set; }
+
+        [Required]
+        public int ActivityId { get; set; }
+        
+        [Required]
         public int ActivityNumber { get; set; }
 
         [Required]

@@ -29,12 +29,11 @@ namespace GrandeTravel.Utility.Implementation
                         // Assert.AreEqual("69fe587a51c8f48e92a68fcbd9b48477", authentication.AuthToken);
                         // Assert.AreEqual("(678) 394-0305", authentication.TwilioPhoneNumber);
 
-                        TwilioRestClient twilio = 
+                        TwilioRestClient twilio =
                             new TwilioRestClient(authentication.AccountSid, authentication.AccountSid);
-
-                        SMSMessage result = twilio.SendSmsMessage(authentication.TwilioPhoneNumber, phoneNumber, message);
+                        result = twilio.SendSmsMessage(authentication.TwilioPhoneNumber, phoneNumber, message);
                     }
-                    catch 
+                    catch
                     {
                         string errorMessage = result.RestException.Message;
                     }

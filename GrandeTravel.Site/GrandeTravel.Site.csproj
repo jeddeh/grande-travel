@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\FakePaymentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
@@ -173,7 +174,6 @@
     <Compile Include="Helpers\Authentication.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
     <Compile Include="Helpers\Mappers\PagedUsersMapper.cs" />
-    <Compile Include="Helpers\Mappers\PaymentMapper.cs" />
     <Compile Include="Helpers\SampleModelData.cs" />
     <Compile Include="Helpers\SelectListItemHelper.cs" />
     <Compile Include="Helpers\Mappers\PackageMapper.cs" />
@@ -325,6 +325,7 @@
     <Content Include="Views\Packages\ShowMap.cshtml" />
     <Content Include="Views\Payment\CreateTransaction.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\FakePayment\CreateTransaction.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

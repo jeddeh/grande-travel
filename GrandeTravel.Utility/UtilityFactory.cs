@@ -23,5 +23,10 @@ namespace GrandeTravel.Utility
         {
             return new DefaultEmailService(authentication);
         }
+
+        public static IGeolocationService GetGeolocationService()
+        {
+            return new GoogleGeolocationService();
+        }
     }
 }

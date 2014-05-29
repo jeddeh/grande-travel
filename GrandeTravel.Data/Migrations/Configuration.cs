@@ -307,14 +307,18 @@ namespace GrandeTravel.Data.Migrations
                         new Activity {
                             Status = PackageStatusEnum.Available,
                             Name = "Opera on Sydney Harbour" + i,
-                            Address = "Sample Address",
+                            Address = "Bennelong Point",
+                            Latitude = -33.8571839,
+                            Longitude = 151.214971,
                             Description = "Indulge your love of opera performed on a shimmering stage on the waters of Sydney Harbour.",
                         },
 
                         new Activity {
                             Status = PackageStatusEnum.Discontinued,
                             Name = "Sydney Royal Easter Show" + i,
-                            Address = "Sample Address",
+                            Address = "1 Showground Rd, Sydney Olympic Park",
+                            Latitude = -33.8449693,
+                            Longitude = 151.0670369,
                             Description = "Enjoy Australia’s agricultural heritage with great food, wine and carnival rides for the whole family.",
                         }
                     }

@@ -10,5 +10,19 @@ namespace GrandeTravel.Utility
     {
         public bool IsSuccess { get; set; }
         public string TransactionId { get; set; }
+        public PaymentError PaymentError { get; set; }
+    }
+
+    public class PaymentError
+    {
+        public string ErrorMessage { get; set; }
+        public PaymentErrorTypeEnum ErrorType { get; set; }
+    }
+
+    public enum PaymentErrorTypeEnum
+    {
+        ProcessingError,
+        NoTransaction,
+        ApplicationError
     }
 }

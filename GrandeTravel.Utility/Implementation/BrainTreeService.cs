@@ -51,16 +51,44 @@ namespace GrandeTravel.Utility.Implementation
                     paymentResult.IsSuccess = true;
                     paymentResult.TransactionId = transaction.Id;
                 }
+                else if (result.Transaction != null)
+                {
+                    paymentResult.IsSuccess = false;
+                    paymentResult.PaymentError = new PaymentError();
+
+                    paymentResult.PaymentError.ErrorType = PaymentErrorTypeEnum.ProcessingError;
+                    paymentResult.PaymentError.ErrorMessage = "Message: " + result.Message;
+                    Transaction transaction = result.Transaction;
+                    paymentResult.TransactionId = transaction.Id;
+
+                    paymentResult.PaymentError.ErrorMessage += "\n\nError processing transaction:" +
+                        "\n  Status: " + transaction.Status +
+                        "\n  Code: " + transaction.ProcessorResponseCode +
+                        "\n  Text: " + transaction.ProcessorResponseText;
+                }
                 else
                 {
                     paymentResult.IsSuccess = false;
-                    paymentResult.TransactionId = null;
+                    paymentResult.PaymentError = new PaymentError();
+
+                    paymentResult.PaymentError.ErrorType = PaymentErrorTypeEnum.NoTransaction;
+                    paymentResult.PaymentError.ErrorMessage = "Message: " + result.Message;
+
+                    foreach (ValidationError error in result.Errors.DeepAll())
+                    {
+                        paymentResult.PaymentError.ErrorMessage += "\n\nAttribute: " + error.Attribute +
+                        "\n  Code: " + error.Code +
+                        "\n  Message: " + error.Message;
+                    }
                 }
             }
-            catch
+            catch (Exception e)
             {
                 paymentResult.IsSuccess = false;
-                paymentResult.TransactionId = null;
+                paymentResult.PaymentError = new PaymentError();
+
+                paymentResult.PaymentError.ErrorType = PaymentErrorTypeEnum.ApplicationError;
+                paymentResult.PaymentError.ErrorMessage = e.Message;
             }
 
             return paymentResult;

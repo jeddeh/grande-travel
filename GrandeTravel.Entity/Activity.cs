@@ -30,6 +30,10 @@ namespace GrandeTravel.Entity
         [EnumDataType(typeof(PackageStatusEnum))]
         public PackageStatusEnum Status { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         public int PackageId { get; set; }
         public virtual Package Package { get; set; }
     }

@@ -63,17 +63,9 @@ namespace GrandeTravel.Site.Controllers
 
                 if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
                 {
-                    if (MvcApplication.ShowSampleFormData)
-                    {
-                        // Show dummy user data for model
-                        model = SampleModelData.GetSamplePaymentViewModel();
-                    }
-
-                    model.PackageId = packageId;
-                    model.PackageName = packageResult.Data.Name;
-                    model.Amount = packageResult.Data.Amount;
-
-                    return View(model);
+                    // No Model used in order to prevent the name attribute being posted back to the server.
+                    ViewData.Add("Package", packageResult.Data);
+                    return View();
                 }
                 else
                 {
@@ -90,19 +82,16 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "ActiveUser")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateTransaction(PaymentViewModel model)
+        public ActionResult CreateTransaction(FormCollection collection)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            // FormCollection is needed in order to use client-side encryption.
 
-            Order order;
-            ApplicationUser user;
-            Payment payment;
-            PaymentResult paymentResult;
-            string orderError = "Sorry, we were unable to process your order. Your credit card has not been charged.";
-           
+            // TODO : No need to instantiate these after redirect code has been implemented
+            Order order = new Order();
+            ApplicationUser user = new ApplicationUser();
+            Payment payment = new Payment();
+            PaymentResult paymentResult = new PaymentResult();
+
             try
             {
                 // Get ApplicationUser
@@ -110,17 +99,16 @@ namespace GrandeTravel.Site.Controllers
 
                 if (userResult.Status != ResultEnum.Success)
                 {
-                    ModelState.AddModelError("ErrorMessage", orderError);
-                    return View(model);
+                    // TODO : Go to failure page - card not charged
                 }
 
                 user = userResult.Data;
-                       
+
                 // Create Order
                 Result<Order> orderResult = orderService.AddOrder(new Order
                 {
-                    PackageId = model.PackageId,
-                    Amount = model.Amount,
+                    PackageId = Int32.Parse(collection["packageId"]),
+                    Amount = Decimal.Parse(collection["amount"]),
                     CustomerId = WebSecurity.CurrentUserId,
                     DateBooked = DateTime.Now,
                     Paid = false
@@ -128,36 +116,40 @@ namespace GrandeTravel.Site.Controllers
 
                 if (orderResult.Status != ResultEnum.Success)
                 {
-                    ModelState.AddModelError("ErrorMessage", orderError);
-                    return View(model);
+                    // TODO : Go to failure page - card not charged
                 }
 
                 order = orderResult.Data;
             }
             catch
             {
-                ModelState.AddModelError("ErrorMessage", orderError);
-                return View(model);
+                // TODO : Go to failure page - card not charged
             }
 
             // Submit Payment
-            string paymentError = "Unable to process payment. Please contact us.";
-
             try
             {
-                payment = model.ToPayment();
+                payment = new Payment
+                {
+                    CCNumber = collection["number"],
+                    CVV = collection["cvv"],
+                    ExpirationMonth = collection["month"],
+                    ExpirationYear = collection["year"],
+                    Amount = Decimal.Parse(collection["amount"]),
+                    PackageId = Int32.Parse(collection["packageId"]),
+                    PackageName = collection["packageName"]
+                };
+
                 IPaymentService paymentService = UtilityFactory.GetBrainTreeService(Authentication.GetBrainTreeAuthentication());
                 paymentResult = paymentService.SubmitPayment(payment);
                 if (!paymentResult.IsSuccess)
                 {
-                    ModelState.AddModelError("ErrorMessage", paymentError);
-                    return View(model);
+                    // TODO : Log and go to failure page
                 }
             }
             catch
             {
-                ModelState.AddModelError("ErrorMessage", paymentError);
-                return View(model);
+                // TODO : Log and go to failure page
             }
 
             // Payment Successful
@@ -184,7 +176,7 @@ namespace GrandeTravel.Site.Controllers
                     string message = String.Format(
                         "Hi {0}, Congratulations on your successful order of our {1} package. Enjoy your trip!",
                         user.FirstName,
-                        model.PackageName);
+                        collection["packageName"]);
 
                     GrandeTravel.Utility.IPhoneService commClient =
                         UtilityFactory.GetPhoneService(Authentication.GetTwilioAuthentication());
@@ -205,29 +197,30 @@ namespace GrandeTravel.Site.Controllers
                     From = Authentication.GetDefaultEmailSenderAddress(),
                     To = WebSecurity.CurrentUserName,
                     Subject = "Grande Travel Package Details",
-                    
+
                     Body = String.Format(
                         "Hi {1}, {0}{0}" +
-                        "Your payment of {2} for our {3} package has been successful. {0}" + 
-                        "Your credit card transaction code is {4}. {0}{0}"+ 
+                        "Your payment of {2} for our {3} package has been successful. {0}" +
+                        "Your credit card transaction code is {4}. {0}{0}" +
                         "Your Grande Travel voucher code is {5}, which is redeemable until {6}.{0}",
                         crlf,
                         user.FirstName,
-                        String.Format("{0:c}" ,model.Amount),
-                        model.PackageName, 
-                        order.TransactionId, 
+                        String.Format("{0:c}", Decimal.Parse(collection["amount"])),
+                        collection["packageName"],
+                        order.TransactionId,
                         order.VoucherCode,
                         expiryDate.ToLongDateString())
                 };
 
                 emailService.SendEmail(email);
 
-                return View(model);
+                // TODO : Go to success page
             }
             catch
             {
-                return View(model);
+                // TODO : Go to success page - but please contact us about your order
             }
+            return View(); // TODO : No need for this after redirects
         }
     }
 }

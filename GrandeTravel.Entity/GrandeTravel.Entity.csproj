@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Enums\AustralianStateEnum.cs" />
     <Compile Include="ApplicationUser.cs" />

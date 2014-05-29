@@ -131,7 +131,7 @@ namespace GrandeTravel.Site.Controllers
                                     GrandeTravel.Utility.IPhoneService commClient =
                                         UtilityFactory.GetPhoneService(Authentication.GetTwilioAuthentication());
 
-                                    commClient.SendSMS(phoneNumber, message);
+                                    Task task = commClient.SendSMS(phoneNumber, message);
                                 }
 
                                 return RedirectToAction("Index", "Home");

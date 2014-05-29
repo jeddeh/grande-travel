@@ -5,6 +5,7 @@ using GrandeTravel.Manager;
 using GrandeTravel.Service;
 using GrandeTravel.Site.Models;
 using GrandeTravel.Site.Models.Activities;
+using GrandeTravel.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,15 +41,17 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "ActiveUser")]
         public ActionResult Add(int packageId)
         {
+            ActivitiesViewModel model = new ActivitiesViewModel();
+
             Result<Package> result = new Result<Package>();
             result = packageService.GetPackageById(packageId);
-
-            ActivitiesViewModel model = new ActivitiesViewModel();
 
             if (result.Status == ResultEnum.Success && result.Data.Activities.Count < 3)
             {
                 model.PackageId = result.Data.PackageId;
                 model.PackageName = result.Data.Name;
+                model.PackageCity = result.Data.City;
+                model.PackageState = result.Data.State;
                 model.ActivityNumber = result.Data.Activities.Count + 1;
             }
             else
@@ -65,32 +68,48 @@ namespace GrandeTravel.Site.Controllers
         [HttpPost]
         public ActionResult Add(ActivitiesViewModel model)
         {
+            string errorMessage = "Unable to add the activity to the package.";
+            string successMessage = "The activity has been added to your package.";
+
             if (ModelState.IsValid)
             {
-                Activity activity = new Activity()
+                try
                 {
-                    Name = model.ActivityName,
-                    Description = model.Description,
-                    Address = model.Address,
-                    Status = PackageStatusEnum.Available,
-                    PackageId = model.PackageId
-                };
+                    // Get co-ordianates of address
+                    IGeolocationService geolocationService = UtilityFactory.GetGeolocationService();
+                    Location location = geolocationService.GetCoordinates(
+                        String.Format("{0}, {1}, {2}", model.Address, model.PackageCity, model.PackageState.ToString()));
 
-                ResultEnum result = activityService.AddActivity(activity);
+                    Activity activity = new Activity()
+                    {
+                        Name = model.ActivityName,
+                        Description = model.Description,
+                        Address = model.Address,
+                        Status = PackageStatusEnum.Available,
+                        PackageId = model.PackageId,
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude
+                    };
 
-                if (result == ResultEnum.Success)
-                {
-                    model.SuccessMessage = "The activity has been added to your package.";
+                    ResultEnum result = activityService.AddActivity(activity);
+
+                    if (result == ResultEnum.Success)
+                    {
+                        model.SuccessMessage = successMessage;
+                    }
+                    else
+                    {
+                        model.ErrorMessage = errorMessage;
+                    }
+
+                    return View(model);
                 }
-                else
+                catch
                 {
-                    model.ErrorMessage = "Unable to add the activity to the package.";
+                    model.ErrorMessage = errorMessage;
                 }
-
-                return View(model);
             }
 
-            model.ErrorMessage = "Unable to add the activity to the package.";
             return View(model);
         }
 
@@ -111,7 +130,7 @@ namespace GrandeTravel.Site.Controllers
             int packageId = pId.GetValueOrDefault();
 
             ActivitiesViewModel model = new ActivitiesViewModel();
-            
+
             // Get name of package
             Result<Package> packageResult = new Result<Package>();
             packageResult = packageService.GetPackageById(packageId);
@@ -153,31 +172,46 @@ namespace GrandeTravel.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                Activity activity = new Activity()
-                {
-                    ActivityId = model.ActivityId,
-                    Name = model.ActivityName,
-                    Description = model.Description,
-                    Address = model.Address,
-                    Status = PackageStatusEnum.Available,
-                    PackageId = model.PackageId
-                };
+                string successMessage = "Activity successfully edited.";
+                string errorMessage = "Unable to edit the activity.";
 
-                ResultEnum result = activityService.UpdateActivity(activity);
-
-                if (result == ResultEnum.Success)
+                try
                 {
-                    model.SuccessMessage = "Activity successfully edited.";
+                    // Get co-ordianates of address
+                    IGeolocationService geolocationService = UtilityFactory.GetGeolocationService();
+                    Location location = geolocationService.GetCoordinates(
+                        String.Format("{0}, {1}, {2}", model.Address, model.PackageCity, model.PackageState.ToString()));
+
+                    Activity activity = new Activity()
+                    {
+                        Name = model.ActivityName,
+                        Description = model.Description,
+                        Address = model.Address,
+                        Status = PackageStatusEnum.Available,
+                        PackageId = model.PackageId,
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude
+                    };
+
+                    ResultEnum result = activityService.UpdateActivity(activity);
+
+                    if (result == ResultEnum.Success)
+                    {
+                        model.SuccessMessage = successMessage;
+                    }
+                    else
+                    {
+                        model.ErrorMessage = errorMessage;
+                    }
+
+                    return View(model);
                 }
-                else
+                catch
                 {
-                    model.ErrorMessage = "Unable to edit the activity.";
+                    model.ErrorMessage = errorMessage;
                 }
-
-                return View(model);
             }
 
-            model.ErrorMessage = "Unable to edit the activity.";
             return View(model);
         }
 
