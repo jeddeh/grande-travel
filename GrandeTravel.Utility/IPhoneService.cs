@@ -8,6 +8,6 @@ namespace GrandeTravel.Utility
 {
     public interface IPhoneService
     {
-        Task SendSMS(string message, string phoneNumber);
+        Task SendSMSAsync(string message, string phoneNumber);
     }
 }

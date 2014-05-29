@@ -160,7 +160,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
-    <Compile Include="Controllers\FakePaymentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
@@ -189,7 +188,7 @@
     <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
     <Compile Include="Models\Packages\ShowMapViewModel.cs" />
-    <Compile Include="Models\Payment\PaymentViewModel.cs" />
+    <Compile Include="Models\Payment\PaymentResultViewModel.cs" />
     <Compile Include="Models\Statistics\StatisticsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -288,6 +287,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Images\Site\dore_travel_logo.jpg" />
     <Content Include="Images\Site\grande_travel_logo.png" />
     <Content Include="Images\Site\Horse.jpg" />
     <Content Include="Images\Site\Jetty.jpg" />
@@ -295,6 +295,7 @@
     <Content Include="Images\Site\Sculptures.jpg" />
     <Content Include="Images\Site\Supercar.jpg" />
     <Content Include="Images\Site\SydneyHarbour.jpg" />
+    <Content Include="Log\TransactionLog.txt" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -308,6 +309,7 @@
     <Content Include="Scripts\jquery.isotope.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.payment.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -325,7 +327,7 @@
     <Content Include="Views\Packages\ShowMap.cshtml" />
     <Content Include="Views\Payment\CreateTransaction.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\FakePayment\CreateTransaction.cshtml" />
+    <Content Include="Views\Payment\Result.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

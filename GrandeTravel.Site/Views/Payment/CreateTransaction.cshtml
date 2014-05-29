@@ -29,7 +29,9 @@
                                 {
                                     id = "braintree-payment-form",
                                     @class = "form-horizontal",
-                                    @role = "form"
+                                    @role = "form",
+                                    @autocomplete = "on",
+                                    novalidate = "novalidate"
                                 }))
                         {
                             @Html.AntiForgeryToken()
@@ -38,12 +40,8 @@
                                 <legend>Create Transaction</legend>
 
                                 @{
-                            Package package = (Package)ViewData["Package"];
+                            Package package = (Package)TempData["Package"];
                                 }
-
-                                <input type="hidden" name="packageId" value="@package.PackageId">
-                                <input type="hidden" name="packageName" value="@package.Name">
-                                <input type="hidden" name="amount" value="@package.Amount">
 
                                 <div class="form-group">
                                     <p>Package : @package.Name</p>
@@ -53,33 +51,45 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Card Number</label>
                                     <div class="col-md-10">
-                                        <input type="text" size="20" autocomplete="off" data-encrypted-name="number"
-                                               class="form-control" id="number">
+                                        <input type="text" data-encrypted-name="number"
+                                               class="form-control cc-number" id="number" pattern="\d*" x-autocompletetype="cc-number"
+                                               required
+                                               value="4111111111111111">
                                     </div>
+                                    <div class="col-md-12 valid cc-validation">
+                                        <p class="error-message">Invalid Credit Card Number</p>
+                                    </div>   
                                 </div>
+
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">CVV</label>
                                     <div class="col-md-10">
-                                        <input type="text" size="4" autocomplete="off" data-encrypted-name="cvv"
-                                               class="form-control" id="cvv">
+                                        <input type="text" data-encrypted-name="cvv"
+                                               class="form-control cc-cvv" id="cvv" pattern="\d*" x-autocompletetype="cc-csc"
+                                               required autocomplete="off"
+                                               value="555">
                                     </div>
+                                    <p class="payment-valid">Invalid CVV</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Expiration (MM/YYYY)</label>
+                                    <label class="col-md-2 control-label">Exipry (MM/YYYY)</label>
                                     <div class="col-md-10">
-                                        <input type="text" size="2" autocomplete="off" data-encrypted-name="month"
-                                               class="form-control" id="number">
+                                        <input type="text" size="2" maxlength="2" autocomplete="off" data-encrypted-name="month"
+                                               class="form-control" id="number" required data-numeric
+                                               value="02">
 
-                                        <input type="text" size="4" autocomplete="off" data-encrypted-name="year"
-                                               class="form-control" id="number">
+                                        <input type="text" size="4" maxlength="4" autocomplete="off" data-encrypted-name="year"
+                                               class="form-control" id="number" required data-numeric
+                                               value="2015">
                                     </div>
+                                    <p class="payment-valid">Invalid Expiry</p>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <input type="submit" id="submit" class="btn btn-default" value="SUBMIT" />
+                                        <input type="submit" id="submit" class="btn btn-default" disabled="disabled" value="SUBMIT" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -94,8 +104,41 @@
 
 @section Scripts {
     <script src="https://js.braintreegateway.com/v1/braintree.js"></script>
+    <script src="~/Scripts/jquery.payment.js"></script>
+
     <script>
-        var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
-        braintree.onSubmitEncryptForm('braintree-payment-form');
+        $(document).ready(function () {
+            var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
+            braintree.onSubmitEncryptForm('braintree-payment-form');
+
+            $("#submit").removeAttr("disabled");
+
+            // Stripe validation
+            $('[data-numeric]').payment('restrictNumeric');
+            $('.cc-number').payment('formatCardNumber');
+            $('.cc-exp').payment('formatCardExpiry');
+            $('.cc-cvc').payment('formatCardCVC');
+
+            $('#braintree-payment-form').submit(function (e) {
+                e.preventDefault();
+                $('input').removeClass('invalid');
+                $('.validation').removeClass('passed failed');
+
+                var cardType = $.payment.cardType($('.cc-number').val());
+
+                $('.cc-validation').toggleClass('valid', !$.payment.validateCardNumber($('.cc-number').val()));
+                //$('.cc-exp').toggleClass('invalid', !$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
+                $('.cvv-validation').toggleClass('valid', !$.payment.validateCardCVC($('.cc-cvv').val(), cardType));
+
+                if ($('input.invalid').length) {
+                    $('.validation').addClass('failed');
+                } else {
+                    $('.validation').addClass('passed');
+                }
+            });
+
+        });
+
+
     </script>
 }

@@ -19,16 +19,12 @@ namespace GrandeTravel.Utility.Implementation
         }
 
         // Methods
-        public Task SendSMS(string phoneNumber, string message)
+        public Task SendSMSAsync(string phoneNumber, string message)
         {
             return Task.Run(() =>
                 {
                     try
                     {
-                        // Assert.AreEqual("AC626c6b14ab61e8828467eb34d10b39c9", authentication.AccountSid);
-                        // Assert.AreEqual("69fe587a51c8f48e92a68fcbd9b48477", authentication.AuthToken);
-                        // Assert.AreEqual("(678) 394-0305", authentication.TwilioPhoneNumber);
-
                         TwilioRestClient twilio =
                             new TwilioRestClient(authentication.AccountSid, authentication.AccountSid);
                         result = twilio.SendSmsMessage(authentication.TwilioPhoneNumber, phoneNumber, message);

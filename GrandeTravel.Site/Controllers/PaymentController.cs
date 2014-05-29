@@ -4,11 +4,11 @@ using GrandeTravel.Entity.Enums;
 using GrandeTravel.Manager;
 using GrandeTravel.Service;
 using GrandeTravel.Site.Helpers;
-using GrandeTravel.Site.Helpers.Mappers;
 using GrandeTravel.Site.Models.Payment;
 using GrandeTravel.Utility;
 using GrandeTravel.Utility.Helpers;
 using System;
+using System.IO;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 
@@ -22,6 +22,10 @@ namespace GrandeTravel.Site.Controllers
         private IPackageService packageService;
         private IOrderService orderService;
         private IApplicationUserService userService;
+
+        private ApplicationUser user = new ApplicationUser();
+        private Package package = new Package();
+        private PaymentResult paymentResult = new PaymentResult();
 
         // Constructors
         public PaymentController()
@@ -42,13 +46,13 @@ namespace GrandeTravel.Site.Controllers
         }
 
         // Methods
+        #region Create Transaction
+
         [Authorize(Roles = "Customer")]
         [Authorize(Roles = "ActiveUser")]
         public ActionResult CreateTransaction(int? PackageId)
         {
             // Get the package
-            PaymentViewModel model = new PaymentViewModel();
-
             try
             {
                 if (PackageId == null)
@@ -63,8 +67,11 @@ namespace GrandeTravel.Site.Controllers
 
                 if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
                 {
-                    // No Model used in order to prevent the name attribute being posted back to the server.
-                    ViewData.Add("Package", packageResult.Data);
+                    // No Model is used in order to prevent a name attribute being applied to form inputs -
+                    // this causes unencrypted form fields to be posted.
+                    TempData.Clear();
+                    TempData.Add("Package", packageResult.Data);
+                    TempData.Keep("Package");
                     return View();
                 }
                 else
@@ -84,13 +91,28 @@ namespace GrandeTravel.Site.Controllers
         [HttpPost]
         public ActionResult CreateTransaction(FormCollection collection)
         {
-            // FormCollection is needed in order to use client-side encryption.
+            string resultMessage = "The transaction could not be processed.";
 
-            // TODO : No need to instantiate these after redirect code has been implemented
-            Order order = new Order();
-            ApplicationUser user = new ApplicationUser();
-            Payment payment = new Payment();
-            PaymentResult paymentResult = new PaymentResult();
+            // FormCollection is needed in order to use client-side encryption.
+            if (collection.Count <= 1)
+            {
+                // Encryption failed / form not valid - go to failure page 
+                LogTransaction("Form fields not received.", false);
+                return RedirectToResult(resultMessage, false);
+            }
+
+            var packageHolder = TempData["Package"];
+
+            if (packageHolder == null)
+            {
+                // Go to failure page - card not charged
+                LogTransaction("No package information received.", false);
+                return RedirectToResult(resultMessage, false);
+            }
+
+            Order order;
+            Payment payment;
+            package = (Package)packageHolder;
 
             try
             {
@@ -99,7 +121,9 @@ namespace GrandeTravel.Site.Controllers
 
                 if (userResult.Status != ResultEnum.Success)
                 {
-                    // TODO : Go to failure page - card not charged
+                    // Go to failure page - card not charged
+                    LogTransaction("Unable to get user details.", false);
+                    return RedirectToResult(resultMessage, false);
                 }
 
                 user = userResult.Data;
@@ -107,8 +131,8 @@ namespace GrandeTravel.Site.Controllers
                 // Create Order
                 Result<Order> orderResult = orderService.AddOrder(new Order
                 {
-                    PackageId = Int32.Parse(collection["packageId"]),
-                    Amount = Decimal.Parse(collection["amount"]),
+                    PackageId = package.PackageId,
+                    Amount = package.Amount,
                     CustomerId = WebSecurity.CurrentUserId,
                     DateBooked = DateTime.Now,
                     Paid = false
@@ -116,14 +140,18 @@ namespace GrandeTravel.Site.Controllers
 
                 if (orderResult.Status != ResultEnum.Success)
                 {
-                    // TODO : Go to failure page - card not charged
+                    // Go to failure page - card not charged
+                    LogTransaction("Unable to get order details.", false);
+                    return RedirectToResult(resultMessage, false);
                 }
 
                 order = orderResult.Data;
             }
-            catch
+            catch (Exception e)
             {
-                // TODO : Go to failure page - card not charged
+                // Go to failure page - card not charged
+                LogTransaction(e.Message, false);
+                return RedirectToResult(resultMessage, false);
             }
 
             // Submit Payment
@@ -135,24 +163,28 @@ namespace GrandeTravel.Site.Controllers
                     CVV = collection["cvv"],
                     ExpirationMonth = collection["month"],
                     ExpirationYear = collection["year"],
-                    Amount = Decimal.Parse(collection["amount"]),
-                    PackageId = Int32.Parse(collection["packageId"]),
-                    PackageName = collection["packageName"]
+                    Amount = package.Amount,
+                    PackageId = package.PackageId,
+                    PackageName = package.Name
                 };
 
                 IPaymentService paymentService = UtilityFactory.GetBrainTreeService(Authentication.GetBrainTreeAuthentication());
                 paymentResult = paymentService.SubmitPayment(payment);
                 if (!paymentResult.IsSuccess)
                 {
-                    // TODO : Log and go to failure page
+                    LogTransaction("Error submitting payment.", false);
+                    return RedirectToResult(resultMessage, false);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // TODO : Log and go to failure page
+                LogTransaction(e.Message, false);
+                return RedirectToResult(resultMessage, false);
             }
 
             // Payment Successful
+            resultMessage = "Your transaction has been processed. Enjoy your holiday!";
+
             try
             {
                 // Update Order
@@ -165,23 +197,32 @@ namespace GrandeTravel.Site.Controllers
                 if (result != ResultEnum.Success)
                 {
                     // Payment succeeded, but database update failed.
-                    // TODO : Log error
+                    LogTransaction("Failed to update database.", true);
                 }
+            }
+            catch (Exception e)
+            {
+                // Payment succeeded, but database update failed.
+                LogTransaction(e.Message, true);
+                resultMessage = "Your transaction has been processed. Please contact us about your trip.";
+            }
 
+            try
+            {
                 // Send SMS
                 string phoneNumber = PhoneValidation.ValidateMobileNumber(user.Phone);
 
                 if (phoneNumber != null)
                 {
-                    string message = String.Format(
+                    string smsMessage = String.Format(
                         "Hi {0}, Congratulations on your successful order of our {1} package. Enjoy your trip!",
                         user.FirstName,
-                        collection["packageName"]);
+                        package.Name);
 
                     GrandeTravel.Utility.IPhoneService commClient =
                         UtilityFactory.GetPhoneService(Authentication.GetTwilioAuthentication());
 
-                    commClient.SendSMS(phoneNumber, message);
+                    commClient.SendSMSAsync(phoneNumber, smsMessage);
                 }
 
                 // Send Email
@@ -193,7 +234,6 @@ namespace GrandeTravel.Site.Controllers
                 Email email = new Email
                 {
                     // Unique voucher code, package details, and expiry date which are 3 months from the date of payment.
-
                     From = Authentication.GetDefaultEmailSenderAddress(),
                     To = WebSecurity.CurrentUserName,
                     Subject = "Grande Travel Package Details",
@@ -205,22 +245,79 @@ namespace GrandeTravel.Site.Controllers
                         "Your Grande Travel voucher code is {5}, which is redeemable until {6}.{0}",
                         crlf,
                         user.FirstName,
-                        String.Format("{0:c}", Decimal.Parse(collection["amount"])),
-                        collection["packageName"],
+                        String.Format("{0:c}", package.Amount),
+                        package.Name,
                         order.TransactionId,
                         order.VoucherCode,
                         expiryDate.ToLongDateString())
                 };
 
-                emailService.SendEmail(email);
-
-                // TODO : Go to success page
+                emailService.SendEmailAsync(email);
             }
-            catch
+            catch (Exception e)
             {
-                // TODO : Go to success page - but please contact us about your order
+                // Email or Sms failed - but this will not catch async errors.
+                LogTransaction(e.Message, true);
+                resultMessage = "Your transaction has been processed. <br /> Please contact us about your trip.";
+                return RedirectToResult(resultMessage, true);
             }
-            return View(); // TODO : No need for this after redirects
+
+            LogTransaction("Successful Purchase.", true);
+            return RedirectToResult(resultMessage, true);
         }
+
+        public RedirectToRouteResult RedirectToResult(string message, bool isSuccess)
+        {
+            PaymentResultViewModel model = new PaymentResultViewModel
+            {
+                IsSuccess = isSuccess,
+                Message = message
+            };
+
+            TempData.Clear();
+            TempData["PaymentResultViewModel"] = model;
+            return RedirectToAction("Result");
+        }
+
+        #endregion
+
+        #region Payment Result
+
+        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "ActiveUser")]
+        [HttpGet]
+        public ActionResult Result()
+        {
+            PaymentResultViewModel viewModel = (PaymentResultViewModel)TempData["PaymentResultViewModel"];
+
+            if (viewModel == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            return View(viewModel);
+        }
+
+        #endregion
+
+        #region Log Transaction
+
+        public void LogTransaction(string message, bool isSuccess)
+        {
+            try
+            {
+                using (StreamWriter sw =new StreamWriter(Server.MapPath("~/Log/TransactionLog.txt"), true))
+                {
+                    sw.WriteLine(DateTime.Now.ToString());
+                    sw.WriteLine(message);
+                    sw.WriteLine();
+                }
+            }
+            catch (Exception e)
+            {
+                // Log failed
+            }
+        }
+        #endregion
     }
 }

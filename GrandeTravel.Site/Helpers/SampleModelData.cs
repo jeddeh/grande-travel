@@ -45,23 +45,5 @@ namespace GrandeTravel.Site.Helpers
                 State = AustralianStateEnum.WA
             };
         }
-
-        public static PaymentViewModel GetSamplePaymentViewModel()
-        {
-            Random random = new Random();
-            int randomNumber = random.Next(0, 10000);
-
-            return new PaymentViewModel
-            {
-                PackageId = 1,
-                PackageName = "Sample Package",
-                Amount = 1000.00m,
-                CCNumber = "4111111111111111",
-                CVV = "555",
-                ExpirationMonth = "05",
-                ExpirationYear = "2015"
-            };
-        }
-
     }
 }

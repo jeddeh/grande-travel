@@ -1,0 +1,38 @@
+﻿@model GrandeTravel.Site.Models.Payment.PaymentResultViewModel
+
+@{
+    ViewBag.Title = "Payment Result";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    @Styles.Render("~/Content/clearcanvas/theme.css")
+}
+
+<section class="container">
+    <div class="row">
+        <div class="col-md-12 payment-result">
+            <div class="text-center">
+                <img src="~/Images/Site/dore_travel_logo.jpg" alt="Grande Travel" />
+            </div>
+
+            @{
+                string messageClass;
+
+                if (Model.IsSuccess)
+                {
+                    messageClass = "payment-success";
+                }
+                else
+                {
+                    messageClass = "payment-error";
+                }
+            }
+
+            <div class="text-center @messageClass">
+                @Html.DisplayFor(model => model.Message)
+            </div>
+        </div>
+    </div>
+</section>

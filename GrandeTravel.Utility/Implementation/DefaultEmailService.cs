@@ -19,7 +19,7 @@ namespace GrandeTravel.Utility.Implementation
         }
 
         // Methods
-        public Task SendEmail(Email email)
+        public Task SendEmailAsync(Email email)
         {
             return Task.Run(() =>
                 {

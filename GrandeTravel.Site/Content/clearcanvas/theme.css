@@ -1,3 +1,17 @@
+/*Payment Result*/
+.payment-result {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.payment-error {
+    color: red;
+}
+
+.payment-success {
+    color: green;
+}
+
 /*General*/
 #manageUsers, #searchUserAccounts {
     margin: 30px auto;
