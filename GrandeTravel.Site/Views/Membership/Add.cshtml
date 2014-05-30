@@ -47,6 +47,9 @@
                         <div class="row">
                             <section class="col-md-6">
 
+                                @Html.HiddenFor(model => model.HasPackage);
+                                @Html.HiddenFor(model => model.PackageId);
+
                                 <div class="form-group">
                                     @Html.EditorFor(model => model.Email)
                                     @Html.ValidationMessageFor(model => model.Email)
@@ -64,18 +67,20 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
-
-                                <div class="membership-checkbox">
-                                    @Html.CheckBoxFor(model => model.IsProvider)
-                                    @Html.LabelFor(model => model.IsProvider, providerMessage)
-                                </div>
-
-                                @if (!Model.IsAdmin)
+                                @if (!Model.HasPackage) <!-- Disable provider option if user wants to purchase a package -->
                                 {
-                                    <div class="has-account">
-                                        <span>Already have an account?</span>
-                                        @Html.ActionLink("Login", "Index", "Login")
+                                    <div class="membership-checkbox">
+                                        @Html.CheckBoxFor(model => model.IsProvider)
+                                        @Html.LabelFor(model => model.IsProvider, providerMessage)
                                     </div>
+
+                                    @if (!Model.IsAdmin)
+                                    {
+                                        <div class="has-account">
+                                            <span>Already have an account?</span>
+                                            @Html.ActionLink("Login", "Index", "Login")
+                                        </div>
+                                    }
                                 }
 
                                 @if (IsPost)
@@ -100,7 +105,7 @@
                             @{Html.RenderPartial("_Partial_UserDetails");}
 
                         </div>
-                        
+
                         <div>
                             <button type="submit" class="btn btn-primary membership-submit register-submit">Register</button>
                         </div>

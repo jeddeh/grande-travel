@@ -3,7 +3,7 @@ body {
 }
 
 /*Payment*/
-.valid {
+.payment .is-valid {
     display: none;
 }
 

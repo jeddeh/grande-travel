@@ -45,14 +45,24 @@ namespace GrandeTravel.Site.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Add()
+        public ActionResult Add(int? PackageId)
         {
-            MembershipViewModel model = new RegisterUserViewModel();
+            RegisterUserViewModel model = new RegisterUserViewModel();
 
             if (MvcApplication.ShowSampleFormData)
             {
                 // Show dummy user data for model
                 model = SampleModelData.GetSampleRegisterViewModel();
+            }
+
+            if (PackageId.HasValue)
+            {
+                model.HasPackage = true;
+                model.PackageId = PackageId.GetValueOrDefault();
+            }
+            else
+            {
+                model.HasPackage = false;
             }
 
             // Set IsAdmin property on model
@@ -132,6 +142,12 @@ namespace GrandeTravel.Site.Controllers
                                         UtilityFactory.GetPhoneService(Authentication.GetTwilioAuthentication());
 
                                     Task task = commClient.SendSMSAsync(phoneNumber, message);
+                                }
+
+                                // If the customer wants to order a package, redirect to Payment
+                                if (model.HasPackage)
+                                {
+                                    return RedirectToAction("CreateTransaction", "Payment", new { PackageId = model.PackageId });
                                 }
 
                                 return RedirectToAction("Index", "Home");

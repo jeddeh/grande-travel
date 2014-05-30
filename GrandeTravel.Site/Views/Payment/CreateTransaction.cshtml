@@ -56,7 +56,7 @@
                                            required
                                            value="4111 1111 1111 1111">
                                 </div>
-                                <div class="col-md-12 validator valid cc-validation">
+                                <div class="col-md-12 validator is-valid cc-validation">
                                     <p class="error-message">Invalid Credit Card Number</p>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                            required autocomplete="off"
                                            value="555">
                                 </div>
-                                <div class="col-md-12 validator valid cvv-validation">
+                                <div class="col-md-12 validator is-valid cvv-validation">
                                     <p class="error-message">Invalid CVV</p>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                                value="2015">
                                     </div>
 
-                                    <div class="col-md-12 validator valid expiry-validation">
+                                    <div class="col-md-12 validator is-valid expiry-validation">
                                         <p class="error-message">Invalid Exipry Date</p>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="submit" id="submit" class="btn btn-primary" disabled="disabled"
+                                    <input type="submit" id="submit" class="btn btn-primary" disabled
                                            value="SUBMIT" />
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
 
             $('#braintree-payment-form').submit(function (e) {
 
-                $('.validator').addClass('valid');
+                $('.validator').addClass('is-valid');
 
                 var cardType = $.payment.cardType($('.cc-number').val());
                 var ccNumber = $('#number').val();
@@ -136,25 +136,26 @@
                 var expiryMonth = $('#expiry-month').val();
                 var expiryYear = $('#expiry-year').val();
 
-                $('.cc-validation').toggleClass('valid', $.payment.validateCardNumber(ccNumber));
-                $('.cvv-validation').toggleClass('valid', $.payment.validateCardCVC(cvv, cardType));
-                $('.expiry-validation').toggleClass('valid', $.payment.validateCardExpiry(expiryMonth, expiryYear));
+                $('.cc-validation').toggleClass('is-valid', $.payment.validateCardNumber(ccNumber));
+                $('.cvv-validation').toggleClass('is-valid', $.payment.validateCardCVC(cvv, cardType));
+                $('.expiry-validation').toggleClass('is-valid', $.payment.validateCardExpiry(expiryMonth, expiryYear));
 
-                if (!$('.cc-validation').hasClass('valid') || !$('.cvv-validation').hasClass('valid') ||
-                    !$('.expiry-validation').hasClass('valid')) {
+                if (!$('.cc-validation').hasClass('is-valid') || !$('.cvv-validation').hasClass('is-valid') ||
+                    !$('.expiry-validation').hasClass('is-valid')) {
 
                     // Validation failed
                     e.preventDefault();
                 }
-
-                // Validation OK
-                $("#submit").Attr("disabled", "disabled");
+                else {
+                    // Validation OK
+                    $('#submit').prop('disabled', true);
+                }
             });
 
             // Braintree encryption
             var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
             braintree.onSubmitEncryptForm('braintree-payment-form');
-
+      
             $("#submit").removeAttr("disabled");
         });
     </script>

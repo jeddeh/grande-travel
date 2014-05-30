@@ -235,7 +235,7 @@ namespace GrandeTravel.Site.Controllers
 
             try
             {
-                if (Roles.IsUserInRole("Provider") || Roles.IsUserInRole("Admin") || !Roles.IsUserInRole("ActiveUser"))
+                if (Roles.IsUserInRole("Provider") || Roles.IsUserInRole("Admin"))
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -243,7 +243,7 @@ namespace GrandeTravel.Site.Controllers
                 // TODO : Redirect Anonymous to Register Page then to Checkout
                 if (!Roles.IsUserInRole("Customer"))
                 {
-                    return RedirectToAction("Add", "Membership");
+                    return RedirectToAction("Add", "Membership", new { PackageId = packageId });
                 }
 
                 return RedirectToAction("CreateTransaction", "Payment", new { packageId = packageId });
