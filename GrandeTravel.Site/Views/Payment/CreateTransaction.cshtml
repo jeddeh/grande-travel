@@ -11,20 +11,20 @@
     <link href="~/Content/clearcanvas/membership.css" rel="stylesheet" />
 }
 
-<div id="membership" class="register">
-    <section>
-        <section class="row">
-            <div class="col-md-12 admin-form">
+<div class="membership register payment">
+    <section class="row">
+        <div class="col-md-12 admin-form">
 
-                <header class="register-header">
-                    <div class="header">
-                        <h4>Payment</h4>
-                    </div>
-                </header>
+            <header class="register-header">
+                <div class="header">
+                    <h4>Payment</h4>
+                </div>
+            </header>
 
-                <section class="row">
-                    <div class="col-md-6">
-                        @using (Html.BeginForm("CreateTransaction", "Payment",
+            <section class="row">
+                <div class="col-md-4"></div>
+                <section class="col-md-4 payment-section">
+                    @using (Html.BeginForm("CreateTransaction", "Payment",
                                 FormMethod.Post, new
                                 {
                                     id = "braintree-payment-form",
@@ -33,112 +33,129 @@
                                     @autocomplete = "on",
                                     novalidate = "novalidate"
                                 }))
-                        {
-                            @Html.AntiForgeryToken()
+                    {
+                        @Html.AntiForgeryToken()
 
-                            <fieldset>
-                                <legend>Create Transaction</legend>
+                        <fieldset>
+                            <legend>Create Transaction</legend>
 
-                                @{
-                            Package package = (Package)TempData["Package"];
-                                }
+                            @{
+                        Package package = (Package)TempData["Package"];
+                            }
 
-                                <div class="form-group">
-                                    <p>Package : @package.Name</p>
-                                    <p>Total Amount : @package.Amount</p>
+                            <div class="form-group package-info">
+                                <p>Package : @package.Name</p>
+                                <p>Total Amount : @String.Format("{0:C}", package.Amount)</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-5 control-label">Card Number</label>
+                                <div class="col-md-6">
+                                    <input type="text" data-encrypted-name="number"
+                                           class="form-control cc-number" id="number" pattern="\d*" x-autocompletetype="cc-number"
+                                           required
+                                           value="4111 1111 1111 1111">
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Card Number</label>
-                                    <div class="col-md-10">
-                                        <input type="text" data-encrypted-name="number"
-                                               class="form-control cc-number" id="number" pattern="\d*" x-autocompletetype="cc-number"
-                                               required
-                                               value="4111111111111111">
-                                    </div>
-                                    <div class="col-md-12 valid cc-validation">
-                                        <p class="error-message">Invalid Credit Card Number</p>
-                                    </div>   
+                                <div class="col-md-12 validator valid cc-validation">
+                                    <p class="error-message">Invalid Credit Card Number</p>
                                 </div>
+                            </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">CVV</label>
-                                    <div class="col-md-10">
-                                        <input type="text" data-encrypted-name="cvv"
-                                               class="form-control cc-cvv" id="cvv" pattern="\d*" x-autocompletetype="cc-csc"
-                                               required autocomplete="off"
-                                               value="555">
-                                    </div>
-                                    <p class="payment-valid">Invalid CVV</p>
+                            <div class="form-group">
+                                <label class="col-md-5 control-label">CVV</label>
+                                <div class="col-md-6">
+                                    <input type="text" data-encrypted-name="cvv"
+                                           class="form-control cc-cvv" id="cvv" pattern="\d*" x-autocompletetype="cc-csc"
+                                           required autocomplete="off"
+                                           value="555">
                                 </div>
+                                <div class="col-md-12 validator valid cvv-validation">
+                                    <p class="error-message">Invalid CVV</p>
+                                </div>
+                            </div>
 
+                            <section>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Exipry (MM/YYYY)</label>
-                                    <div class="col-md-10">
+                                    <label class="col-md-5 control-label">Exipry Month (MM)</label>
+                                    <div class="col-md-6">
                                         <input type="text" size="2" maxlength="2" autocomplete="off" data-encrypted-name="month"
-                                               class="form-control" id="number" required data-numeric
+                                               class="form-control" id="expiry-month" required data-numeric
                                                value="02">
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">Exipry Year (YYYY)</label>
+                                    <div class="col-md-6">
                                         <input type="text" size="4" maxlength="4" autocomplete="off" data-encrypted-name="year"
-                                               class="form-control" id="number" required data-numeric
+                                               class="form-control" id="expiry-year" required data-numeric
                                                value="2015">
                                     </div>
-                                    <p class="payment-valid">Invalid Expiry</p>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <input type="submit" id="submit" class="btn btn-default" disabled="disabled" value="SUBMIT" />
+                                    <div class="col-md-12 validator valid expiry-validation">
+                                        <p class="error-message">Invalid Exipry Date</p>
                                     </div>
                                 </div>
-                            </fieldset>
-                        }
-                    </div>
-                </section>
+                            </section>
 
-            </div>
-        </section>
+                            <br />
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" id="submit" class="btn btn-primary" disabled="disabled"
+                                           value="SUBMIT" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </section>
+            </section>
+        </div>
     </section>
 </div>
 
 @section Scripts {
-    <script src="https://js.braintreegateway.com/v1/braintree.js"></script>
-    <script src="~/Scripts/jquery.payment.js"></script>
+    @Scripts.Render("~/bundles/payment")
 
     <script>
         $(document).ready(function () {
-            var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
-            braintree.onSubmitEncryptForm('braintree-payment-form');
-
-            $("#submit").removeAttr("disabled");
 
             // Stripe validation
             $('[data-numeric]').payment('restrictNumeric');
             $('.cc-number').payment('formatCardNumber');
-            $('.cc-exp').payment('formatCardExpiry');
-            $('.cc-cvc').payment('formatCardCVC');
+            $('.cc-cvv').payment('formatCardCVC');
 
             $('#braintree-payment-form').submit(function (e) {
-                e.preventDefault();
-                $('input').removeClass('invalid');
-                $('.validation').removeClass('passed failed');
+
+                $('.validator').addClass('valid');
 
                 var cardType = $.payment.cardType($('.cc-number').val());
+                var ccNumber = $('#number').val();
+                var cvv = $('#cvv').val();
+                var expiryMonth = $('#expiry-month').val();
+                var expiryYear = $('#expiry-year').val();
 
-                $('.cc-validation').toggleClass('valid', !$.payment.validateCardNumber($('.cc-number').val()));
-                //$('.cc-exp').toggleClass('invalid', !$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
-                $('.cvv-validation').toggleClass('valid', !$.payment.validateCardCVC($('.cc-cvv').val(), cardType));
+                $('.cc-validation').toggleClass('valid', $.payment.validateCardNumber(ccNumber));
+                $('.cvv-validation').toggleClass('valid', $.payment.validateCardCVC(cvv, cardType));
+                $('.expiry-validation').toggleClass('valid', $.payment.validateCardExpiry(expiryMonth, expiryYear));
 
-                if ($('input.invalid').length) {
-                    $('.validation').addClass('failed');
-                } else {
-                    $('.validation').addClass('passed');
+                if (!$('.cc-validation').hasClass('valid') || !$('.cvv-validation').hasClass('valid') ||
+                    !$('.expiry-validation').hasClass('valid')) {
+
+                    // Validation failed
+                    e.preventDefault();
                 }
+
+                // Validation OK
+                $("#submit").Attr("disabled", "disabled");
             });
 
+            // Braintree encryption
+            var braintree = Braintree.create("@WebConfigurationManager.AppSettings["brainTreeClientSideEncryptionKey"]");
+            braintree.onSubmitEncryptForm('braintree-payment-form');
+
+            $("#submit").removeAttr("disabled");
         });
-
-
     </script>
 }
