@@ -75,7 +75,7 @@
                                         @Html.LabelFor(model => model.IsProvider, providerMessage)
                                     </div>
 
-                                    @if (!Model.IsAdmin)
+                                    if (!Model.IsAdmin)
                                     {
                                         <div class="has-account">
                                             <span>Already have an account?</span>
