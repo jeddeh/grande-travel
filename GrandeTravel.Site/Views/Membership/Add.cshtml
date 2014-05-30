@@ -67,7 +67,8 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
-                                @if (!Model.HasPackage) <!-- Disable provider option if user wants to purchase a package -->
+                                @*Provider option disabled if user wants to purchase a package*@
+                                @if (!Model.HasPackage)
                                 {
                                     <div class="membership-checkbox">
                                         @Html.CheckBoxFor(model => model.IsProvider)
