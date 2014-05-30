@@ -19,23 +19,25 @@
                 {
                     @Html.AntiForgeryToken()
 
+                    @Html.HiddenFor(model => model.HasPackage);
+                    @Html.HiddenFor(model => model.PackageId);
+
                     <fieldset>
                         <legend>Create Account</legend>
 
-                        @{
-                    string heading;
-                    string providerMessage;
+                        @{ string heading;
+                        string providerMessage;
 
-                    if (Model.IsAdmin)
-                    {
-                        heading = "Add User Account";
-                        providerMessage = "Register user as a travel provider.";
-                    }
-                    else
-                    {
-                        heading = "Create your account";
-                        providerMessage = "I want to register as a travel provider.";
-                    }
+                        if (Model.IsAdmin)
+                        {
+                            heading = "Add User Account";
+                            providerMessage = "Register user as a travel provider.";
+                        }
+                        else
+                        {
+                            heading = "Create your account";
+                            providerMessage = "I want to register as a travel provider.";
+                        }
                         }
 
                         <header class="register-header">
@@ -47,8 +49,7 @@
                         <div class="row">
                             <section class="col-md-6">
 
-                                @Html.HiddenFor(model => model.HasPackage);
-                                @Html.HiddenFor(model => model.PackageId);
+
 
                                 <div class="form-group">
                                     @Html.EditorFor(model => model.Email)
