@@ -49,6 +49,12 @@ namespace GrandeTravel.Service.Implementation
         {
             try
             {
+                // Get new voucher code
+                if (order.Paid && order.VoucherCode == 0)
+                {
+                    order.VoucherCode = manager.Get(p => true).Select(p => p.VoucherCode).Max() + 1;
+                }
+
                 manager.Update(order);
                 return ResultEnum.Success;
             }
@@ -109,7 +115,7 @@ namespace GrandeTravel.Service.Implementation
 
             try
             {
-                result.Data = manager.EagerGet(p => p.CustomerId == customerId, "Package")
+                result.Data = manager.EagerGet(p => p.CustomerId == customerId, "Package").OrderBy(p => p.DateBooked)
                 .AsEnumerable<Order>();
 
                 result.Status = ResultEnum.Success;

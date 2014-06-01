@@ -35,9 +35,9 @@
                             <th>Date Booked</th>
                             <th>Package</th>
                             <th>Voucher Code</th>
-                            <th>Transaction Id</th>
                             <th>Amount</th>
                             <th>Paid</th>
+                            <th>Transaction Id</th>
                             <th>Feedback</th>
                         </tr>
                     </thead>
@@ -47,19 +47,41 @@
                 foreach (Order order in Model.Orders)
                 {
                     <tr>
-                        <td>@order.DateBooked</td>
-                        <td>@order.Package</td>
-                        <td>@order.VoucherCode</td>
+                        <td>@order.DateBooked.ToShortDateString()</td>
+                        <td>@order.Package.Name</td>
+                       
+                        @if (order.VoucherCode == 0)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@order.VoucherCode.ToString("00000000")</td>
+                        }
+
+                        <td>@String.Format("{0:C}", order.Amount)</td>
+
+                        @if (order.Paid)
+                        {
+                            <td>Yes</td>
+
+                            <td>
+                                <span>
+                                    <a class="btn btn-xs btn-primary"
+                                       href="@Url.Action("Feedback", "Orders", new { order = @order.OrderId })">Give Feedback</a>
+                                </span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>No</td>
+                            <td></td>
+                        }
+
                         <td>@order.TransactionId</td>
-                        <td>@order.Amount</td>
-                        <td>@order.Paid</td>
-                      
-                        <td>
-                            <span>
-                                <a class="btn btn-xs btn-primary"
-                                   href="@Url.Action("", "", new { order = @order.OrderId })">Give Feedback</a>
-                            </span>
-                        </td>
+
+
+
                     </tr>
                 }
                         }
@@ -69,4 +91,3 @@
         }
     </section>
 </div>
-

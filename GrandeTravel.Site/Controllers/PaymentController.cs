@@ -190,7 +190,6 @@ namespace GrandeTravel.Site.Controllers
                 // Update Order
                 order.Paid = true;
                 order.TransactionId = paymentResult.TransactionId;
-                order.VoucherCode = Guid.NewGuid();
 
                 ResultEnum result = orderService.UpdateOrder(order);
 
@@ -248,7 +247,7 @@ namespace GrandeTravel.Site.Controllers
                         String.Format("{0:c}", package.Amount),
                         package.Name,
                         order.TransactionId,
-                        order.VoucherCode,
+                        order.VoucherCode.ToString("00000000"),
                         expiryDate.ToLongDateString())
                 };
 

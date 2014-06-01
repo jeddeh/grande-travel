@@ -37,6 +37,7 @@ namespace GrandeTravel.Site.Controllers
         public ActionResult Search()
         {
             CustomerOrdersViewModel model = new CustomerOrdersViewModel();
+            model.Orders = new List<Order>();
 
             int customerId = WebSecurity.CurrentUserId;
             Result<IEnumerable<Order>> result = orderService.GetOrdersByCustomerId(customerId);
@@ -44,7 +45,7 @@ namespace GrandeTravel.Site.Controllers
             switch (result.Status)
             {
                 case ResultEnum.Success:
-                    model.Orders = new List<Order>();
+                    model.Orders = result.Data.ToList<Order>();
                     break;
 
                 case ResultEnum.Fail:
@@ -56,6 +57,19 @@ namespace GrandeTravel.Site.Controllers
 
             return View(model);
         }
+
+        #endregion
+
+        #region Feedback
+
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "ActiveUser")]
+        public ActionResult Feedback(int orderId)
+        {
+            return View();
+        }
+
 
         #endregion
     }

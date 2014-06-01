@@ -27,7 +27,7 @@ namespace GrandeTravel.Entity
         [DataType(DataType.Text)]
         public string TransactionId { get; set; }
 
-        public Guid VoucherCode { get; set; }
+        public int VoucherCode { get; set; }
 
         public int PackageId { get; set; }
         public virtual Package Package { get; set; }
