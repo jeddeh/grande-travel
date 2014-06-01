@@ -258,14 +258,14 @@ namespace GrandeTravel.Site.Controllers
         private class AjaxPackage
         {
             public string Name { get; set; }
-            public string Description { get; set; }
-            public string StartDate { get; set; }
-            public string EndDate { get; set; }
+            // public string Description { get; set; }
             public string City { get; set; }
             public string State { get; set; }
             public string Accomodation { get; set; }
             public decimal Price { get; set; }
             public string ImageUrl { get; set; }
+
+            public List<string> Activities { get; set; }
         }
 
         [AllowAnonymous]
@@ -274,12 +274,20 @@ namespace GrandeTravel.Site.Controllers
         {
             Result<Package> result = packageService.GetPackageById(id);
 
+            List<string> activities = new List<string>();
+
+            foreach (Activity activity in result.Data.Activities)
+            {
+                activities.Add("<b>" + activity.Name + " : </b> " + activity.Description + "<br />" + activity.Address);
+            }
+
             var packageArray = new[] { new AjaxPackage {
                 Accomodation = result.Data.Accomodation,
                 City = result.Data.City,
                 State = result.Data.State.ToString(),
                 Price = result.Data.Amount,
-                ImageUrl = result.Data.ImageUrl
+                ImageUrl = result.Data.ImageUrl, 
+                Activities = activities
             }
         };
             return Json(packageArray, JsonRequestBehavior.AllowGet);
@@ -364,11 +372,54 @@ namespace GrandeTravel.Site.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult ShowMap()
+        public ActionResult ShowMap(int? PackageId)
         {
-            return View();
-        }
+            int packageId;
+
+            if (!PackageId.HasValue)
+            {
+                return RedirectToAction("Search", "Packages");
+            }
+            else
+            {
+                packageId = PackageId.GetValueOrDefault();
+            }
+
+            ShowMapViewModel model = new ShowMapViewModel();
+            string errorMessage = "Sorry, we are unable to display the locations for this package.";
+            string noLocationsError = "Sorry, we do not have any map locations saved for this package.";
+
+            try
+            {
+                Result<Package> packageResult = new Result<Package>();
+                packageResult = packageService.GetPackageById(packageId);
+
+                if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+                {
+                    IEnumerable<Activity> activities = packageResult.Data.Activities;
+
+                    model = activities.ToShowMapViewModel();
+
+                    if (model.Locations.Count() < 1 || model.Locations.Count() > 3)
+                    {
+                        ModelState.AddModelError("ErrorMessage", noLocationsError);
+                    }
+
+                    return View(model);
+                }
+                else
+                {
+                    ModelState.AddModelError("ErrorMessage", errorMessage);
+                    return View(model);
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("ErrorMessage", errorMessage);
+                return View(model);
+            }
 
         #endregion
+        }
     }
 }

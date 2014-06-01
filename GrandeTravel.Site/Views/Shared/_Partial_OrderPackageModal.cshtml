@@ -1,0 +1,56 @@
+﻿<div data-toggle="modal" class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog large">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+
+            <div class="modal-body">
+                <section class="row">
+                    <div class="col-md-12">
+                        <img id="imgPackage" class="img-responsive" style="float: left" alt="" />
+                        <p><span id="packageAccomodation"></span></p>
+                        <p><span id="packageCity"></span></p>
+                        <p><span id="packageState"></span></p>
+                        <p><span id="packagePrice"></span></p>
+                    </div>
+                </section>
+
+                <section class="row">
+                    <div class="col-md-12">
+                        <div id="activity1"></div>
+                        <br />
+                        <div id="activity2"></div>
+                        <br />
+                        <div id="activity3"></div>
+                        <br />
+                    </div>
+                </section>
+            </div>
+
+            <div class="modal-footer">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="packageId" id="packageId" />
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        @{
+                            if (!Roles.IsUserInRole("Admin") && !Roles.IsUserInRole("Provider"))
+                            {
+                                <input id="btnSubmit" type="submit" class="btn btn-success" value="Book Now" />
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+

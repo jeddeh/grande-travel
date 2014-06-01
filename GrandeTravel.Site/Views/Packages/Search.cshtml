@@ -16,6 +16,7 @@
 
 <div id="packages">
     <div class="container">
+
         <header class="section-header large-margin-header">
             <h3>Packages</h3>
         </header>
@@ -25,7 +26,7 @@
                 <h4><i><span id="filterHeading">Showing all locations</span></i></h4>
             </div>
 
-            <div class="row">
+            <section class="row">
                 <div class="col-md-6">
                     <div class="input-group">
                         <input id="txtSearch" class="form-control" type="search" maxlength="30" placeholder="Search By Location" />
@@ -40,7 +41,7 @@
                 <div class="col-md-2">
                     <input style="margin-right: 30px" type="button" class="btn btn-primary" value="All Locations" id="btnAllLocations" />
                 </div>
-            </div>
+            </section>
         </section>
 
         <br />
@@ -51,54 +52,9 @@
                 <div id="gallery_container">
 
                     <!-- Modal -->
-                    <div data-toggle="modal" class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog large">
+                    @{Html.RenderPartial("_Partial_OrderPackageModal");}
 
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"></h4>
-                                </div>
 
-                                <div class="modal-body">
-                                    <section class="row">
-                                        <div class="col-md-12">
-                                            <img id="imgPackage" class="img-responsive" style="float: left" alt="" />
-                                            <p id="startDate"><span id="packageStartDate"></span></p>
-                                            <p id="endDate"><span id="packageEndDate"></span></p>
-                                            <p><span id="packageAccomodation"></span></p>
-                                            <p><span id="packageCity"></span></p>
-                                            <p><span id="packageState"></span></p>
-                                            <p><span id="packagePrice"></span></p>
-                                        </div>
-                                    </section>
-
-                                    <section class="row">
-                                        <div class="col-md-12">
-                                            <p><span id="packageDescription"></span></p>
-                                        </div>
-                                    </section>
-
-                                </div>
-
-                                <div class="modal-footer">
-                                    @using (Html.BeginForm())
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        
-                                        <input type="hidden" name="packageId" id="packageId" />
-
-                                        <div class="form-actions">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <input id="btnSubmit" type="submit" class="btn btn-success" value="Book Now" />
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- End Modal -->
                     @{
                         if (Model.Packages == null || Model.Packages.Count == 0)
                         {
@@ -110,19 +66,32 @@
                             {
                                 foreach (Package package in Model.Packages)
                                 {
-                                    <div class="photo active-image">
-                                        <div>
-                                            <img src="@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
-                                            <a id="@package.PackageId" class="mask">
-                                                <h3 class="packageName">@package.Name</h3>
+                                    <div class="package-image active-image">
+
+                                        <img src="@Url.Content(package.ImageUrl)" class="img-responsive gridImage" />
+
+                                        <section class="image-data">
+                                            &nbsp;
+                                            <section class="image-data-holder">
+                                                <h3 class="packageName">
+                                                    <a href="#" id="@package.PackageId" class="package-link">@package.Name</a>
+                                                </h3>
+
                                                 <small>
                                                     <span class="city">@package.City</span>, <span class="state">@package.State</span>
                                                 </small>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            @Html.ActionLink("Show on Map", "ShowMap", "Packages")
-                                        </div>
+                                                <br /><br />
+
+                                                <div>
+                                                    @Html.ActionLink("Show Activities on Map", "ShowMap", "Packages",
+                                                    new { PackageId = @package.PackageId },
+                                                    new { style = "text-decoration: underline" })
+                                                </div>
+
+                                            </section>
+                                            &nbsp;
+                                        </section>
+
                                     </div>
                                 }
                             }
@@ -139,6 +108,7 @@
 
     </div>
 </div>
+
 
 @section Scripts {
     <script src="~/Scripts/jquery.isotope.min.js"></script>

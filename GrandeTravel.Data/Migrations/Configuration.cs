@@ -285,7 +285,7 @@ namespace GrandeTravel.Data.Migrations
 
             List<Package> packageList = new List<Package>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i < 10; i++)
             {
                 Random random = new Random();
                 int providerNum = random.Next(0, numberOfProviders - 1);
@@ -294,7 +294,7 @@ namespace GrandeTravel.Data.Migrations
 
                 packageList.Add(new Package
                 {
-                    Name = "Sydney Package" + i,
+                    Name = "Sydney Package " + i,
                     City = "Sydney",
                     State = AustralianStateEnum.NSW,
                     Accomodation = "2 nights at the Grace Hotel, Sydney",
@@ -306,7 +306,7 @@ namespace GrandeTravel.Data.Migrations
                     Activities = new List<Activity> {
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Opera on Sydney Harbour" + i,
+                            Name = "Opera on Sydney Harbour " + i,
                             Address = "Bennelong Point",
                             Latitude = -33.8571839,
                             Longitude = 151.214971,
@@ -315,7 +315,7 @@ namespace GrandeTravel.Data.Migrations
 
                         new Activity {
                             Status = PackageStatusEnum.Discontinued,
-                            Name = "Sydney Royal Easter Show" + i,
+                            Name = "Sydney Royal Easter Show " + i,
                             Address = "1 Showground Rd, Sydney Olympic Park",
                             Latitude = -33.8449693,
                             Longitude = 151.0670369,
@@ -326,7 +326,7 @@ namespace GrandeTravel.Data.Migrations
 
                 packageList.Add(new Package
                 {
-                    Name = "Adelaide Package" + i,
+                    Name = "Adelaide Package " + i,
                     City = "Adelaide",
                     State = AustralianStateEnum.SA,
                     Accomodation = "4 nights at the Mercure Grosvenor Hotel, Adelaide",
@@ -338,21 +338,21 @@ namespace GrandeTravel.Data.Migrations
                     Activities = new List<Activity> {
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Clipsal 500" + i,
+                            Name = "Clipsal 500 " + i,
                             Address = "Sample Address",
                             Description = "Feel the adrenalin rush during four days of street parties, live entertainment and extreme motor sport action.",
                          },
 
                         new Activity {
                             Status = PackageStatusEnum.Available,
-                            Name = "Adelaide Festival" + i,
+                            Name = "Adelaide Festival " + i,
                             Address = "Sample Address",
                             Description = "Excite your senses at one of the world’s most innovative festivals, the biennial Adelaide Festival with dance, theatre, and art.",
                         },
 
                          new Activity {
                              Status = PackageStatusEnum.Available,
-                             Name = "WOMADelaide" + i,
+                             Name = "WOMADelaide " + i,
                              Address = "Sample Address",
                              Description = "Enjoy the world’s best traditional and contemporary musicians, dancers and DJs in this outdoor festival held in Botanic Park in Adelaide.",
                         }

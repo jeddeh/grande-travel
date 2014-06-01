@@ -74,7 +74,7 @@
                                     @Html.ValidationMessageFor(model => model.ConfirmPassword)
                                 </div>
 
-                                @if (Model.IsAdminEdit)
+                                @if (Model.IsAdminEdit && !Model.IsAdmin)
                                 {
                                     <div class="membership-checkbox">
                                         @Html.CheckBoxFor(model => model.IsInactiveUser)

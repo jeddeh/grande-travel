@@ -199,6 +199,11 @@ namespace GrandeTravel.Site.Controllers
             {
                 if (user != null)
                 {
+                    if (!Roles.IsUserInRole("Admin"))
+                    {
+                        RedirectToAction("Index", "Home");
+                    }
+                    
                     isAdminEdit = true;
                     userId = user.GetValueOrDefault();
                 }
@@ -217,6 +222,11 @@ namespace GrandeTravel.Site.Controllers
                         model.UserId = userId;
                         model.IsAdminEdit = isAdminEdit;
                         model.IsInactiveUser = !Roles.GetRolesForUser(model.Email).Contains("ActiveUser");
+
+                        if (Roles.IsUserInRole(result.Data.Email, "Admin"))
+                        {
+                            model.IsAdmin = true;
+                        }
 
                         return View(model);
 

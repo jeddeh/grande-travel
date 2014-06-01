@@ -4,7 +4,7 @@
     // Isotope initialisation
     $container.imagesLoaded(function () {
         $container.isotope({
-            itemSelector: '.photo',
+            itemSelector: '.package-image',
             masonry: {
                 columnWidth: 100
             }
@@ -94,7 +94,7 @@
         $("#filterHeading").html("Showing all locations");
         $("#txtSearch").val("");
 
-        $("div.photo").addClass("active-image");
+        $("div.package-image").addClass("active-image");
         $container.isotope({ filter: ".active-image" });
 
         return false;
@@ -125,7 +125,7 @@
                 break;
         }
 
-        $("div.photo").removeClass("active-image");
+        $("div.package-image").removeClass("active-image");
 
         $("span.city").each(function (index) {
             if (this.innerHTML.toUpperCase() === location.toUpperCase()) {
@@ -178,7 +178,7 @@
     // Modal functionality
 
     // Image link click event handler
-    $("a.mask").click(function (event) {
+    $("a.package-link").click(function (event) {
         var packageId = event.currentTarget.id;
 
         if (isNaN(parseInt(packageId, 10)) || !isFinite(packageId)) {
@@ -196,27 +196,17 @@
             success: function (data) {
                 $("#btnSubmit").show();
 
-                if (!data[0].StartDate) {
-                    $("#startDate").hide();
-                }
-                else {
-                    $("#startDate").show();
-                    $("#packageStartDate").html("<strong>Start Date: </strong>" + data[0].StartDate);
-                }
-
-                if (!data[0].EndDate) {
-                    $("#endDate").hide();
-                }
-                else {
-                    $("#endDate").show();
-                    $("#packageEndDate").html("<strong>End Date: </strong>" + data[0].EndDate);
-                }
-
                 $("#packageAccomodation").html("<strong>Accomodation: </strong>" + data[0].Accomodation);
                 $("#packageCity").html("<strong>City: </strong>" + data[0].City);
                 $("#packageState").html("<strong>State: </strong>" + data[0].State);
                 $("#packagePrice").html("<strong>Price: </strong>$" + data[0].Price.toFixed(2));
-                $("#packageDescription").html("<strong>Description: </strong>" + data[0].Description);
+                // $("#packageDescription").html("<strong>Description: </strong>" + data[0].Description);
+
+                var activities = data[0].Activities;
+
+                $("#activity1").html(activities[0] || "");
+                $("#activity2").html(activities[1] || "");
+                $("#activity3").html(activities[2] || "");
 
                 $("#imgPackage").attr("src", data[0].ImageUrl);
             },
@@ -228,7 +218,7 @@
             }
         });
 
-        $(".modal-title").html($(this).children("h3").html());
+        $(".modal-title").html($(".package-link").html());
         $("#modal").modal("show");
 
         // TODO : Better fix for txtSearch showing a value after the image is clicked 

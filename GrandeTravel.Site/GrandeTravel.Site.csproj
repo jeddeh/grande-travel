@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Helpers\Authentication.cs" />
     <Compile Include="Helpers\ImageLinkHelper.cs" />
+    <Compile Include="Helpers\Mappers\LocationMapper.cs" />
     <Compile Include="Helpers\Mappers\PagedUsersMapper.cs" />
     <Compile Include="Helpers\SampleModelData.cs" />
     <Compile Include="Helpers\SelectListItemHelper.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Models\Membership\LoginViewModel.cs" />
     <Compile Include="Models\Membership\MembershipViewModel.cs" />
     <Compile Include="Models\Membership\SearchUserViewModel.cs" />
+    <Compile Include="Models\Packages\LocationModel.cs" />
     <Compile Include="Models\Packages\PackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchPackagesViewModel.cs" />
@@ -329,6 +331,7 @@
     <Content Include="Views\Payment\CreateTransaction.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Payment\Result.cshtml" />
+    <Content Include="Views\Shared\_Partial_OrderPackageModal.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
