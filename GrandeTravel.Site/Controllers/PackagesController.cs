@@ -34,9 +34,7 @@ namespace GrandeTravel.Site.Controllers
             IUnitOfWork unitOfWork = RepositoryFactory.GetUnitOfWork("DefaultConnection");
 
             IRepository<Package> repository = RepositoryFactory.GetRepository<Package>(unitOfWork);
-
             IManager<Package> packageManager = ManagerFactory.GetManager(repository);
-
             this.packageService = ServiceFactory.GetPackageService(packageManager);
         }
 
@@ -196,7 +194,7 @@ namespace GrandeTravel.Site.Controllers
 
         #endregion
 
-        #region Search Packages For Customer
+        #region Search All Packages
 
         [AllowAnonymous]
         [HttpGet]

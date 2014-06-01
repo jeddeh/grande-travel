@@ -127,3 +127,12 @@ Successful Purchase.
 31/05/2014 11:17:32 PM
 Successful Purchase.
 
+1/06/2014 11:29:40 PM
+Error submitting payment.
+
+1/06/2014 11:31:05 PM
+Error submitting payment.
+
+1/06/2014 11:31:17 PM
+Error submitting payment.
+

@@ -1,0 +1,72 @@
+﻿@model GrandeTravel.Site.Models.Orders.CustomerOrdersViewModel
+@using GrandeTravel.Entity
+
+@{
+    ViewBag.Title = "Customer Orders";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+}
+
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+<div class="container">
+
+    <header class="section-header small-margin-header">
+        <h3>My Orders</h3>
+    </header>
+
+    <section id="ordersTable">
+        @{
+            if (!ViewData.ModelState.IsValid || Model.Orders == null)
+            {
+                <div class="error-message">Sorry, we have been unable to retrieve your orders.</div>
+            }
+            else if (Model.Orders.Count == 0)
+            {
+                <div class="error-message">There are no orders on your account.</div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date Booked</th>
+                            <th>Package</th>
+                            <th>Voucher Code</th>
+                            <th>Transaction Id</th>
+                            <th>Amount</th>
+                            <th>Paid</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                foreach (Order order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.DateBooked</td>
+                        <td>@order.Package</td>
+                        <td>@order.VoucherCode</td>
+                        <td>@order.TransactionId</td>
+                        <td>@order.Amount</td>
+                        <td>@order.Paid</td>
+                      
+                        <td>
+                            <span>
+                                <a class="btn btn-xs btn-primary"
+                                   href="@Url.Action("", "", new { order = @order.OrderId })">Give Feedback</a>
+                            </span>
+                        </td>
+                    </tr>
+                }
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    </section>
+</div>
+

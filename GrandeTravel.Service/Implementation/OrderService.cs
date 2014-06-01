@@ -109,7 +109,7 @@ namespace GrandeTravel.Service.Implementation
 
             try
             {
-                result.Data = manager.EagerGet(p => p.CustomerId == customerId, "Packages")
+                result.Data = manager.EagerGet(p => p.CustomerId == customerId, "Package")
                 .AsEnumerable<Order>();
 
                 result.Status = ResultEnum.Success;

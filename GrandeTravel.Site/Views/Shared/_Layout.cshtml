@@ -77,6 +77,7 @@
                                 {
                                     <!-- Customer -->
                                     <li>@Html.ActionLink("PACKAGES", "Search", "Packages")</li>
+                                    <li>@Html.ActionLink("MY ORDERS", "Search", "Orders")</li>
                                 }
 
                                 else if (HttpContext.Current.User.IsInRole("Provider"))
