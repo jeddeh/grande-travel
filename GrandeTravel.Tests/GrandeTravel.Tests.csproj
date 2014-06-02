@@ -35,15 +35,6 @@
     <Reference Include="DeepEqual">
       <HintPath>..\packages\DeepEqual.0.12.0.0\lib\net40\DeepEqual.dll</HintPath>
     </Reference>
-    <Reference Include="GrandeTravel.Data.Fakes">
-      <HintPath>FakesAssemblies\GrandeTravel.Data.Fakes.dll</HintPath>
-    </Reference>
-    <Reference Include="GrandeTravel.Manager.Fakes">
-      <HintPath>FakesAssemblies\GrandeTravel.Manager.Fakes.dll</HintPath>
-    </Reference>
-    <Reference Include="GrandeTravel.Service.Fakes">
-      <HintPath>FakesAssemblies\GrandeTravel.Service.Fakes.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
