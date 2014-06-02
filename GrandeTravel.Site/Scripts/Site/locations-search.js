@@ -211,14 +211,12 @@
                 $("#imgPackage").attr("src", data[0].ImageUrl);
             },
             error: function (xhr, status, error) {
-                $("#startDate").show();
-                $("#packageStartDate").html("We are currently unable to show information for this package.");
                 $("#btnSubmit").hide();
                 return false;
             }
         });
 
-        $(".modal-title").html($(".package-link").html());
+        $(".modal-title").closest(".package-link").html();
         $("#modal").modal("show");
 
         // TODO : Better fix for txtSearch showing a value after the image is clicked 

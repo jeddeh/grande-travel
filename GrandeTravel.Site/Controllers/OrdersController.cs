@@ -107,56 +107,56 @@ namespace GrandeTravel.Site.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Customer")]
-        [Authorize(Roles = "ActiveUser")]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult Add(FeedbackViewModel model)
-        {
-            Order order = new Order();
-            string errorMessage = "Sorry, we are currently unable to save feedback for this order.";
+        //[Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "ActiveUser")]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public ActionResult Add(FeedbackViewModel model)
+        //{
+        //    Order order = new Order();
+        //    string errorMessage = "Sorry, we are currently unable to save feedback for this order.";
 
-            if (ModelState.IsValid)
-            {
-                // Get the Order
-                try
-                {
-                    Result<Order> result = orderService.GetOrderById(model.OrderId);
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Get the Order
+        //        try
+        //        {
+        //            Result<Order> result = orderService.GetOrderById(model.OrderId);
 
-                    if (result.Status != ResultEnum.Success)
-                    {
-                        ModelState.AddModelError("ErrorMessage", errorMessage);
-                        return View(model);
-                    }
-                }
-                catch
-                {
-                    ModelState.AddModelError("ErrorMessage", errorMessage);
-                    return View(model);
-                }
+        //            if (result.Status != ResultEnum.Success)
+        //            {
+        //                ModelState.AddModelError("ErrorMessage", errorMessage);
+        //                return View(model);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            ModelState.AddModelError("ErrorMessage", errorMessage);
+        //            return View(model);
+        //        }
 
-                // Update Order
-                try
-                {
-                    order.Feedback = model.Feedback;
-                    ResultEnum result = orderService.UpdateOrder(order);
+        //        // Update Order
+        //        try
+        //        {
+        //            order.Feedback = model.Feedback;
+        //            ResultEnum result = orderService.UpdateOrder(order);
 
-                    if (result != ResultEnum.Success)
-                    {
-                        ModelState.AddModelError("ErrorMessage", errorMessage);
-                        return View(model);
-                    }
+        //            if (result != ResultEnum.Success)
+        //            {
+        //                ModelState.AddModelError("ErrorMessage", errorMessage);
+        //                return View(model);
+        //            }
 
-                    ViewData["SuccessMessage"] = "Thankyou for your feedback.";
-                    return View(model);
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("ErrorMessage", errorMessage);
-                    return View(model);
-                }
-            }
-        }
+        //            ViewData["SuccessMessage"] = "Thankyou for your feedback.";
+        //            return View(model);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            ModelState.AddModelError("ErrorMessage", errorMessage);
+        //            return View(model);
+        //        }
+        //    }
+        //}
         #endregion
     }
 }
