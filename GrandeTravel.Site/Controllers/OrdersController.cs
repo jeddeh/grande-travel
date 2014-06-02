@@ -39,20 +39,27 @@ namespace GrandeTravel.Site.Controllers
             CustomerOrdersViewModel model = new CustomerOrdersViewModel();
             model.Orders = new List<Order>();
 
-            int customerId = WebSecurity.CurrentUserId;
-            Result<IEnumerable<Order>> result = orderService.GetOrdersByCustomerId(customerId);
-
-            switch (result.Status)
+            try
             {
-                case ResultEnum.Success:
-                    model.Orders = result.Data.ToList<Order>();
-                    break;
+                int customerId = WebSecurity.CurrentUserId;
+                Result<IEnumerable<Order>> result = orderService.GetOrdersByCustomerId(customerId);
 
-                case ResultEnum.Fail:
-                    break;
+                switch (result.Status)
+                {
+                    case ResultEnum.Success:
+                        model.Orders = result.Data.ToList<Order>();
+                        break;
 
-                default:
-                    break;
+                    case ResultEnum.Fail:
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch
+            {
+                return View(model);
             }
 
             return View(model);
@@ -67,7 +74,37 @@ namespace GrandeTravel.Site.Controllers
         [Authorize(Roles = "ActiveUser")]
         public ActionResult Feedback(int orderId)
         {
-            return View();
+            FeedbackViewModel model = new FeedbackViewModel();
+            string errorMessage = "Sorry, we are currently unable to save feedback for this order.";
+
+            try
+            {
+                Result<Order> result = orderService.GetOrderById(orderId);
+
+                switch (result.Status)
+                {
+                    case ResultEnum.Success:
+                        model.OrderId = orderId;
+                        model.PackageName = result.Data.Package.Name;
+                        model.Feedback = result.Data.Feedback;
+                        break;
+
+                    case ResultEnum.Fail:
+                        ModelState.AddModelError("ErrorMessage", errorMessage);
+                        break;
+
+                    default:
+                        ModelState.AddModelError("ErrorMessage", errorMessage);
+                        break;
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("ErrorMessage", errorMessage);
+                return View(model);
+            }
+
+            return View(model);
         }
 
         #endregion

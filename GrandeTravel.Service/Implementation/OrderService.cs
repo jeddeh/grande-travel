@@ -73,7 +73,7 @@ namespace GrandeTravel.Service.Implementation
             Result<Order> result = new Result<Order>();
             try
             {
-                result.Data = manager.EagerGet((p => p.OrderId == id), "Packages").First();
+                result.Data = manager.EagerGet((p => p.OrderId == id), "Package").First();
                 result.Status = ResultEnum.Success;
             }
             catch (Exception)

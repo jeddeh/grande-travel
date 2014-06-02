@@ -19,12 +19,14 @@ namespace GrandeTravel.Entity
         public decimal Amount { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [MaxLength(250)]
         public string Feedback { get; set; }
 
         [Required]
         public bool Paid { get; set; }
 
         [DataType(DataType.Text)]
+        [MaxLength(8)]
         public string TransactionId { get; set; }
 
         public int VoucherCode { get; set; }

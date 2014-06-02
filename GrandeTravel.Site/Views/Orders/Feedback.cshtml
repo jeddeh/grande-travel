@@ -1,11 +1,7 @@
 ﻿@model GrandeTravel.Site.Models.Orders.FeedbackViewModel
-@using GrandeTravel.Site.Helpers
-@using GrandeTravel.Entity.Enums
-@using GrandeTravel.Site.Helpers
-@using GrandeTravel.Entity.Enums
 
 @{
-    ViewBag.Title = "Add Activity";
+    ViewBag.Title = "Feedback";
     ViewBag.Keywords = "";
     ViewBag.Description = "";
 }
@@ -24,80 +20,42 @@
                     @Html.AntiForgeryToken()
 
                     <fieldset>
-                        <legend>Add Activity</legend>
+                        <legend>Feedback</legend>
 
                         <div class="row">
                             <section class="col-md-3"></section>
+
                             <section class="col-md-6">
                                 <header class="register-header">
                                     <div class="header">
-                                        <h4>Add an Activity</h4>
+                                        <h4>Feedback</h4>
                                     </div>
                                 </header>
 
-                                <div>
-                                    <br />
-
-                                    <p class="label-blue">Adding Activity Number @Model.ActivityNumber to @Model.PackageName.</p>
-
-                                    @if (Model.ActivityNumber == 1)
-                                    {
-                                        <p class="label-blue">You must add at least one activity for your package to be displayed on Grande Travel.</p>
-                                    }
-                                </div>
+                                <br />
 
                                 <div>
-                                    @Html.HiddenFor(model => model.PackageId)
-                                    @Html.HiddenFor(model => model.PackageName)
-                                    @Html.HiddenFor(model => model.ActivityNumber)
-                                    @Html.HiddenFor(model => model.PackageCity)
-                                    @Html.HiddenFor(model => model.PackageState)
+                                    <p class="label-blue">What feedback would you like to give for our @Model.PackageName package?</p>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.ActivityName, new { maxlength = 50 })
-                                    @Html.ValidationMessageFor(model => model.ActivityName)
-                                </div>
+                                @Html.HiddenFor(model => model.OrderId)
 
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.Description, new { maxlength = 100 })
-                                    @Html.ValidationMessageFor(model => model.Description)
+                                    @Html.TextAreaFor(model => model.Feedback, new { maxlength = 250, style = "width: 370px; height: 170px;" })
+                                    @Html.ValidationMessageFor(model => model.Feedback)
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.Address, new { maxlength = 100 })
-                                    @Html.ValidationMessageFor(model => model.Address)
+                                <div>
+                                    <button type="submit" class="btn btn-primary membership-submit register-submit">Submit</button>
+                                    <a class="btn btn-primary membership-submit register-submit"
+                                     href="@Url.Action("Search", "Orders")">Back to My Orders</a>
                                 </div>
                             </section>
                         </div>
-
-                        @{
-                    if (Model.ErrorMessage != null)
-                    {
-                        <p class="error-message">@Model.ErrorMessage</p>
-                    }
-                    else if (Model.SuccessMessage != null)
-                    {
-                        <p class="success-message">@Model.SuccessMessage</p>
-                            <div>
-                                @if (Model.ActivityNumber < 3)
-                                {
-                                    <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("Add", "Activities", new { packageId = Model.PackageId })">Add Another Activity</a>
-                                }
-                                <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("ProviderSearch", "Packages")">Back to My Packages</a>
-                            </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <button type="submit" class="btn btn-primary membership-submit register-submit">Submit</button>
-                        </div>
-                    }
-                        }
                     </fieldset>
                 }
-
             </div>
+
         </div>
     </div>
 </div>
