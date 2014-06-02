@@ -187,6 +187,7 @@
     <Compile Include="Models\Membership\MembershipViewModel.cs" />
     <Compile Include="Models\Membership\SearchUserViewModel.cs" />
     <Compile Include="Models\Orders\CustomerOrdersViewModel.cs" />
+    <Compile Include="Models\Orders\FeedbackViewModel.cs" />
     <Compile Include="Models\Packages\LocationModel.cs" />
     <Compile Include="Models\Packages\PackagesViewModel.cs" />
     <Compile Include="Models\Packages\SearchProviderPackagesViewModel.cs" />
@@ -335,6 +336,7 @@
     <Content Include="Views\Payment\Result.cshtml" />
     <Content Include="Views\Shared\_Partial_OrderPackageModal.cshtml" />
     <Content Include="Views\Orders\Search.cshtml" />
+    <Content Include="Views\Orders\Feedback.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

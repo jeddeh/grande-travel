@@ -19,107 +19,111 @@
 
 <div class="container" id="manageUsers">
 
-    <header class="section-header small-margin-header">
+    <header class="section-header">
         <h3>Manage User Accounts</h3>
     </header>
 
-    <section id="searchUserAccounts">
-        @using (Html.BeginForm("Search", "Membership", FormMethod.Post, new { @class = "form-inline" }))
-        {
-            @Html.AntiForgeryToken()
+    <section id="searchUserAccounts" class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Search", "Membership", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
 
-            <div>
-                <h4><i>@Model.SearchHeading</i></h4>
-            </div>
+                <div>
+                    <h4><i>@Model.SearchHeading</i></h4>
+                </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control", type = "search", maxlength = "30", placeholder = "Search User Accounts" })
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-success membership-submit register-submit">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control", type = "search", maxlength = "30", placeholder = "Search User Accounts" })
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-success membership-submit register-submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(model => model.SearchCriteria, " By ")
+                    <div class="form-group col-md-2">
+                        @Html.LabelFor(model => model.SearchCriteria, " By ")
 
-                    @Html.DropDownListFor(model => model.SearchCriteria,
+                        @Html.DropDownListFor(model => model.SearchCriteria,
                                         SelectListItemHelper.GetEnumSelectListItems<SearchUserEnum>(),
                                         new { @class = "form-control" })
-                </div>
+                    </div>
 
-                <div class="col-md-2">
-                    <input type="button" class="btn btn-primary" value="Show All Accounts" id="btnAllAccounts" />
+                    <div class="col-md-2">
+                        <input type="button" class="btn btn-primary" value="Show All Accounts" id="btnAllAccounts" />
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </section>
 
-    <section id="userTable">
-        @{
-            if (!ViewData.ModelState.IsValid || Model.PagedUsers == null || Model.PagedList == null)
-            {
-                <div class="error-message">Unable to get the user account information.</div>
-            }
-            else
-            {
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>User Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @{
-                if (Model.PagedUsers != null)
+    <section id="userTable" class="row">
+        <div class="col-md-12">
+            @{
+                if (!ViewData.ModelState.IsValid || Model.PagedUsers == null || Model.PagedList == null)
                 {
-                    foreach (PagedUserViewModel userModel in Model.PagedUsers)
-                    {
-                        <tr>
-                            <td>@userModel.ApplicationUserId</td>
-                            <td>@userModel.FirstName</td>
-                            <td>@userModel.LastName</td>
-                            <td>@userModel.Email</td>
-                            <td>@userModel.Role</td>
-
-                            <td>
-                                @if (userModel.IsActive)
-                                {
-                                    <span class="active">Active</span>
-                                }
-                                else
-                                {
-                                    <span class="inactive">Inactive</span>
-                                }
-                            </td>
-
-                            <td>
-                                <span>
-                                    <a class="btn btn-xs btn-primary"
-                                       href="@Url.Action("Edit", "Membership", new { user = @userModel.ApplicationUserId })">Edit Account</a>
-                                </span>
-                            </td>
-                        </tr>
-                    }
+                    <div class="error-message">Unable to get the user account information.</div>
                 }
-                        }
-                    </tbody>
-                </table>
+                else
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>User Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-                @Html.PagedListPager((IPagedList)Model.PagedList, page => Url.Action("Search", new { filter = Model.SearchCriteria.ToString(), searchText = Model.SearchText, Page = page }))
+                        <tbody>
+                            @{
+                    if (Model.PagedUsers != null)
+                    {
+                        foreach (PagedUserViewModel userModel in Model.PagedUsers)
+                        {
+                            <tr>
+                                <td>@userModel.ApplicationUserId</td>
+                                <td>@userModel.FirstName</td>
+                                <td>@userModel.LastName</td>
+                                <td>@userModel.Email</td>
+                                <td>@userModel.Role</td>
+
+                                <td>
+                                    @if (userModel.IsActive)
+                                    {
+                                        <span class="active">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="inactive">Inactive</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <span>
+                                        <a class="btn btn-xs btn-primary"
+                                           href="@Url.Action("Edit", "Membership", new { user = @userModel.ApplicationUserId })">Edit Account</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                            }
+                        </tbody>
+                    </table>
+
+                    @Html.PagedListPager((IPagedList)Model.PagedList, page => Url.Action("Search", new { filter = Model.SearchCriteria.ToString(), searchText = Model.SearchText, Page = page }))
+                }
             }
-        }
+        </div>
     </section>
 
 </div>

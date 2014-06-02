@@ -9,85 +9,86 @@
 
 @section styles {
     @Styles.Render("~/Content/themes/base/css")
+    <link href="~/Content/clearcanvas/theme.css" rel="stylesheet" />
+
 }
 
 <div class="container">
 
-    <header class="section-header small-margin-header">
+    <header class="section-header order-header">
         <h3>My Orders</h3>
     </header>
 
-    <section id="ordersTable">
-        @{
-            if (!ViewData.ModelState.IsValid || Model.Orders == null)
-            {
-                <div class="error-message">Sorry, we have been unable to retrieve your orders.</div>
-            }
-            else if (Model.Orders.Count == 0)
-            {
-                <div class="error-message">There are no orders on your account.</div>
-            }
-            else
-            {
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Date Booked</th>
-                            <th>Package</th>
-                            <th>Voucher Code</th>
-                            <th>Amount</th>
-                            <th>Paid</th>
-                            <th>Transaction Id</th>
-                            <th>Feedback</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @{
-                foreach (Order order in Model.Orders)
+    <section class="row orders-table">
+        <div class="col-md-12">
+            @{
+                if (!ViewData.ModelState.IsValid || Model.Orders == null)
                 {
-                    <tr>
-                        <td>@order.DateBooked.ToShortDateString()</td>
-                        <td>@order.Package.Name</td>
-                       
-                        @if (order.VoucherCode == 0)
-                        {
-                            <td></td>
-                        }
-                        else
-                        {
-                            <td>@order.VoucherCode.ToString("00000000")</td>
-                        }
-
-                        <td>@String.Format("{0:C}", order.Amount)</td>
-
-                        @if (order.Paid)
-                        {
-                            <td>Yes</td>
-
-                            <td>
-                                <span>
-                                    <a class="btn btn-xs btn-primary"
-                                       href="@Url.Action("Feedback", "Orders", new { order = @order.OrderId })">Give Feedback</a>
-                                </span>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>No</td>
-                            <td></td>
-                        }
-
-                        <td>@order.TransactionId</td>
-
-
-
-                    </tr>
+                    <div class="order-error error-message">Sorry, we have been unable to retrieve your orders.</div>
                 }
-                        }
-                    </tbody>
-                </table>
+                else if (Model.Orders.Count == 0)
+                {
+                    <div class="order-error error-message">There are no orders on your account.</div>
+                }
+                else
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date Booked</th>
+                                <th>Package</th>
+                                <th>Voucher Code</th>
+                                <th>Amount</th>
+                                <th>Paid</th>
+                                <th>Transaction Id</th>
+                                <th>Feedback</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @{
+                    foreach (Order order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@order.DateBooked.ToShortDateString()</td>
+                            <td>@order.Package.Name</td>
+
+                            @if (order.VoucherCode == 0)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>@order.VoucherCode.ToString("00000000")</td>
+                            }
+
+                            <td>@String.Format("{0:C}", order.Amount)</td>
+
+                            @if (order.Paid)
+                            {
+                                <td>Yes</td>
+
+                                <td>
+                                    <span>
+                                        <a class="btn btn-xs btn-primary"
+                                           href="@Url.Action("Feedback", "Orders", new { order = @order.OrderId })">Give Feedback</a>
+                                    </span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                                <td></td>
+                            }
+
+                            <td>@order.TransactionId</td>
+                        </tr>
+                    }
+                            }
+                        </tbody>
+                    </table>
+                }
             }
-        }
+        </div>
     </section>
 </div>

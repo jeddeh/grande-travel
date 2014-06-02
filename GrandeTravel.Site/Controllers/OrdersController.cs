@@ -70,7 +70,6 @@ namespace GrandeTravel.Site.Controllers
             return View();
         }
 
-
         #endregion
     }
 }
