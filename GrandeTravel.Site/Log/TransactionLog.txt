@@ -160,3 +160,15 @@ Successful Purchase.
 2/06/2014 8:18:13 PM
 Successful Purchase.
 
+4/06/2014 6:58:10 PM
+Error submitting payment.
+
+4/06/2014 7:55:50 PM
+Error submitting payment.
+
+4/06/2014 7:57:56 PM
+Successful Purchase.
+
+4/06/2014 11:02:36 PM
+Successful Purchase.
+

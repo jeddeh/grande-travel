@@ -19,6 +19,9 @@
                 {
                     @Html.AntiForgeryToken()
 
+                    @Html.HiddenFor(model => model.OrderId)
+                    @Html.HiddenFor(model => model.PackageName)
+
                     <fieldset>
                         <legend>Feedback</legend>
 
@@ -50,8 +53,6 @@
                                     <div>
                                         <p class="label-blue">What feedback would you like to give for our @Model.PackageName package?</p>
                                     </div>
-
-                                    @Html.HiddenFor(model => model.OrderId)
 
                                     <div class="form-group">
                                         @Html.TextAreaFor(model => model.Feedback, new { maxlength = 250, style = "width: 370px; height: 170px;" })

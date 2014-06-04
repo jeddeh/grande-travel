@@ -50,9 +50,11 @@
                     foreach (Order order in Model.Orders)
                     {
                         <tr>
+                            @* DateBooked / Package Name *@
                             <td>@order.DateBooked.ToShortDateString()</td>
                             <td>@order.Package.Name</td>
 
+                            @* Voucher Code *@
                             @if (order.VoucherCode == 0)
                             {
                                 <td></td>
@@ -62,16 +64,23 @@
                                 <td>@order.VoucherCode.ToString("00000000")</td>
                             }
 
+                            @* Amount *@
                             <td>@String.Format("{0:C}", order.Amount)</td>
 
+
+                            @* Paid / Feedback / Transaction Id *@
                             @if (order.Paid)
                             {
+                                string feedbackButtonText = String.IsNullOrEmpty(order.Feedback) ? "Give Feedback" : "Edit Feedback";
+                                
                                 <td>Yes</td>
+
+                                <td>@order.TransactionId</td>
 
                                 <td>
                                     <span>
                                         <a class="btn btn-xs btn-primary"
-                                           href="@Url.Action("Feedback", "Orders", new { orderId = @order.OrderId })">Give Feedback</a>
+                                           href="@Url.Action("Feedback", "Orders", new { orderId = @order.OrderId })">@feedbackButtonText</a>
                                     </span>
                                 </td>
                             }
@@ -79,9 +88,8 @@
                             {
                                 <td>No</td>
                                 <td></td>
+                                <td></td>
                             }
-
-                            <td>@order.TransactionId</td>
                         </tr>
                     }
                             }

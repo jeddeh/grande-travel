@@ -129,5 +129,28 @@ namespace GrandeTravel.Service.Implementation
         }
 
         #endregion
+
+        #region Get Feedback By Package Id
+
+        public Result<IEnumerable<string>> GetFeedbackByPackageId(int packageId)
+        {
+            Result<IEnumerable<string>> result = new Result<IEnumerable<string>>();
+
+            try
+            {
+                result.Data = manager.Get(p => p.PackageId == packageId).Where(p => p.Feedback != null).Select(p => p.Feedback)
+                .AsEnumerable<string>();
+
+                result.Status = ResultEnum.Success;
+            }
+            catch (Exception)
+            {
+                result.Status = ResultEnum.Fail;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

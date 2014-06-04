@@ -63,7 +63,7 @@
                             <div class="col-md-5" id=@availableId>
                                 @{ if (package.Status == PackageStatusEnum.Available)
                                  {
-                                    <span><a class="confirm-discontinue-package btn btn-xs btn-success" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Available</a></span>
+                                    <span><a class="confirm-discontinue-package btn btn-xs btn-warning" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Discountinue</a></span>
                                     <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Packages", new { id = @package.PackageId })">Edit Package Details</a></span>
 
                                      if (package.Activities.Count < 3)
@@ -108,7 +108,7 @@
                                             <div class="col-md-5" id="@availableActivityId">
                                                 @{ if (activity.Status == PackageStatusEnum.Available)
                                                  {
-                                                    <span><a class="confirm-discontinue-activity btn btn-xs btn-success" href="@Url.Action("Discontinue", "Activities", new { id = @activity.ActivityId })">Available</a></span>
+                                                    <span><a class="confirm-discontinue-activity btn btn-xs btn-warning" href="@Url.Action("Discontinue", "Activities", new { id = @activity.ActivityId })">Discontinue</a></span>
                                                     <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { id = @activity.ActivityId, pId = package.PackageId })">Edit Activity Details</a></span>
                                                  }
                                                  else if (activity.Status == PackageStatusEnum.Discontinued)

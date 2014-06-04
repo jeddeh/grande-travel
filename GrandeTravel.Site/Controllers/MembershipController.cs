@@ -47,6 +47,11 @@ namespace GrandeTravel.Site.Controllers
         [AllowAnonymous]
         public ActionResult Add(int? PackageId)
         {
+            if (Roles.IsUserInRole("ActiveUser") && !Roles.IsUserInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             RegisterUserViewModel model = new RegisterUserViewModel();
 
             if (MvcApplication.ShowSampleFormData)

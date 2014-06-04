@@ -88,6 +88,12 @@
                                                     new { style = "text-decoration: underline" })
                                                 </div>
 
+                                                <div>
+                                                    @{
+                                    string feedbackId = "feedback" + package.PackageId;
+                                    <a href="#" class="feedback-link" id=@feedbackId>Show Feedback for this Package</a>
+                                                    }
+                                                </div>
                                             </section>
                                             &nbsp;
                                         </section>
@@ -114,4 +120,46 @@
     <script src="~/Scripts/jquery.isotope.min.js"></script>
     <script src="~/Scripts/typeahead-v0.10.2.js"></script>
     <script src="~/Scripts/Site/locations-search.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("a.feedback-link").click(function (event) {
+                event.preventDefault();
+
+                // feedbackId is the Package Id for the feedback.
+                var feedbackId = event.currentTarget.id.substring(8);
+                var feedbackHtml = "";
+
+                if (isNaN(parseInt(feedbackId, 10)) || !isFinite(feedbackId)) {
+                    bootbox.alert("Unable to get the feedback for this package.");
+                    return false;
+                }
+
+                $.ajax({
+                    url: "/Orders/GetFeedbackDetails",
+                    data: "id=" + feedbackId,
+                    type: "GET",
+                    success: function (data) {
+                        if (data.length === 0) {
+                            bootbox.alert("No feedback has been given for this package.");
+                            return;
+                        }
+
+                        feedbackHtml = "<ul>";
+                        for (var i = 0; i < data.length; i++) {
+                            feedbackHtml += "<li>" + data[i] + "</li>";
+                        }
+                        feedbackHtml += "</ul>";
+
+                       bootbox.alert(feedbackHtml);
+                        return;
+                    },
+                    error: function (xhr, status, error) {
+                        bootbox.alert("Unable to get the feedback for this package.");
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
 }

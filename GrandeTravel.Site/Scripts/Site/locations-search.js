@@ -78,14 +78,14 @@
     // Click event for dropdown items on the typeahead suggestions
     $('#txtSearch').on('typeahead:selected', function (e, datum) {
         var location = datum.value;
-        filterElements(location);
+        filterElements(location, false);
     });
 
     // Click event handler fot the Search button
     $("#btnSearch").click(function () {
         var location = getFullStateName($("#txtSearch").val().trim());
         if (location) {
-            filterElements(location);
+            filterElements(location, true);
         }
     });
 
@@ -101,9 +101,15 @@
     });
 
     // Filters elements for isotope and displays search query heading
-    function filterElements(location) {
+    function filterElements(location, usePartialText) {
 
-        $("#filterHeading").html("Showing packages in " + toTitleCase(location));
+        if (usePartialText) {
+            $("#filterHeading").html("Showing package locations containting '" + location + "'");
+
+        } else {
+            $("#filterHeading").html("Showing packages in " + toTitleCase(location));
+        }
+
         $("#txtSearch").val("");
 
         switch (toTitleCase(location)) {
@@ -127,17 +133,31 @@
 
         $("div.package-image").removeClass("active-image");
 
-        $("span.city").each(function (index) {
-            if (this.innerHTML.toUpperCase() === location.toUpperCase()) {
-                $(this).closest("div").addClass("active-image");
-            }
-        });
+        if (usePartialText) {
+            $("span.city").each(function (index) {
+                if (this.innerHTML.toUpperCase().indexOf(location.toUpperCase()) > -1) {
+                    $(this).closest("div").addClass("active-image");
+                }
+            });
 
-        $("span.state").each(function (index) {
-            if (this.innerHTML.toUpperCase() === location.toUpperCase()) {
-                $(this).closest("div").addClass("active-image");
-            }
-        });
+            $("span.state").each(function (index) {
+                if (this.innerHTML.toUpperCase().indexOf(location.toUpperCase()) > -1) {
+                    $(this).closest("div").addClass("active-image");
+                }
+            });
+        } else {
+            $("span.city").each(function (index) {
+                if (this.innerHTML.toUpperCase() === location.toUpperCase()) {
+                    $(this).closest("div").addClass("active-image");
+                }
+            });
+
+            $("span.state").each(function (index) {
+                if (this.innerHTML.toUpperCase() === location.toUpperCase()) {
+                    $(this).closest("div").addClass("active-image");
+                }
+            });
+        }
 
         $container.isotope({ filter: ".active-image" });
         return false;
@@ -215,8 +235,7 @@
                 return false;
             }
         });
-
-        $(".modal-title").closest(".package-link").html();
+        $(".modal-title").html($(this).closest(".package-link").html());
         $("#modal").modal("show");
 
         // TODO : Better fix for txtSearch showing a value after the image is clicked 

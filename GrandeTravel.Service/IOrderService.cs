@@ -14,5 +14,6 @@ namespace GrandeTravel.Service
         Result<IEnumerable<Order>> GetOrdersByCustomerId(int customerId);
         Result<Order> AddOrder(Order order);
         ResultEnum UpdateOrder(Order order);
+        Result<IEnumerable<string>> GetFeedbackByPackageId(int packageId);
     }
 }
