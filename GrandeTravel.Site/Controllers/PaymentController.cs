@@ -65,7 +65,9 @@ namespace GrandeTravel.Site.Controllers
                 Result<Package> packageResult = new Result<Package>();
                 packageResult = packageService.GetPackageById(packageId);
 
-                if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+                if (packageResult.Status == ResultEnum.Success
+                    && packageResult.Data.ApplicationUserId == WebSecurity.CurrentUserId
+                    && packageResult.Data.Status == PackageStatusEnum.Available)
                 {
                     // No Model is used in order to prevent a name attribute being applied to form inputs -
                     // this causes unencrypted form fields to be posted.
@@ -305,7 +307,7 @@ namespace GrandeTravel.Site.Controllers
         {
             try
             {
-                using (StreamWriter sw =new StreamWriter(Server.MapPath("~/Log/TransactionLog.txt"), true))
+                using (StreamWriter sw = new StreamWriter(Server.MapPath("~/Log/TransactionLog.txt"), true))
                 {
                     sw.WriteLine(DateTime.Now.ToString());
                     sw.WriteLine(message);

@@ -21,7 +21,7 @@ namespace GrandeTravel.Site.Models.Membership
         [Display(Name = "Password", Prompt = "Password")]
         [DataType(DataType.Password)]
         [StringLength(50)]
-        [MinLength(6, ErrorMessage = "The email or password is incorrect.")]
+        [MinLength(8, ErrorMessage = "The email or password is incorrect.")]
         public string Password { get; set; }
     }
 }

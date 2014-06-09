@@ -134,7 +134,9 @@ namespace GrandeTravel.Site.Controllers
             Result<Package> packageResult = new Result<Package>();
             packageResult = packageService.GetPackageById(packageId);
 
-            if (packageResult.Status == ResultEnum.Success && packageResult.Data.Status == PackageStatusEnum.Available)
+            if (packageResult.Status == ResultEnum.Success &&
+                WebSecurity.CurrentUserId == packageResult.Data.ApplicationUserId &&
+                packageResult.Data.Status == PackageStatusEnum.Available)
             {
                 model = packageResult.Data.ToPackagesViewModel();
             }
@@ -349,6 +351,11 @@ namespace GrandeTravel.Site.Controllers
             ResultEnum result;
             try
             {
+                if (packageService.GetPackageById(packageId).Data.ApplicationUserId != WebSecurity.CurrentUserId)
+                {
+                    return Json(new { success = false }, JsonRequestBehavior.DenyGet);
+                }
+
                 result = packageService.DiscontinuePackage(packageId);
                 if (result == ResultEnum.Success)
                 {

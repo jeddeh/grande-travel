@@ -16,7 +16,7 @@ namespace GrandeTravel.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(GrandeTravel.Data.ApplicationDbContext context)

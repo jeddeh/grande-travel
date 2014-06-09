@@ -35,11 +35,11 @@ namespace GrandeTravel.Site.Helpers
             {
                 Address = "5 Short Street",
                 City = "Sydney",
-                ConfirmPassword = "111111",
+                ConfirmPassword = "Aa111111",
                 Email = "andrewjones" + randomNumber + "@aj.com.au",
                 FirstName = "Andrew",
                 LastName = "Jones",
-                Password = "111111",
+                Password = "Aa111111",
                 Phone = "0434 412 749",
                 Postcode = "2016",
                 State = AustralianStateEnum.WA

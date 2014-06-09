@@ -1,16 +1,13 @@
-﻿@{
-    Layout = null;
+﻿@section styles {
+    @Styles.Render("~/Content/site/theme.css")
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <h2>
-        Sorry, an error occurred while processing your request.
-    </h2>
-</body>
-</html>
+<section class="container">
+    <div class="row">
+        <div class="col-md-12 error-page">
+            <div class="text-center error-message">
+                <p>Sorry, an error occurred while processing your request.</p>
+            </div>
+        </div>
+    </div>
+</section>

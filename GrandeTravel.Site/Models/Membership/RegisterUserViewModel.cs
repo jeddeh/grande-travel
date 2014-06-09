@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-
 using GrandeTravel.Entity;
 using GrandeTravel.Entity.Enums;
 
@@ -16,7 +15,8 @@ namespace GrandeTravel.Site.Models.Membership
         [MaxLength(50)]
         [Display(Name = "Password", Prompt = "Password")]
         [DataType(DataType.Password)]
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "The Password field must be at least 6 characters long.")]
+        [StringLength(50)]
+        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$", ErrorMessage = "Must be at least 8 characters and include a number, capital and lowercase letter.")]
         public override string Password { get; set; }
 
         [Required]

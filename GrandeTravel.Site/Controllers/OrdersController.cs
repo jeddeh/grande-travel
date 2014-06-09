@@ -81,6 +81,11 @@ namespace GrandeTravel.Site.Controllers
             {
                 Result<Order> result = orderService.GetOrderById(orderId);
 
+                if (WebSecurity.CurrentUserId != result.Data.CustomerId)
+                {
+                    result.Status = ResultEnum.Fail;
+                }
+
                 switch (result.Status)
                 {
                     case ResultEnum.Success:

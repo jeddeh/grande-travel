@@ -77,6 +77,10 @@
       <Project>{df92180c-3e48-458e-bd71-28bcca6849a3}</Project>
       <Name>GrandeTravel.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GrandeTravel.Site\GrandeTravel.Site.csproj">
+      <Project>{5a659bd6-b091-489a-8409-bc82ada9e871}</Project>
+      <Name>GrandeTravel.Site</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GrandeTravel.Utility\GrandeTravel.Utility.csproj">
       <Project>{53b568ea-72a1-4b08-85ac-eb61f5daf220}</Project>
       <Name>GrandeTravel.Utility</Name>
