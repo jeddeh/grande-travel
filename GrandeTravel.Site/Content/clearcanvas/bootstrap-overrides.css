@@ -1,8 +1,0 @@
-
-.carousel-inner > .item > img, .carousel-inner > .item > a > img
-{
-    display: block;
-    height: 350px;
-    border-radius: 0px;
-    min-width: 100%;  
-}

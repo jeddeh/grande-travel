@@ -1,0 +1,76 @@
+﻿/*Orders*/
+.order-error {
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 50px; }
+
+.order-header {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
+.orders-table {
+  margin-bottom: 80px; }
+
+/*Payment Result*/
+.payment-result {
+  margin-top: 100px;
+  margin-bottom: 100px; }
+
+.payment-error {
+  color: red; }
+
+.payment-success {
+  color: green; }
+
+/*Maps*/
+.map-result {
+  margin-top: 100px;
+  margin-bottom: 100px; }
+
+/*General*/
+#manageUsers, #searchUserAccounts {
+  margin: 30px auto; }
+
+.login-row {
+  background-color: #fff; }
+
+.discontinued-title {
+  color: #bcbcbd; }
+
+.login-header {
+  text-align: right;
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #0584fe; }
+
+.company-description {
+  padding-top: 60px; }
+
+img.gridImage {
+  width: 304px;
+  min-height: 170px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px; }
+
+img {
+  border-radius: 5px; }
+
+.panel-title {
+  word-break: break-all;
+  word-wrap: break-word; }
+
+#my-packages {
+  margin-top: 60px;
+  margin-bottom: 120px; }
+
+.success-message {
+  color: #55f714; }
+
+.error-message, .inactive {
+  color: red; }
+
+.active {
+  color: green; }

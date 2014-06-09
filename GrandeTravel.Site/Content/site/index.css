@@ -1,0 +1,32 @@
+﻿/* CSS for Home/Index */
+.carousel-inner > .item > img {
+  display: block;
+  height: 350px;
+  border-radius: 0px;
+  min-width: 100%; }
+
+.feature-image {
+  margin-bottom: 20px; }
+
+#features {
+  margin-top: 70px;
+  margin-bottom: 100px; }
+  #features .feature {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 35px; }
+    #features .feature .info h3 {
+      font-size: 21px;
+      margin-top: 0px; }
+    #features .feature .info p {
+      margin-top: 15px; }
+  @media (min-width: 768px) {
+    #features .feature .pic-right {
+      float: right; }
+    #features .feature .info-left {
+      float: left; } }
+  @media (max-width: 767px) {
+    #features .feature img {
+      margin: 0 auto !important;
+      float: none !important; }
+    #features .feature .info h3 {
+      text-align: center; } }
