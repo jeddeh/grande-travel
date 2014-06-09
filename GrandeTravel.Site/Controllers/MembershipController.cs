@@ -120,11 +120,15 @@ namespace GrandeTravel.Site.Controllers
                 switch (result)
                 {
                     case ResultEnum.Success:
-                        if (model.IsProvider)
+                        if (model.IsProvider && !Roles.IsUserInRole("Admin"))
+                        {
+                            Roles.AddUserToRoles(userLogin, new string[] { "Provider" });
+                        }
+                        else if (model.IsProvider && Roles.IsUserInRole("Admin"))
                         {
                             Roles.AddUserToRoles(userLogin, new string[] { "Provider", "ActiveUser" });
                         }
-                        else
+                        else if (!model.IsAdmin)
                         {
                             Roles.AddUserToRoles(userLogin, new string[] { "Customer", "ActiveUser" });
                         }
@@ -153,6 +157,15 @@ namespace GrandeTravel.Site.Controllers
                                 if (model.HasPackage)
                                 {
                                     return RedirectToAction("CreateTransaction", "Payment", new { PackageId = model.PackageId });
+                                }
+
+                                // If a provider, show confirmation message
+                                if (model.IsProvider && !Roles.IsUserInRole("Admin"))
+                                {
+                                    model.AccountCreatedSuccessfully = true;
+                                    model.isProviderConfirmed = true;
+                                    WebSecurity.Logout();
+                                    return View(model);
                                 }
 
                                 return RedirectToAction("Index", "Home");

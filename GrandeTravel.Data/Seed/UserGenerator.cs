@@ -16,7 +16,7 @@ namespace GrandeTravel.Data.Seed
         {
             List<FakeUserWithPassword> users = new List<FakeUserWithPassword>();
 
-            using (StreamReader reader = new StreamReader(File.OpenRead(file)))
+            using (StreamReader reader = new StreamReader(File.OpenRead(Directory.GetCurrentDirectory() + file)))
             {
                 for (int i = 0; i < numberOfUsers; i++)
                 {

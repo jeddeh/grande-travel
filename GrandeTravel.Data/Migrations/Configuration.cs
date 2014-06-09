@@ -16,7 +16,7 @@ namespace GrandeTravel.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(GrandeTravel.Data.ApplicationDbContext context)
@@ -57,7 +57,7 @@ namespace GrandeTravel.Data.Migrations
             #region Admin
 
             string adminEmail = "admin@sample.com";
-            WebSecurity.CreateUserAndAccount(adminEmail, "111111");
+            WebSecurity.CreateUserAndAccount(adminEmail, "Aa111111");
             int adminId = WebSecurity.GetUserId(adminEmail);
 
             ApplicationUser[] admin = new ApplicationUser[]
@@ -86,7 +86,7 @@ namespace GrandeTravel.Data.Migrations
 
             #region Customers
 
-            List<FakeUserWithPassword> customers = UserGenerator.GenerateUsers(@"GrandeTravel.Data\Seed\CustomerNameGenerator.csv", numberOfCustomers);
+            List<FakeUserWithPassword> customers = UserGenerator.GenerateUsers(@"./GrandeTravel.Data/Seed/CustomerNameGenerator.csv", numberOfCustomers);
 
             foreach (FakeUserWithPassword customer in customers)
             {
@@ -112,7 +112,7 @@ namespace GrandeTravel.Data.Migrations
 
             #region Providers
 
-            List<FakeUserWithPassword> providers = UserGenerator.GenerateUsers(@"GrandeTravel.Data\Seed\ProviderNameGenerator.csv", numberOfProviders);
+            List<FakeUserWithPassword> providers = UserGenerator.GenerateUsers(@"./GrandeTravel.Data/Seed/ProviderNameGenerator.csv", numberOfProviders);
 
             foreach (FakeUserWithPassword provider in providers)
             {

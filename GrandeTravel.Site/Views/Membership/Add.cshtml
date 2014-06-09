@@ -26,18 +26,18 @@
                         <legend>Create Account</legend>
 
                         @{ string heading;
-                        string providerMessage;
+                         string providerMessage;
 
-                        if (Model.IsAdmin)
-                        {
-                            heading = "Add User Account";
-                            providerMessage = "Register user as a travel provider.";
-                        }
-                        else
-                        {
-                            heading = "Create your account";
-                            providerMessage = "I want to register as a travel provider.";
-                        }
+                         if (Model.IsAdmin)
+                         {
+                             heading = "Add User Account";
+                             providerMessage = "Register user as a travel provider.";
+                         }
+                         else
+                         {
+                             heading = "Create your account";
+                             providerMessage = "I want to register as a travel provider.";
+                         }
                         }
 
                         <header class="register-header">
@@ -48,8 +48,6 @@
 
                         <div class="row">
                             <section class="col-md-6">
-
-
 
                                 <div class="form-group">
                                     @Html.EditorFor(model => model.Email)
@@ -76,7 +74,7 @@
                                         @Html.LabelFor(model => model.IsProvider, providerMessage)
                                     </div>
 
-                                    if (!Model.IsAdmin)
+                                    if (!Model.IsAdmin && !Model.isProviderConfirmed)
                                     {
                                         <div class="has-account">
                                             <span>Already have an account?</span>
@@ -89,9 +87,20 @@
                                 {
                                     if (Model.AccountCreatedSuccessfully)
                                     {
-                                        // Admin has created a user account
+                                        // Admin or Provider has created a user account
+                                        string successMessage = "";
+
+                                        if (Model.IsAdmin)
+                                        {
+                                            successMessage = "User account successfully created.";
+                                        }
+                                        else if (Model.IsProvider)
+                                        {
+                                            successMessage = "Provider account successfully created. Your account must be activated by an admin before it can be used.";
+                                        }
+
                                         <div class="register-success">
-                                            <p class="success-message" id="success-message">User account successfully created.</p>
+                                            <p class="success-message" id="success-message">@successMessage</p>
                                         </div>
                                     }
                                     else

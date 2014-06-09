@@ -29,9 +29,12 @@ namespace GrandeTravel.Site.Models.Membership
         // Used when an Admin creates a new user account.
         public bool AccountCreatedSuccessfully { get; set; }
 
-        // Used when the user wants to order a package
+        // Used when the user wants to order a package.
         public bool HasPackage { get; set; }
 
         public int PackageId { get; set; }
+
+        // Used for confirmation of registration for a Provider.
+        public bool isProviderConfirmed { get; set; }
     }
 }

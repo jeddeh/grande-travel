@@ -29,6 +29,22 @@ input[type="text"], input[type="password"], input[type="submit"], textarea {
 body.pull_top {
   padding-top: 0px !important; }
 
+.large-margin-header {
+  margin-bottom: 60px; }
+
+.section-header {
+  width: 100%; }
+
+.section-header h3 {
+  color: #646464;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 27px;
+  border-bottom: 1px solid #b3b3b3;
+  padding-bottom: 0px;
+  display: inline-block;
+  margin: 0; }
+
 /* Navbar */
 .navbar {
   padding: 10px 0px 10px 0px;
@@ -59,11 +75,6 @@ body.pull_top {
   padding: 10px 15px 10px;
   text-decoration: none; }
 
-.navbar-inverse .navbar-nav > .active > a {
-  box-shadow: none;
-  background-image: none;
-  background-color: #252528; }
-
 .navbar.navbar-inverse .nav > li > a:active {
   color: #fff;
   opacity: 1;
@@ -74,6 +85,27 @@ body.pull_top {
   color: #f77485;
   background-color: #252528;
   opacity: 1; }
+
+.navbar-inverse .navbar-nav > .active > a {
+  box-shadow: none;
+  background-image: none; }
+
+.navbar.navbar-inverse .nav > li.active > a {
+  color: #fff;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  background-color: transparent; }
+
+.navbar.navbar-inverse .nav > li.active > a:hover {
+  color: #f77485; }
+
+.navbar.sticky {
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid #252525; }
+
+.navbar.sticky .container {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important; }
 
 .navbar .container {
   margin-top: 10px;
@@ -98,6 +130,12 @@ body.pull_top {
   -moz-border-radius: 6px;
   border-radius: 6px;
   margin-top: 2px; }
+
+.navbar .container .collapse .nav .dropdown .dropdown-menu > li > a {
+  color: #fff; }
+
+.navbar .container .collapse .nav .dropdown .dropdown-menu > li > a:hover {
+  background: #444; }
 
 /* Footer */
 #footer {
