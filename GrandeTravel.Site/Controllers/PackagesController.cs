@@ -47,7 +47,7 @@ namespace GrandeTravel.Site.Controllers
         {
             PackagesViewModel model = new PackagesViewModel();
 
-            if (MvcApplication.ShowSampleFormData)
+            if (MvcApplication.SHOW_SAMPLE_FORM_DATA)
             {
                 // Show dummy user data for model
                 model = SampleModelData.GetSamplePackagesViewModel();

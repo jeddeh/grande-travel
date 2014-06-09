@@ -66,9 +66,9 @@
                                     <span><a class="confirm-discontinue-package btn btn-xs btn-warning" href="@Url.Action("Discontinue", "Packages", new { id = @package.PackageId })">Discountinue</a></span>
                                     <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Packages", new { id = @package.PackageId })">Edit Package Details</a></span>
 
-                                     if (package.Activities.Count < 3)
+                                     if (package.Activities.Count < GrandeTravel.Site.MvcApplication.MAX_ACTIVITIES)
                                      {
-                                        <span><a class="btn btn-xs btn-primary" href="@Url.Action("Add", "Activities", new { packageId = @package.PackageId })">Add New Activity</a></span>
+                                        <span><a class="btn btn-xs btn-primary" href="@Url.Action("Add", "Activities", new { PackageId = @package.PackageId })">Add New Activity</a></span>
                                      }
                                  }
                                  else if (package.Status == PackageStatusEnum.Discontinued)
@@ -109,7 +109,7 @@
                                                 @{ if (activity.Status == PackageStatusEnum.Available)
                                                  {
                                                     <span><a class="confirm-discontinue-activity btn btn-xs btn-warning" href="@Url.Action("Discontinue", "Activities", new { id = @activity.ActivityId })">Discontinue</a></span>
-                                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { id = @activity.ActivityId, pId = package.PackageId })">Edit Activity Details</a></span>
+                                                    <span><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Activities", new { ActivityId = @activity.ActivityId, PackageId = package.PackageId })">Edit Activity Details</a></span>
                                                  }
                                                  else if (activity.Status == PackageStatusEnum.Discontinued)
                                                  {

@@ -205,7 +205,6 @@
     <Content Include="Content\site\packages.css">
       <DependentUpon>packages.scss</DependentUpon>
     </Content>
-    <Content Include="Content\animate.css" />
     <Content Include="Content\isotope.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

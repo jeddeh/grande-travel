@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace GrandeTravel.Site.Controllers
 {
@@ -39,14 +40,16 @@ namespace GrandeTravel.Site.Controllers
 
         [Authorize(Roles = "Provider")]
         [Authorize(Roles = "ActiveUser")]
-        public ActionResult Add(int packageId)
+        public ActionResult Add(int PackageId)
         {
             ActivitiesViewModel model = new ActivitiesViewModel();
 
             Result<Package> result = new Result<Package>();
-            result = packageService.GetPackageById(packageId);
+            result = packageService.GetPackageById(PackageId);
 
-            if (result.Status == ResultEnum.Success && result.Data.Activities.Count < 3)
+            if (result.Status == ResultEnum.Success &&
+                WebSecurity.CurrentUserId == result.Data.ApplicationUserId &&
+                result.Data.Activities.Count < MvcApplication.MAX_ACTIVITIES)
             {
                 model.PackageId = result.Data.PackageId;
                 model.PackageName = result.Data.Name;
@@ -119,15 +122,15 @@ namespace GrandeTravel.Site.Controllers
 
         [Authorize(Roles = "Provider")]
         [Authorize(Roles = "ActiveUser")]
-        public ActionResult Edit(int? id, int? pId)
+        public ActionResult Edit(int? ActivityId, int? PackageId)
         {
-            if (id == null || pId == null)
+            if (ActivityId == null || PackageId == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            int activityId = id.GetValueOrDefault();
-            int packageId = pId.GetValueOrDefault();
+            int activityId = ActivityId.GetValueOrDefault();
+            int packageId = PackageId.GetValueOrDefault();
 
             ActivitiesViewModel model = new ActivitiesViewModel();
 
@@ -139,6 +142,8 @@ namespace GrandeTravel.Site.Controllers
             {
                 model.PackageId = packageId;
                 model.PackageName = packageResult.Data.Name;
+                model.PackageCity = packageResult.Data.City;
+                model.PackageState = packageResult.Data.State;
             }
             else
             {
@@ -184,6 +189,7 @@ namespace GrandeTravel.Site.Controllers
 
                     Activity activity = new Activity()
                     {
+                        ActivityId = model.ActivityId,
                         Name = model.ActivityName,
                         Description = model.Description,
                         Address = model.Address,

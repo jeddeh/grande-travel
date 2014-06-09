@@ -19,7 +19,8 @@ namespace GrandeTravel.Site
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static readonly bool ShowSampleFormData = true;
+        public static readonly bool SHOW_SAMPLE_FORM_DATA = true;
+        public static readonly int MAX_ACTIVITIES = 3;
 
         protected void Application_Start()
         {

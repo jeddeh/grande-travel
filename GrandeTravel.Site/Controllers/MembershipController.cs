@@ -54,7 +54,7 @@ namespace GrandeTravel.Site.Controllers
 
             RegisterUserViewModel model = new RegisterUserViewModel();
 
-            if (MvcApplication.ShowSampleFormData)
+            if (MvcApplication.SHOW_SAMPLE_FORM_DATA)
             {
                 // Show dummy user data for model
                 model = SampleModelData.GetSampleRegisterViewModel();

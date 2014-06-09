@@ -79,7 +79,7 @@
                     {
                         <p class="success-message">@Model.SuccessMessage</p>
                             <div>
-                                @if (Model.ActivityNumber < 3)
+                                @if (Model.ActivityNumber < GrandeTravel.Site.MvcApplication.MAX_ACTIVITIES)
                                 {
                                     <a class="btn btn-primary membership-submit register-submit" href="@Url.Action("Add", "Activities", new { packageId = Model.PackageId })">Add Another Activity</a>
                                 }
