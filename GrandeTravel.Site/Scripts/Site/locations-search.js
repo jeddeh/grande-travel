@@ -1,15 +1,17 @@
 ﻿$(function () {
     var $container = $('#gallery_container');
 
-    // Isotope initialisation
-    $container.imagesLoaded(function () {
+    // Isotope initialisation - Bug in Firefox - does not call imagesLoaded() ?
+   // $container.imagesLoaded(function () {
         $container.isotope({
+            transformsEnabled: false,
             itemSelector: '.package-image',
             masonry: {
                 columnWidth: 100
             }
         });
-    });
+        // // showAllLocations();
+    //});
 
     // Store all the package locations in an array
     var locations = [];
@@ -91,14 +93,17 @@
 
     // Click event handler for All Locations button
     $("#btnAllLocations").click(function () {
+        showAllLocations();
+        return false;
+    });
+
+    function showAllLocations() {
         $("#filterHeading").html("Showing all locations");
         $("#txtSearch").val("");
 
         $("div.package-image").addClass("active-image");
         $container.isotope({ filter: ".active-image" });
-
-        return false;
-    });
+    }
 
     // Filters elements for isotope and displays search query heading
     function filterElements(location, usePartialText) {

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="WebTest1" Id="e836b9d9-62e9-4d55-9c92-815de3e7ef57" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.73e233ee-ab79-4a1a-9fc9-53892ebe8702.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="3b7705fe-77b2-4447-b828-ce1e2e3ccff8" Version="1.1" Url="http://localhost:15363/" ThinkTime="9" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="35cf31e1-de78-41a9-a3a1-6c497d8449f6" Version="1.1" Url="http://localhost:15363/Packages/Search" ThinkTime="32" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="a134b387-742f-4ae0-addf-9930da0cda2a" Version="1.1" Url="http://localhost:15363/Membership/Add" ThinkTime="6" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="3df7f634-ebcf-4bf6-8b33-b2ce9a924ac6" Version="1.1" Url="http://localhost:15363/Login" ThinkTime="23" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="POST" Guid="c7f5186f-f08c-4e8f-b0cb-cbdc45aae960" Version="1.1" Url="http://localhost:15363/Login" ThinkTime="12" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <FormPostHttpBody>
+        <FormPostParameter Name="__RequestVerificationToken" Value="oaCmFTEnWdZLEUbiuKJujSVrWEaJz_y0y5qB60NVou9ct7AemReWtvHEhOOWneEKK1NV6PXYphKxTRkhWC6yYjfYWl2wWXOgC9atbKXmyZg1" RecordedValue="oaCmFTEnWdZLEUbiuKJujSVrWEaJz_y0y5qB60NVou9ct7AemReWtvHEhOOWneEKK1NV6PXYphKxTRkhWC6yYjfYWl2wWXOgC9atbKXmyZg1" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Email" Value="provider1@sample.com" RecordedValue="provider1@sample.com" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Password" Value="Aa111111" RecordedValue="Aa111111" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f4f3368c-1c25-4af9-9d41-3ae2f4c44659" Version="1.1" Url="http://localhost:15363/Login" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://localhost:15363/" ReportingName="" IgnoreHttpStatusCode="False">
+      <FormPostHttpBody>
+        <FormPostParameter Name="__RequestVerificationToken" Value="iHlpRLz0FKJ1jDA1zIld7CchFFRsNOsRw310joaMYBxGnV2ZRDxiM_-vXCpa8UUNiPXdD79tnkhM8XvDMvqZgJkR2ak01LSmcHmpx9Iusms1" RecordedValue="iHlpRLz0FKJ1jDA1zIld7CchFFRsNOsRw310joaMYBxGnV2ZRDxiM_-vXCpa8UUNiPXdD79tnkhM8XvDMvqZgJkR2ak01LSmcHmpx9Iusms1" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Email" Value="provider@sample.com" RecordedValue="provider@sample.com" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Password" Value="Aa111111" RecordedValue="Aa111111" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Guid="c8c13807-edb7-4a54-af25-e67b48d9b4d0" Version="1.1" Url="http://localhost:15363/Packages/ProviderSearch" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="b7421071-2636-493d-854c-31713ff27654" Version="1.1" Url="http://localhost:15363/Packages/Search" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="9fa0e65f-6c47-4945-ab24-4519b970931c" Version="1.1" Url="http://localhost:15363/Membership/Edit" ThinkTime="8" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="8cda9665-e42f-404c-8062-f81d7a233421" Version="1.1" Url="http://localhost:15363/Logout" ThinkTime="16" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://localhost:15363/" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="POST" Guid="f2b2334b-d022-4c85-ab57-22a5d2fe9428" Version="1.1" Url="http://localhost:15363/Login" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://localhost:15363/" ReportingName="" IgnoreHttpStatusCode="False">
+      <FormPostHttpBody>
+        <FormPostParameter Name="__RequestVerificationToken" Value="qEmuYykv2Aa-OEENb1jzsRUEmGs3VmT7EKJxwNX5sPgY-xC75qjeFX3kX1FEdaUSLh-jMQxFBmPLIyDaBCFvKIXgcpiswyROEOSO6467ARQ1" RecordedValue="qEmuYykv2Aa-OEENb1jzsRUEmGs3VmT7EKJxwNX5sPgY-xC75qjeFX3kX1FEdaUSLh-jMQxFBmPLIyDaBCFvKIXgcpiswyROEOSO6467ARQ1" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Email" Value="customer@sample.com" RecordedValue="customer@sample.com" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Password" Value="Aa111111" RecordedValue="Aa111111" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Guid="c0fbd66a-d9c4-40b3-9a0e-251cfe0e73d2" Version="1.1" Url="http://localhost:15363/Orders/Search" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>

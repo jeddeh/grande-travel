@@ -21,6 +21,13 @@ button#btnSearch {
     margin: 0 10px 10px;
 }
 
+@media screen\0 {
+    .search-hack {
+        position: relative;
+        bottom: 2px;
+    }
+}
+
 /*Change modal window responsive width*/
 @media (max-width: 767px) {
     .modal-dialog.large {
@@ -67,22 +74,22 @@ button#btnSearch {
     margin-top: 60px;
 }
 
-    #packages .container {
-        max-width: 940px;
-    }
+#packages .container {
+    max-width: 940px;
+}
 
-    #packages #gallery_container {
-        margin-bottom: 50px;
-    }
+#packages #gallery_container {
+    margin-bottom: 50px;
+}
 
-        #packages #gallery_container .package-image {
-            width: 285px;
-            margin: 5px;
-            float: left;
-            position: relative;
-            border: 1px solid;
-            border-radius: 5px;
-        }
+#packages #gallery_container .package-image {
+    width: 285px;
+    margin: 5px;
+    float: left;
+    position: relative;
+    border: 1px solid;
+    border-radius: 5px;
+}
 
 @media (max-width: 480px) {
     #packages #gallery_container .package-image img {

@@ -28,9 +28,9 @@
     background: url(../../Images/Site/ocean.jpg) no-repeat;
 }
 
-    .register .form-group {
-        margin-top: 10px;
-    }
+.register .form-group {
+    margin-top: 10px;
+}
 
 .sign-in-input {
     margin-bottom: 35px;
@@ -107,9 +107,9 @@
     font-size: 14px;
 }
 
-    .membership-checkbox label {
-        font-weight: normal;
-    }
+.membership-checkbox label {
+    font-weight: normal;
+}
 
 .register-error, .register-success {
     margin-top: 20px;
@@ -125,33 +125,19 @@
     font-size: 14px;
 }
 
-    .register .has-account a {
-        color: #fff;
-        border-bottom: 1px solid white;
-        -webkit-transition: all .2s;
-        -moz-transition: all .2s;
-        -ms-transition: all .2s;
-        transition: all .2s;
-    }
-
-        .register .has-account a:hover {
-            color: #252528;
-            border-color: #252528;
-        }
-
 .membership .header {
     text-align: center;
     color: #fff;
 }
 
-    .membership .header h4 {
-        font-size: 38px;
-        margin-top: 0;
-        margin-bottom: 25px;
-        line-height: 38px;
-        font-weight: 300;
-        text-shadow: 1px 1px 0px #143C4E;
-    }
+.membership .header h4 {
+    font-size: 38px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 38px;
+    font-weight: 300;
+    text-shadow: 1px 1px 0px #143C4E;
+}
 
 .membership .admin-form {
     margin-top: 0px;
@@ -159,17 +145,17 @@
     margin-left: 0;
 }
 
-    .membership .admin-form .form-group {
-        text-align: center;
-    }
+.membership .admin-form .form-group {
+    text-align: center;
+}
 
-    .membership .admin-form legend {
-        display: none;
-    }
+.membership .admin-form legend {
+    display: none;
+}
 
-    .membership .admin-form form {
-        margin: 0 0 46px 0;
-    }
+.membership .admin-form form {
+    margin: 0 0 46px 0;
+}
 
 .membership .no-account {
     text-align: center;
@@ -179,20 +165,20 @@
     margin-bottom: 120px;
 }
 
-    .membership .no-account span {
-        margin-right: 8px;
-    }
+.membership .no-account span {
+    margin-right: 8px;
+}
 
-    .membership .no-account a {
-        color: #fff;
-        border-bottom: 1px solid white;
-        -webkit-transition: all .2s;
-        -moz-transition: all .2s;
-        -ms-transition: all .2s;
-        transition: all .2s;
-    }
+.membership  a {
+    color: #fff;
+    border-bottom: 1px solid white;
+}
 
-        .membership .no-account a:hover {
-            color: #252528;
-            border-color: #252528;
-        }
+.membership  a:hover {
+    color: #252528;
+}
+
+.membership  a:active {
+    background-color: azure;
+    color: #252528;
+}

@@ -16,6 +16,11 @@ button#btnSearch {
   max-width: 350px;
   margin: 0 10px 10px; }
 
+@media screen\0 {
+  .search-hack {
+    position: relative;
+    bottom: 2px; } }
+
 /*Change modal window responsive width*/
 @media (max-width: 767px) {
   .modal-dialog.large {
