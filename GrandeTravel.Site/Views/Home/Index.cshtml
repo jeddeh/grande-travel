@@ -38,7 +38,7 @@
 </div>
 
 <div id="features">
-    <div class="container">
+    <section class="container">
 
         <article class="row feature">
             <div class="col-sm-3 feature-image">
@@ -73,8 +73,34 @@
             </div>
         </article>
 
-    </div>
+    </section>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Facebook -->
+                <div id="fb-root"></div>
+                <script>
+                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+
+                <div class="fb-like" data-href="https://www.facebook.com/pages/Grande-Travel/1481487735421863?skip_nax_wizard=true&amp;ref_type"
+                     data-layout="button" data-action="like" data-show-faces="false" data-share="false" style="width: 100px; height: 100px;"></div>
+   
+                <!-- Twitter -->
+                <a href="https://twitter.com/GrandeTraveller"
+                   class="twitter-follow-button"
+                   data-show-count="false"
+                   data-size="small"
+                   data-dnt="true">Follow GrandeTraveller</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+            </div>
+        </div>
+    </section>
+
 </div>
-
-
-
