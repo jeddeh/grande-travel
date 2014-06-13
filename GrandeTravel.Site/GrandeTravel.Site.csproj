@@ -310,11 +310,11 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\site\index.scss" />
-    <Content Include="Content\site\layout.scss" />
     <Content Include="Content\site\membership.scss" />
     <Content Include="Content\site\packages.scss" />
     <Content Include="Content\site\theme.scss" />
+    <Content Include="Content\site\index.scss" />
+    <Content Include="Content\site\layout.scss" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\Payment\braintree.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
