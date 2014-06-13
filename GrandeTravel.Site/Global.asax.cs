@@ -24,8 +24,12 @@ namespace GrandeTravel.Site
 
         protected void Application_Start()
         {
-            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
             System.Data.Entity.Database.SetInitializer<ApplicationDbContext>(null);
+
+            ApplicationDbContext context = new ApplicationDbContext("ApplicationDbContext");
+            context.Database.Initialize(true);
+
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "Email", true);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
