@@ -1,0 +1,145 @@
+﻿body {
+  background-color: #275bba; }
+
+/*Payment*/
+.payment .is-valid {
+  display: none; }
+
+.payment .package-info {
+  color: #32c9fa; }
+
+.payment label {
+  color: white; }
+
+.payment #submit {
+  width: 120px; }
+
+/*Membership*/
+.sign-in {
+  background: url(../../Images/Site/aqua.jpg) no-repeat; }
+
+.register {
+  background: url(../../Images/Site/ocean.jpg) no-repeat; }
+
+.register .form-group {
+  margin-top: 10px; }
+
+.sign-in-input {
+  margin-bottom: 35px; }
+
+.label-blue {
+  color: #32c9fa; }
+
+.success-message {
+  color: #55f714; }
+
+@media (min-width: 850px) {
+  .sign-in .admin-form input {
+    width: 350px;
+    margin: 0 auto; } }
+
+@media (min-width: 700px) {
+  .sign-in .admin-form input {
+    width: 300px;
+    margin: 0 auto 10px; } }
+
+@media (max-width: 701px) {
+  .sign-in .admin-form input {
+    width: 90%;
+    margin: 0 auto 10px; } }
+
+.membership .error-message, .field-validation-error {
+  color: #ee95b2; }
+
+.membership .sign-in-header {
+  margin-top: 85px;
+  margin-bottom: 40px; }
+
+.membership .register-header {
+  margin-top: 50px;
+  margin-bottom: 30px; }
+
+.membership .membership-submit {
+  margin-top: 30px;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding: 8px 50px; }
+
+.membership .register-submit {
+  margin-top: 50px;
+  margin-bottom: 90px; }
+
+.membership {
+  display: block;
+  /*height: 540px;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+.membership-checkbox {
+  margin-top: 30px;
+  text-align: left;
+  color: #fff;
+  font-size: 14px; }
+
+.membership-checkbox label {
+  font-weight: normal; }
+
+.register-error, .register-success {
+  margin-top: 20px;
+  margin-bottom: 30px; }
+
+.register .has-account {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  color: #fff;
+  font-size: 14px; }
+
+.membership .header {
+  text-align: center;
+  color: #fff; }
+
+.membership .header h4 {
+  font-size: 38px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  line-height: 38px;
+  font-weight: 300;
+  text-shadow: 1px 1px 0px #143C4E; }
+
+.membership .admin-form {
+  margin-top: 0px;
+  text-align: center;
+  margin-left: 0; }
+
+.membership .admin-form .form-group {
+  text-align: center; }
+
+.membership .admin-form legend {
+  display: none; }
+
+.membership .admin-form form {
+  margin: 0 0 46px 0; }
+
+.membership .no-account {
+  text-align: center;
+  color: #fff;
+  float: right;
+  font-size: 14px;
+  margin-bottom: 120px; }
+
+.membership .no-account span {
+  margin-right: 8px; }
+
+.membership a {
+  color: #fff;
+  border-bottom: 1px solid white; }
+
+.membership a:hover {
+  color: #252528; }
+
+.membership a:active {
+  background-color: azure;
+  color: #252528; }
